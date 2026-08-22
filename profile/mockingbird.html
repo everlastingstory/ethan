@@ -377,6 +377,34 @@
   @media (prefers-reduced-motion: reduce){
     .bg-sea path, .bg-feather, .bg-star{ animation:none !important; }
   }
+
+  /* ===== PC: 가로로 넓게 펴서 스크롤 줄이기 ===== */
+  @media (min-width:900px){
+    .phone{ width:1080px; max-width:calc(100vw - 48px); }
+    .content{ padding:14px 20px 44px; }
+
+    /* 블록들을 2단으로 배치, 히어로만 가로 전체 */
+    .section{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      align-items:start;
+      padding:14px;
+    }
+    .section > .hero{ grid-column:1 / -1; }
+    .section > .block{ margin:0; }
+
+    /* 돌아가기 버튼은 화면 왼쪽 위에 고정 */
+    .back-home{
+      position:fixed; top:18px; left:18px; margin:0; z-index:60;
+    }
+  }
+
+  /* 넓은 화면에서 3단까지 */
+  @media (min-width:1360px){
+    .phone{ width:1300px; }
+    .section{ grid-template-columns:repeat(3,1fr); }
+  }
 </style>
 </head>
 <body>
