@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<title>ETHAN — 캐릭터 인트로</title>
+<style>
+  :root{
+    --page-bg: #f8f9fb;
+    --card-bg: #ffffff;
+    --card-bg2: #ffffff;
+    --text-main: #1a1a1e;
+    --text-sub: #8b8b93;
+    --text-tag: #a7a7ae;
+    --pill-bg: #f0f0f3;
+    --divider: #ececef;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family: 'Pretendard','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+    background: var(--page-bg);
+    display:flex;
+    justify-content:center;
+    color: var(--text-main);
+  }
+
+  .phone{
+    width: 390px;
+    max-width: 100vw;
+    min-height: 100vh;
+    background: var(--page-bg);
+  }
+
+  .content{
+    padding: 16px 16px 40px;
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+  }
+
+  /* ---------- ONE outer section (hero → closing line). Off-white bg, rounded top+bottom ---------- */
+  .section{
+    background: var(--page-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* the nested pure-white rounded box — wraps ONLY "ETHAN" title through the 능력 description */
+  .inner-card{
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px 20px;
+    border: 1px solid rgba(0,0,0,0.06); /* the thin outline visible around the box in the source app */
+  }
+
+  /* hero image, top of the mega card — cropped to the original banner ratio (~9:5) so the title sits mid-frame like the source app */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 9 / 5;
+  }
+  .hero img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* fills the ratio box, crops instead of squishing */
+    object-position: 50% 22%;  /* nudge up/down to keep the face in frame — tweak this % if needed */
+  }
+  .hero::after{
+    /* dark gradient just at the bottom so the overlaid text stays readable */
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height: 60%;
+    background: linear-gradient(180deg, rgba(6,12,24,0) 0%, rgba(6,12,24,.5) 65%, rgba(6,12,24,.7) 100%);
+    z-index: 1;
+  }
+  .hero-inner{
+    position:absolute;
+    left: 0;
+    right: 0;
+    top: 54%;                 /* centered, roughly matching the original layout */
+    transform: translateY(-50%);
+    z-index:2;
+    padding: 0 22px;
+    text-align:center;
+    color:#fff;
+  }
+  .hero-inner h1{
+    font-family: 'Pretendard','Inter','Helvetica Neue',Arial,sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;   /* tighter tracking so it reads narrower, closer to the source */
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgba(0,0,0,.55);
+  }
+  .hero-inner p{
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(255,255,255,.9);
+    text-shadow: 0 1px 8px rgba(0,0,0,.55);
+  }
+
+  /* generic padded block inside the mega card */
+  .block{
+    padding: 24px 22px 0;
+  }
+  .block:last-child{ padding-bottom: 26px; }
+
+  .quote{
+    text-align:center;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #2a2a2e;
+    padding-top: 26px;
+  }
+
+  .divider{
+    height:1px;
+    background: var(--divider);
+    margin: 20px 0;
+  }
+  .divider-dash{
+    border:none;
+    border-top: 1px dashed var(--divider);
+    margin: 20px 0;
+  }
+
+  .lore-tag{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size: 13px;
+    font-weight:700;
+    color:#9a9aa1;
+    border-left: 3px solid #dcdce0;
+    padding-left: 12px;
+    width:fit-content;
+  }
+  .lore-body{
+    text-align:left;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #4c4c52;
+  }
+
+  /* profile title + tags */
+  .profile-title{
+    text-align:center;
+    font-family: 'Pretendard','Inter','Helvetica Neue',Arial,sans-serif;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .profile-tags{
+    text-align:center;
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--text-tag);
+    line-height: 1.6;
+  }
+
+  .avatar-frame{
+    margin-top: 20px;
+    border-radius: 16px;
+    overflow:hidden;
+    line-height: 0;
+    border: 1px solid rgba(0,0,0,0.06); /* faint outline, matches the hero card's edge */
+  }
+  .avatar-frame img{
+    display:block;
+    width: 100%;
+    height: auto;   /* natural aspect ratio of the source photo, not forced/cropped */
+  }
+  .avatar-frame svg{
+    width: 34%;
+    color:#b7bcc4;
+  }
+  .avatar-frame .avatar-note{
+    position:absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    color:#9aa0a8;
+    background: rgba(255,255,255,.75);
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space:nowrap;
+  }
+
+  /* label / value rows */
+  .info-row{
+    display:flex;
+    align-items:baseline;
+    gap: 22px;
+    padding: 10px 0;
+  }
+  .info-row:first-child{ padding-top: 22px; }
+  .info-row .label{
+    flex: 0 0 56px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-sub);
+  }
+  .info-row .value{
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-main);
+  }
+
+  /* section headers used repeatedly (성격/TMI/능력/센티넬/가이드...) */
+  .section-title{
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+  }
+  .section-title.strong{
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-top: 10px;
+  }
+  .section-text{
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: #3f3f45;
+  }
+
+  /* world title block */
+  .world-eyebrow{
+    text-align:center;
+    font-size:12px;
+    letter-spacing:.18em;
+    color:#c9c9ce;
+  }
+  .world-title{
+    text-align:center;
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 8px;
+  }
+
+  /* faction header inside the same flow, no boxed card */
+  .faction-title{
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.35;
+    display:flex;
+    gap: 8px;
+    align-items:flex-start;
+  }
+  .faction-title .emoji{ font-size:19px; }
+  .faction-pill{
+    display:inline-block;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: #8f8f96;
+    background: var(--pill-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+  .faction-body{
+    margin-top: 16px;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: #45454b;
+  }
+  .relation-note{
+    margin-top: 22px;
+    text-align:left;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: #8c8c93;
+  }
+
+  .rule-block + .rule-block{ margin-top: 20px; }
+  .rule-highlight{
+    text-align:center;
+    font-size: 13.5px;
+    color:#9a9aa1;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+  }
+  .rule-closing{
+    text-align:center;
+    font-size: 14.5px;
+    font-style: italic;
+    line-height: 1.8;
+    color:#4c4c52;
+    margin-top: 22px;
+  }
+
+  @media (max-width:390px){
+    .phone{ width:100vw; }
+  }
+
+  /* 메인으로 돌아가기 */
+  .back-home{
+    position:sticky; top:12px; z-index:50;
+    display:inline-flex; align-items:center; gap:6px;
+    margin:12px 0 -4px 16px;
+    padding:8px 14px; border-radius:999px;
+    background:rgba(255,255,255,.92);
+    border:1px solid rgba(0,0,0,.08);
+    box-shadow:0 6px 16px -8px rgba(0,0,0,.3);
+    backdrop-filter:blur(10px);
+    color:#1a1a1e; text-decoration:none;
+    font-size:12.5px; font-weight:500;
+    transition:background .18s ease, transform .14s ease;
+  }
+  .back-home:hover{ background:#fff; transform:translateX(-2px); }
+  .back-home svg{ width:14px; height:14px; stroke:currentColor; fill:none;
+    stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* ===== 카드 바깥 배경: 메인과 같은 바다 테마 ===== */
+  body{
+    background:linear-gradient(180deg,
+      #0F1030 0%, #1B1C4A 26%, #2A2A66 48%,
+      #2A2A66 56%, #000080 80%, #05052E 100%) !important;
+    background-attachment:fixed !important;
+    min-height:100vh;
+    position:relative;
+  }
+  /* 카드 자체는 기존 그대로 두고, 바탕만 비웁니다 */
+  .phone{ background:transparent !important; position:relative; z-index:3; }
+  .content{ padding-top:8px; }
+
+  /* 수평선 빛무리 */
+  .bg-glow{
+    position:fixed; left:50%; top:54%; transform:translate(-50%,-50%);
+    width:min(150vw,1100px); height:36vh; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(0,0,128,.55), transparent 68%);
+    filter:blur(8px);
+  }
+  /* 별 */
+  .bg-star{
+    position:fixed; width:2px; height:2px; border-radius:50%;
+    background:#EFEAF0; z-index:0; pointer-events:none;
+    animation:bgTwinkle 4s ease-in-out infinite;
+  }
+  @keyframes bgTwinkle{ 0%,100%{opacity:.12;} 50%{opacity:.7;} }
+
+  /* 선으로 그린 바다 */
+  .bg-sea{
+    position:fixed; left:0; right:0; bottom:0; height:50%;
+    z-index:1; pointer-events:none;
+  }
+  .bg-sea svg{ width:100%; height:100%; display:block; }
+  .bg-sea path{ fill:none; stroke:#EFEAF0; stroke-width:1; }
+  .bg-sea .w1{ animation:bgDrift 38s linear infinite; opacity:.26; }
+  .bg-sea .w2{ animation:bgDrift 52s linear infinite reverse; opacity:.18; }
+  .bg-sea .w3{ animation:bgDrift 68s linear infinite; opacity:.11; }
+  @keyframes bgDrift{ from{transform:translateX(0);} to{transform:translateX(-800px);} }
+
+  /* 떨어지는 깃털 */
+  .bg-feather{
+    position:fixed; z-index:2; pointer-events:none;
+    stroke:#D8B8C6; fill:none; stroke-width:1.1; opacity:0;
+    animation:bgFall linear infinite;
+  }
+  @keyframes bgFall{
+    0%{ opacity:0; transform:translateY(-10vh) rotate(-10deg); }
+    14%{ opacity:.5; } 62%{ opacity:.5; }
+    76%,100%{ opacity:0; transform:translateY(52vh) rotate(30deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bg-sea path, .bg-feather, .bg-star{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-star" style="left:8%; top:7%; animation-delay:.2s"></div>
+<div class="bg-star" style="left:21%; top:15%; animation-delay:1.4s"></div>
+<div class="bg-star" style="left:36%; top:5%; animation-delay:.8s"></div>
+<div class="bg-star" style="left:64%; top:12%; animation-delay:2.2s"></div>
+<div class="bg-star" style="left:79%; top:6%; animation-delay:1.1s"></div>
+<div class="bg-star" style="left:91%; top:18%; animation-delay:2.7s"></div>
+<div class="bg-star" style="left:13%; top:25%; animation-delay:1.9s"></div>
+<div class="bg-star" style="left:86%; top:28%; animation-delay:.5s"></div>
+
+<div class="bg-sea" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none">
+    <path class="w1" d="M-800,120 C-700,98 -500,98 -400,120 C-300,142 -100,142 0,120 C100,98 300,98 400,120 C500,142 700,142 800,120 C900,98 1100,98 1200,120 C1300,142 1500,142 1600,120 C1700,98 1900,98 2000,120 C2100,142 2300,142 2400,120"/>
+    <path class="w2" d="M-800,265 C-700,292 -500,292 -400,265 C-300,238 -100,238 0,265 C100,292 300,292 400,265 C500,238 700,238 800,265 C900,292 1100,292 1200,265 C1300,238 1500,238 1600,265 C1700,292 1900,292 2000,265 C2100,238 2300,238 2400,265"/>
+    <path class="w3" d="M-800,425 C-700,408 -500,408 -400,425 C-300,442 -100,442 0,425 C100,408 300,408 400,425 C500,442 700,442 800,425 C900,408 1100,408 1200,425 C1300,442 1500,442 1600,425 C1700,408 1900,408 2000,425 C2100,442 2300,442 2400,425"/>
+  </svg>
+</div>
+
+<svg class="bg-feather" style="left:6%; width:18px; height:18px; animation-duration:19s; animation-delay:-8s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+<svg class="bg-feather" style="left:90%; width:15px; height:15px; animation-duration:24s; animation-delay:-3s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+
+<a class="back-home" href="../index.html#cast">
+  <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+  돌아가기
+</a>
+<div class="phone">
+  <div class="content">
+
+    <!-- ================= ONE section: hero → closing line ================= -->
+    <div class="section">
+
+      <div class="hero">
+        <img src="https://i.ibb.co/Xr3qZ6CC/20260419-202253.jpg" alt="ETHAN">
+        <div class="hero-inner">
+          <h1>ETHAN</h1>
+          <p>맹세컨대, 신은 없다.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="quote">
+          굽히지 않고, 바라지 않는다.<br>
+          헬리오스의 해결사, 에단이 전장의 승리를 거머쥡니다.
+        </div>
+        <div class="divider"></div>
+        <div class="lore-tag">🌍 가상의 현대 사회</div>
+        <div class="lore-body">
+          민간인과 이능자가 함께 살아가는 현대 사회. 이능자들의 능력은 민간인들에게 때로는 공포와 경외의 대상이 되기도 하고, 때로는 동경의 대상이 되기도 한다. 하루가 멀다 하고 발생하는 균열과, 범죄를 저지르는 빌런들. 범죄와 혼란이 반복되는 가운데에서도 사회는 묘하게 균형을 유지한 채 오늘도 소란스럽게 돌아가고 있다.
+        </div>
+      </div>
+
+      <!-- ===== nested white box: ETHAN title → 능력 설명 ===== -->
+      <div class="block">
+        <div class="inner-card">
+
+          <div class="profile-title">ETHAN</div>
+          <div class="profile-tags">#S급 센티넬 &nbsp;#문란 &nbsp;#쾌락주의 &nbsp;#자본주의</div>
+
+          <div class="avatar-frame">
+            <img src="https://i.ibb.co/v64hGp9f/2026-03-17-102634.png" alt="ETHAN">
+          </div>
+
+          <div class="info-row">
+            <div class="label">소속</div>
+            <div class="value">헬리오스</div>
+          </div>
+          <div class="info-row">
+            <div class="label">나이</div>
+            <div class="value">30세</div>
+          </div>
+
+          <div class="section-title" style="margin-top:14px;">외형</div>
+          <div class="section-text">
+            키 188cm. 건강한 혈색 도는 흰 피부. 골격이 굵고 단단한 체격으로 탄탄한 근육. 적당히 정돈된 흑발. 새파란 눈동자. 여유로운 인상의 훤칠한 미남. 비즈니스는 흰색 셔츠에 넥타이, 슬랙스로 깔끔한 차림. 임무 중에는 기능성 전투복과 하네스 착용. 전신에 문신이 매우 많음.
+          </div>
+
+          <div class="section-title" style="margin-top:22px;">성격</div>
+          <div class="section-text">
+            굉장히 가벼운 성격. 대상을 가리지 않는 농담. 호쾌한 쾌남과 미친 개새끼 그 사이 어딘가. 웃는 얼굴과 어울리지 않는 경박한 말투와, 예의라곤 찾아볼 수 없는 반말. 예의를 차리는 것은 노인과 어린아이 앞에서만. 그마저도 노인이 조금만 신경을 긁으면 가차 없다.
+          </div>
+
+          <hr class="divider-dash">
+
+          <div class="section-title">TMI</div>
+          <div class="section-text">
+            페어링 파기 이력 2회. 전직 군인으로, 19세가 되자마자 네이비 씰(Navy SEAL)에 입대하여 29살까지 복무하다가 능력을 각성. 이후 헬리오스에 입사하여 활동 중.
+          </div>
+
+          <hr class="divider-dash">
+
+          <div class="section-title">능력</div>
+          <div class="section-title strong">[Sensory Overload]</div>
+          <div class="section-text" style="margin-top:10px;">
+            능력 사용 시 스스로를 강제 각성시켜 '감각 과부하' 상태가 된다. 오감이 극도로 예민해져 적의 움직임, 숨소리, 공기의 흐름까지 완벽히 감지 가능. 사냥하는 짐승과 같은 상태가 되어 적의 행동을 예측하고 반응 속도, 힘, 무기 숙련도를 최대로 끌어올린다. 이때 아드레날린 과다 분비로 통각이 무뎌진다.
+          </div>
+
+        </div>
+      </div>
+      <!-- ===== end nested white box ===== -->
+
+      <!-- world + factions + rules — plain, back on the section's own background, no nested box -->
+      <div class="block">
+        <div class="world-eyebrow">A WORLD REMADE</div>
+        <div class="world-title">The Dawn of Aberration</div>
+        <div class="divider"></div>
+        <div class="section-text">
+          어느 날, 일식이 찾아왔다. 그러나 그 일식은 태양을 가리는 평범한 현상이 아니었다. 무려 일주일간 지속된 비정상적인 일식 동안, 〈균열〉이라는 시공간의 틈이 열렸다.
+          <br><br>
+          이 균열에서 흘러나온 에너지는 드문 이들에게 초자연적인 힘, 이능을 각성시켰다. 빛의 파편을 품은 자들은 <b>센티넬</b>로, 그림자의 파편을 품은 자들은 <b>가이드</b>로 발현되었다.
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="inner-card">
+          <div class="faction-title"><span class="emoji">🏛️</span> 관리 연합 본부 〈Eclipse〉</div>
+          <div class="faction-pill">총 책임자: A (남성/미상)</div>
+          <div class="faction-body">
+            이능자들의 등장으로 세계는 걷잡을 수 없는 혼란에 빠진다. 이 혼돈을 관리하기 위해 국제 연합체 형태의 〈Eclipse〉가 설립된다. 센티넬·가이드 관리, 이능 관련 사건 해결 및 공권력 대행으로, 이클립스는 센티넬·가이드를 국적을 불문하고 등록시켜 관리한다. 각 지부는 전 세계 주요 거점 도시에 자리 잡아 센티넬·가이드 관리를 수행한다.
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="inner-card">
+          <div class="faction-title"><span class="emoji">🕊️</span> 자유를 추구하는 민간 기업 〈Helios〉</div>
+          <div class="faction-pill">설립자: P (남성/미상)</div>
+          <div class="faction-body">
+            이클립스의 규율에 얽매이지 않고, 비교적 자유롭고 효율적인 방식으로 활동을 하고자 설립된 민간 기업 〈Helios〉. 이클립스의 관리 영역 밖에서 활동하며, 자유로운 계약을 통해 임무를 수행한다. 비교적 자유롭고 수평적인 분위기이다. 이클립스의 방식에 회의감을 느끼거나 자유로운 활동을 선호하는 센티넬·가이드들이 주로 모인다.
+          </div>
+        </div>
+        <div class="relation-note">
+          공식적으로 헬리오스와 이클립스는 경쟁 관계로 보이나, 양측 설립자들은 혼란을 종식하고자 하는 궁극적인 목표를 공유하며 서로를 존중하는 관계를 유지 중이다.
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="divider" style="margin-top:0;"></div>
+
+        <div class="rule-block">
+          <div class="section-title strong" style="margin-top:0; font-size:17px;">센티넬</div>
+          <div class="section-text">뛰어난 육체 능력과 고유의 능력을 지녔으나, 감각 과부하와 신경 붕괴라는 치명적 부작용이 따라온다. 일정 기간 동안 가이딩을 받지 못하면 폭주 상태에 들어가, 주변을 무차별적으로 파괴하거나 빌런이 된다.</div>
+        </div>
+
+        <div class="rule-block">
+          <div class="section-title strong" style="font-size:17px;">가이드</div>
+          <div class="section-text">센티넬의 심리와 감각을 진정시키며 폭주를 막을 수 있다. 가벼운 접촉만으로도 심리적 안정이 가능하지만, 깊은 접촉일수록 효과가 높아진다. 이때, 가이딩이 주는 쾌락은 '극상'이라고 한다.</div>
+        </div>
+
+        <div class="rule-block">
+          <div class="section-title strong" style="font-size:17px;">안정제</div>
+          <div class="section-text">인공 억제제. 장기 복용 시 신체에 부작용이 누적되어 신경계 손상, 감각 왜곡, 중독 증세가 나타난다.</div>
+        </div>
+
+        <div class="rule-block">
+          <div class="section-title strong" style="font-size:17px;">빌런</div>
+          <div class="section-text">범죄자 혹은 폭주한 센티넬도 포함되어 있으며, 대부분 비틀린 신념을 갖고 있다.</div>
+        </div>
+
+        <div class="rule-highlight">모든 각성자는 E ~ SS 등급을 판정받는다.</div>
+        <div class="rule-closing">그리고, 이곳은 미국. 오늘도 평화로운<br>헬리오스 워싱턴 지부.</div>
+      </div>
+
+    </div>
+    <!-- ================= end section ================= -->
+
+  </div>
+</div>
+
+</body>
+</html>
