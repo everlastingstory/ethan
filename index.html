@@ -96,42 +96,57 @@ body{
 
 /* ---------- ① 왼쪽 사이드바 ---------- */
 .side{
-  flex:none; width:186px;
+  flex:none; width:82px;
   display:flex; flex-direction:column;
   padding:18px 12px 14px;
   background:rgba(5,5,46,.22);
   border-right:1px solid var(--glass-line);
 }
 
-.me{ text-align:center; padding:0 4px 16px; }
+.me{ text-align:center; padding:0 2px 16px; }
 .me .avatar{
-  width:66px; height:66px; border-radius:50%; margin:0 auto 9px;
+  width:48px; height:48px; border-radius:50%; margin:0 auto 9px;
   overflow:hidden; background:rgba(5,5,46,.4);
   border:1px solid var(--glass-line);
   box-shadow:0 6px 16px -6px rgba(5,5,46,.6);
 }
 .me .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-.me h1{ font-size:16px; font-weight:600; letter-spacing:-.02em; }
-.me .handle{ font-family:'DM Mono',monospace; font-size:9.5px; color:var(--dawn-lit); margin-top:2px; }
+.me h1{ font-size:12.5px; font-weight:600; letter-spacing:-.02em; }
+.me .handle{ display:none; }
 
 /* 메뉴 */
-.menu{ display:flex; flex-direction:column; gap:2px; }
+.menu{ display:flex; flex-direction:column; gap:5px; align-items:center; }
 .tab{
-  all:unset; cursor:pointer;
-  display:flex; align-items:center; gap:10px;
-  padding:9px 12px; border-radius:10px;
-  font-size:12.5px; color:var(--foam-dim);
+  all:unset; cursor:pointer; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  width:44px; height:44px; margin:0 auto; border-radius:13px;
+  color:var(--foam-dim);
   transition:background .18s ease, color .18s ease;
+}
+/* PC: 라벨은 숨기고 호버 시 툴팁으로 */
+.tab .lbl{
+  position:absolute; left:calc(100% + 10px); top:50%;
+  transform:translateY(-50%) translateX(-4px);
+  padding:5px 11px; border-radius:9px; white-space:nowrap;
+  background:rgba(12,13,44,.95); color:var(--foam);
+  border:1px solid var(--glass-line);
+  font-size:11.5px; letter-spacing:-.01em;
+  box-shadow:0 6px 18px -6px rgba(5,5,46,.7);
+  opacity:0; pointer-events:none; z-index:30;
+  transition:opacity .18s ease, transform .18s ease;
+}
+.tab:hover .lbl, .tab:focus-visible .lbl{
+  opacity:1; transform:translateY(-50%) translateX(0);
 }
 .tab:hover{ background:rgba(239,234,240,.08); color:var(--foam); }
 .tab:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:-2px; }
 .tab[aria-selected="true"]{
   background:rgba(178,136,158,.28); color:var(--foam); font-weight:500;
 }
-.tab .ico{ width:15px; height:15px; margin:0; }
+.tab .ico{ width:19px; height:19px; margin:0; }
 
 .side-foot{
-  margin-top:auto; padding-top:14px; text-align:center;
+  margin-top:auto; padding-top:14px; text-align:center; line-height:1.4;
   font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.1em;
   color:var(--foam-dim); opacity:.55;
 }
@@ -168,7 +183,7 @@ body{
 
 /* ---------- ③ 오른쪽 정보 패널 ---------- */
 .info-col{
-  flex:none; width:250px;
+  flex:none; width:212px;
   padding:16px 14px;
   border-left:1px solid var(--glass-line);
   background:rgba(239,234,240,.04);
@@ -375,20 +390,23 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   /* --- BGM: 하단 탭바 바로 위에 띄움 --- */
   .sec-bgm{ display:none; }
   .bgm{
-    position:fixed; left:12px; right:12px;
-    bottom:calc(58px + env(safe-area-inset-bottom));
+    position:fixed; left:14px; right:14px;
+    bottom:calc(78px + env(safe-area-inset-bottom));
     z-index:25; margin:0;
-    background:rgba(12,13,44,.92);
-    border:1px solid var(--glass-line);
-    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-    box-shadow:0 10px 28px -10px rgba(5,5,46,.75);
-    padding:9px 12px;
+    border-radius:999px;
+    background:rgba(14,15,48,.82);
+    border:1px solid rgba(239,234,240,.2);
+    backdrop-filter:blur(20px) saturate(1.3);
+    -webkit-backdrop-filter:blur(20px) saturate(1.3);
+    box-shadow:0 12px 32px -10px rgba(5,5,46,.8),
+               inset 0 1px 0 rgba(255,255,255,.14);
+    padding:7px 14px 7px 7px;
   }
   .bgm-btn{ width:34px; height:34px; }
   .bgm-title{ font-size:12.5px; }
 
   /* 하단에 탭바 + BGM 두 줄이 뜨므로 여백 확보 */
-  body{ padding-bottom:130px; }
+  body{ padding-bottom:146px; }
 
   /* --- 정보 패널: 기본 접힘 --- */
   .info-toggle{
@@ -421,26 +439,57 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     width:100%; border-right:none; border-bottom:1px solid var(--glass-line);
     padding:20px 16px 16px;
   }
+  .me .avatar{ width:78px; height:78px; }
+  .me h1{ font-size:19px; }
+  .me .handle{ display:block; font-family:'DM Mono',monospace; font-size:11px;
+    color:var(--dawn-lit); margin-top:2px; }
   .me{ padding-bottom:0; }
   .me .avatar{ width:78px; height:78px; }
   .me h1{ font-size:19px; }
   .me .handle{ font-size:11px; }
   .side-foot{ display:none; }
 
+  /* 바닥에 붙지 않고 떠 있는 캡슐 탭바 */
   .menu{
-    position:fixed; left:0; right:0; bottom:0; z-index:20;
-    flex-direction:row; gap:0; justify-content:space-around;
-    padding:6px 6px calc(6px + env(safe-area-inset-bottom));
-    background:rgba(10,11,40,.86);
-    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-    border-top:1px solid var(--glass-line);
+    position:fixed; left:50%; z-index:20;
+    bottom:calc(14px + env(safe-area-inset-bottom));
+    transform:translateX(-50%);
+    width:max-content; max-width:calc(100% - 28px);
+    flex-direction:row; gap:3px; justify-content:center; align-items:center;
+    padding:6px;
+    border-radius:999px;
+    background:rgba(14,15,48,.82);
+    backdrop-filter:blur(20px) saturate(1.3);
+    -webkit-backdrop-filter:blur(20px) saturate(1.3);
+    border:1px solid rgba(239,234,240,.2);
+    box-shadow:0 12px 32px -10px rgba(5,5,46,.8),
+               0 2px 8px -2px rgba(5,5,46,.5),
+               inset 0 1px 0 rgba(255,255,255,.14);
   }
+  /* 기본은 아이콘만, 선택된 것만 이름이 옆에 펼쳐짐 */
   .tab{
-    flex:1; flex-direction:column; gap:3px; padding:7px 2px;
-    font-size:10px; border-radius:12px; text-align:center;
+    flex:none; width:auto; height:40px; margin:0;
+    flex-direction:row; gap:0; padding:0 11px;
+    border-radius:999px; justify-content:center;
+    transition:background .22s ease, color .22s ease, padding .28s cubic-bezier(.4,0,.2,1);
   }
-  .tab .ico{ width:18px; height:18px; }
-  .tab[aria-selected="true"]{ background:rgba(178,136,158,.3); }
+  .tab .ico{ width:20px; height:20px; }
+
+  .tab .lbl{
+    position:static; transform:none; opacity:1; pointer-events:auto;
+    background:none; border:none; box-shadow:none; padding:0;
+    font-size:12px; letter-spacing:-.01em; white-space:nowrap;
+    max-width:0; overflow:hidden; margin-left:0;
+    transition:max-width .3s cubic-bezier(.4,0,.2,1), margin-left .3s ease;
+  }
+  .tab[aria-selected="true"]{
+    background:var(--dawn); color:#fff;
+    padding:0 15px 0 12px;
+    box-shadow:0 4px 12px -4px rgba(178,136,158,.7);
+  }
+  .tab[aria-selected="true"] .lbl{ max-width:90px; margin-left:7px; }
+  .tab:hover .lbl, .tab:focus-visible .lbl{ transform:none; }
+  .tab:not([aria-selected="true"]):hover .lbl{ max-width:0; margin-left:0; }
 
   .topbar{ padding:11px 14px; }
   .main{ padding:18px 16px 20px; overflow:visible; }
@@ -464,13 +513,35 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   .over .media{ min-height:150px; }
 }
 @media (max-width:960px){
-  /* 좁은 화면에서는 접기 기능을 쓰지 않습니다 */
-  .window.side-closed .side,
-  .window.info-closed .info-col{
-    width:100%; opacity:1; padding-left:16px; padding-right:16px;
+  /* --- 모바일 접기: 프로필/정보를 접어 배경이 드러나게 --- */
+  .hamb{ display:flex; }
+
+  /* 접힘 상태 = 위아래로 줄어듦 (모바일은 세로로 쌓이므로 높이를 접습니다) */
+  .side, .info-col{
+    transition:max-height .38s cubic-bezier(.4,0,.2,1),
+               opacity .26s ease,
+               padding .38s cubic-bezier(.4,0,.2,1),
+               margin .38s cubic-bezier(.4,0,.2,1);
+    max-height:1200px;
   }
-  .window.side-closed .side{ padding:20px 16px 16px; }
-  .hamb{ display:none; }
+  .window.side-closed .side{
+    max-height:0; opacity:0;
+    padding-top:0; padding-bottom:0;
+    border-bottom-width:0;
+    width:100%;
+  }
+  .window.info-closed .info-col{
+    max-height:0; opacity:0;
+    padding-top:0; padding-bottom:0;
+    border-top-width:0;
+    width:auto;
+  }
+
+  /* 접었을 때 창을 화면에 꽉 채우지 않고 배경 여백을 남깁니다 */
+  .window.side-closed{
+    max-width:520px;
+    margin-top:6vh;
+  }
 }
 @media (max-width:560px){
   .grid{ grid-template-columns:1fr; }
@@ -531,19 +602,19 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     <!-- 메뉴 5개 · 안 쓰는 건 button과 아래 section을 함께 삭제 -->
     <nav class="menu" role="tablist">
       <button class="tab" role="tab" aria-selected="true" data-panel="home">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg>home
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg><span class="lbl">home</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="cast">
-        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>주연
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg><span class="lbl">주연</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="stills">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg>스틸컷
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg><span class="lbl">스틸컷</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="info">
-        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>성향
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="lbl">성향</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="links">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg>links
+        <svg class="ico" viewBox="0 0 24 24"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg><span class="lbl">links</span>
       </button>
     </nav>
 
