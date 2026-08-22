@@ -224,6 +224,13 @@ body{
 }
 
 /* ============================================================
+   모바일: 정보 접기 버튼 (넓은 화면에서는 숨김)
+   ============================================================ */
+.info-toggle{ display:none; }
+.info-toggle .chev{ transition:transform .28s ease; margin:0; }
+.info-toggle[aria-expanded="true"] .chev{ transform:rotate(180deg); }
+
+/* ============================================================
    BGM 플레이어
    ============================================================ */
 .bgm{
@@ -364,6 +371,41 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 /* ============================================================
    좁은 화면 — 세로로 쌓고 메뉴는 하단 탭바로
    ============================================================ */
+@media (max-width:960px){
+  /* --- BGM: 하단 탭바 바로 위에 띄움 --- */
+  .sec-bgm{ display:none; }
+  .bgm{
+    position:fixed; left:12px; right:12px;
+    bottom:calc(58px + env(safe-area-inset-bottom));
+    z-index:25; margin:0;
+    background:rgba(12,13,44,.92);
+    border:1px solid var(--glass-line);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    box-shadow:0 10px 28px -10px rgba(5,5,46,.75);
+    padding:9px 12px;
+  }
+  .bgm-btn{ width:34px; height:34px; }
+  .bgm-title{ font-size:12.5px; }
+
+  /* 하단에 탭바 + BGM 두 줄이 뜨므로 여백 확보 */
+  body{ padding-bottom:130px; }
+
+  /* --- 정보 패널: 기본 접힘 --- */
+  .info-toggle{
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; padding:12px 14px; margin:0;
+    border:none; border-radius:var(--r); cursor:pointer;
+    background:rgba(178,136,158,.2); color:var(--foam);
+    font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+    font-size:13px; font-weight:500;
+  }
+  .info-toggle:active{ background:rgba(178,136,158,.3); }
+  .info-body{ display:none; padding-top:14px; }
+  .info-body.open{ display:block; animation:panelIn .3s ease; }
+
+  .info-col{ padding-bottom:14px; }
+  .poster{ max-width:180px; }
+}
 @media (max-width:960px){
   body{
     height:auto; min-height:100svh; overflow-y:auto;
@@ -710,6 +752,13 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
   <!-- ==================== ③ 오른쪽 정보 패널 ==================== -->
   <aside class="info-col">
+    <!-- 모바일 전용: 접었다 펴는 버튼 -->
+    <button class="info-toggle" id="infoToggle" aria-expanded="false">
+      <span>작품 정보 보기</span>
+      <svg class="ico chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="info-body" id="infoBody">
     <div class="poster">
       <img src="https://cdn.luv3r.me/og/d5ba31a295ac.png" alt="EVER 포스터">
     </div>
@@ -732,7 +781,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <span class="tag">🎭 비극</span>
     </div>
 
-    <p class="sec">now playing</p>
+    </div><!-- /info-body -->
+
+    <p class="sec sec-bgm">now playing</p>
     <!-- ===== BGM 플레이어 ===== -->
     <div class="bgm" id="bgm">
       <button class="bgm-btn" id="bgmBtn" aria-label="음악 재생/정지">
@@ -876,6 +927,20 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     hamb.setAttribute('aria-expanded', String(!open));
     win.classList.toggle('side-closed', open);
     win.classList.toggle('info-closed', open);
+  });
+})();
+
+/* ===== 모바일: 정보 패널 접기/펴기 ===== */
+(function(){
+  var btn  = document.getElementById('infoToggle');
+  var body = document.getElementById('infoBody');
+  if(!btn || !body) return;
+
+  btn.addEventListener('click', function(){
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    body.classList.toggle('open', !open);
+    btn.querySelector('span').textContent = !open ? '작품 정보 접기' : '작품 정보 보기';
   });
 })();
 </script>
