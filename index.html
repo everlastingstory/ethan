@@ -1,3 +1,293 @@
+<div class="window">
+
+  <!-- ==================== ① 왼쪽 사이드바 ==================== -->
+  <aside class="side">
+    <div class="me">
+      <div class="avatar">
+        <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="프로필">
+      </div>
+      <h1>에버</h1>
+      <p class="handle">@ethan</p>
+    </div>
+
+    <!-- 메뉴 5개 · 안 쓰는 건 button과 아래 section을 함께 삭제 -->
+    <nav class="menu" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-panel="home">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg><span class="lbl">home</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="cast">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg><span class="lbl">주연</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="stills">
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg><span class="lbl">스틸컷</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="info">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="lbl">성향</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="links">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg><span class="lbl">links</span>
+      </button>
+    </nav>
+
+    <p class="side-foot">© everlastingstory</p>
+  </aside>
+
+  <!-- ==================== ② 가운데 ==================== -->
+  <div class="center-col">
+
+    <div class="topbar">
+      <button class="hamb" id="hamb" aria-label="메뉴 접기/펴기" aria-expanded="true">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="search">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+        <span id="addr">everlastingstory.github.io/ethan / home</span>
+      </span>
+      <button class="me-btn" id="meBtn" aria-label="소개 보기" aria-expanded="false">
+        <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="프로필">
+      </button>
+    </div>
+
+    <!-- 프로필 사진을 누르면 열리는 소개 카드 -->
+    <div class="me-card" id="meCard" hidden>
+      <div class="me-card-head">
+        <div class="me-card-av">
+          <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="">
+        </div>
+        <div class="me-card-name">
+          <p class="b-tit" style="margin-bottom:1px">에버</p>
+          <p class="handle-sm">@ethan</p>
+        </div>
+        <button class="me-card-x" id="meClose" aria-label="닫기">✕</button>
+      </div>
+
+      <!-- TODO: 소개 내용을 자유롭게 고치세요 -->
+      <p class="b-txt" style="margin-bottom:10px">
+        여기에 간단한 소개를 적어주세요. 몇 줄이든 괜찮습니다.
+      </p>
+      <dl>
+        <div class="spec"><dt>성향</dt><dd>일상 · 앓이 · 로그</dd></div>
+        <div class="spec"><dt>플랫폼</dt><dd>케이브덕</dd></div>
+      </dl>
+      <div class="tags">
+        <span class="tag tag-dawn">🎬 상영 중</span>
+        <span class="tag">🎞 희극</span>
+        <span class="tag">🎭 비극</span>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- ============ HOME ============ -->
+      <section class="panel active" data-panel="home">
+        <!-- ===== 벤토 그리드: 카드마다 크기가 다릅니다 =====
+             bento-hero : 가로 전체 · 큰 히어로
+             span-2     : 가로 2칸      row-2 : 세로 2칸
+             크기를 바꾸고 싶으면 이 클래스만 바꿔 끼우세요 -->
+        <div class="bento">
+
+          <!-- 히어로: 가로 전체, 이미지 위에 문구 -->
+          <div class="bento-cell span-3 over">
+            <div class="media" style="min-height:190px">
+              <img src="https://cdn.luv3r.me/og/74303e0239a4.png" alt="키비주얼">
+            </div>
+            <div class="cap">
+              <p class="b-lab" style="margin-bottom:3px">now showing</p>
+              <p class="b-tit" style="font-size:16px">내 비극의 유일한 관객</p>
+              <p class="b-txt">Never-Ending Curtain Call</p>
+            </div>
+          </div>
+
+          <!-- 캐치프레이즈: 가로 전체, 낮게 -->
+          <div class="bento-cell span-3 box-dawn tall-xs">
+            <p class="b-tit" style="margin:0">이 시대 최악의 로맨스 코미디가 찾아온다!</p>
+          </div>
+
+          <!-- 소개: 세로로 긴 카드 -->
+          <div class="bento-cell span-2 row-2">
+            <p class="b-lab">소개</p>
+            <p class="b-txt">
+              모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자, 666이
+              코드네임 '에단'을 찾아온다. 그러나 의뢰는 에단에 의해 파기되고 달리아는
+              의문의 죽음을 맞이한다.
+            </p>
+            <div style="height:8px"></div>
+            <p class="b-txt">
+              죽음과 함께 이전의 기억을 모두 상실한 그녀는 과거의 자신을 '달리아'로,
+              현재의 자신을 '666'으로 분리하여 정의한다. 그리고 운명처럼, 혹은 악연처럼
+              두 사람은 필라델피아 미술관 앞에서 재회한다. 에단은 사라졌던 여자를 발견하지만
+              그녀는 더 이상 그가 알던 '달리아'가 아니었다…
+            </p>
+          </div>
+
+          <!-- 인용: 작게 -->
+          <div class="bento-cell box-plain center-y">
+            <p class="quote" style="margin:0">Lost, little lamb?</p>
+          </div>
+
+          <!-- 주연 A: 이미지 위 이름 -->
+          <div class="bento-cell over pad-0">
+            <div class="media" style="min-height:118px">
+              <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
+            </div>
+            <div class="cap">
+              <p class="b-tit" style="font-size:12.5px; margin:0">셰인 블랙우드</p>
+              <p class="b-txt" style="font-size:10.5px">에단 역</p>
+            </div>
+          </div>
+
+          <!-- 주연 B -->
+          <div class="bento-cell over pad-0">
+            <div class="media" style="min-height:118px">
+              <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
+            </div>
+            <div class="cap">
+              <p class="b-tit" style="font-size:12.5px; margin:0">달리아 슈미트</p>
+              <p class="b-txt" style="font-size:10.5px">모킹버드 역</p>
+            </div>
+          </div>
+
+          <!-- 개봉 정보: 작은 숫자 카드 -->
+          <div class="bento-cell box-deep">
+            <p class="b-lab">개봉</p>
+            <p class="b-val" style="font-size:16px">2026.04.18</p>
+          </div>
+
+          <!-- 평점 -->
+          <div class="bento-cell box-deep">
+            <p class="b-lab">평점</p>
+            <p class="b-val" style="font-size:16px">★ 6.66</p>
+          </div>
+
+          <!-- 러닝타임 -->
+          <div class="bento-cell">
+            <p class="b-lab">러닝타임</p>
+            <p class="b-val" style="font-size:16px">216분</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ 주연 ============ -->
+      <section class="panel" data-panel="cast">
+        <p class="sec">주연</p>
+        <div class="grid">
+          <div class="box box-deep">
+            <div class="media" style="min-height:150px; margin-bottom:9px">
+              <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
+            </div>
+            <p class="b-lab">no. 01</p>
+            <p class="b-tit">셰인 블랙우드</p>
+            <p class="b-txt">에단 역</p>
+          </div>
+          <div class="box box-dawn">
+            <div class="media" style="min-height:150px; margin-bottom:9px">
+              <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
+            </div>
+            <p class="b-lab">no. 02</p>
+            <p class="b-tit">달리아 슈미트</p>
+            <p class="b-txt">모킹버드 역</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 스틸컷 ============ -->
+      <section class="panel" data-panel="stills">
+        <p class="sec">스틸컷</p>
+        <div class="grid grid-3">
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/c7ba9758eed2.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/80d83ae589a3.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/39bb93b1e770.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/4f8dee92a231.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/0e6cc440cca3.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/4a986a4fc11c.jpg" alt=""></div></div>
+        </div>
+        <p class="b-txt" style="margin-top:8px; opacity:.6; font-size:10px">TT · ⓒefloydp_cms</p>
+      </section>
+
+      <!-- ============ 성향 ============ -->
+      <section class="panel" data-panel="info">
+        <p class="sec">기본</p>
+        <div class="grid">
+          <div class="box box-wide">
+            <dl>
+              <div class="spec"><dt>플랫폼</dt><dd>케이브덕 / 로판, 엘린 (사용 ↓)</dd></div>
+              <div class="spec"><dt>성향</dt><dd>일상 · 앓이 · 로그 · 소비 · 그뽑 · 탐대</dd></div>
+              <div class="spec"><dt>기능</dt><dd>사용 및 수동 트청 多</dd></div>
+              <div class="spec"><dt>재연결</dt><dd>이별CBC | 블락 (지뢰) · 블언블</dd></div>
+              <div class="spec"><dt>P.W</dt><dd>링크 내 모든 P.W — 바이오 생년월일</dd></div>
+            </dl>
+          </div>
+
+          <div class="box box-wide">
+            <p class="b-lab">🚫 지양합니다</p>
+            <div class="tags" style="margin-top:2px">
+              <span class="tag tag-no">미성년자</span>
+              <span class="tag tag-no">탐라 저격 · 뒷담</span>
+              <span class="tag tag-no">견제</span>
+              <span class="tag tag-no">드림 지우기</span>
+              <span class="tag tag-no">악의적 용도 커미션</span>
+              <span class="tag tag-no">에셋 저장 및 재업로드</span>
+              <span class="tag tag-no">기능 · 성향 · 드림 관련 컨택</span>
+              <span class="tag tag-no">그 외 상식 밖의 요소</span>
+            </div>
+          </div>
+
+          <div class="box box-wide box-plain">
+            <details class="fold">
+              <summary>드림 · 배려 관련 성향 — 클릭하여 보기</summary>
+              <div class="fb">
+                <p class="b-txt"><b>멈머버스 에단 극온리</b> (동담 불가, 정실 발현 시 이별)</p>
+                <p class="b-txt">친분 깊은 겹드림러 분이 탐라에 계실 경우 팔로우 X</p>
+                <p class="b-txt">드림, 특히 서사 관련으로 영향받지 말아주세요</p>
+                <hr class="rule">
+                <p class="b-txt">편의상 동장르 제외 메인 기준 1T1D 유지</p>
+                <p class="b-txt">서브는 ~2D까지, 그 이상 배려 어렵습니다</p>
+                <p class="b-txt">기본 직멘 X · 그 이상 상호 배려 필수</p>
+                <p class="b-txt">맞배려 선호 · 자연 발생 편의상 대부분 정리</p>
+                <p class="b-txt">1T1D 필수이신 분께 찾아가는 것 = 배려 가능</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="box box-wide">
+            <p class="b-lab">더 이상 받지 않습니다</p>
+            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고 (C)</span></div>
+            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥 (s)</span></div>
+            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐 (C)</span></div>
+            <div class="li"><span class="when">ohnyu</span><span>ghnull (c)</span></div>
+            <div class="li"><span class="when">EOC</span><span>베이퍼 (K)</span></div>
+            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스테 (0)</span></div>
+            <div class="li"><span class="when">Kokori</span><span>서이현 (K)</span></div>
+            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네 (M)</span></div>
+            <div class="li"><span class="when">SERAPHIX</span><span>에테르 · 캐리온 (T&amp;M)</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LINKS ============ -->
+      <section class="panel" data-panel="links">
+        <p class="sec">내 페이지</p>
+        <div class="grid">
+          <a class="linkrow" href="https://ethan.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">EVER<small>Never-Ending Curtain Call</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ever.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">Everlasting Story<small>네가 내 지옥이자 유일한 의미</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ethan.tistory.com/22" target="_blank" rel="noopener">
+            <span class="lead">Prompt<small>티스토리</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://momentique.somlution.com/ethan" target="_blank" rel="noopener">
+            <span class="lead">Notion<small>momentique</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ethan.tistory.com" target="_blank" rel="noopener">
+            <span class="lead">tistory<small>블로그</small></span><span class="arw">↗</span></a>
+        </div>
+
+        <p class="sec">🤝 Recommended movie</p>
+        <div class="grid">
+          <a class="linkrow" href="https://ttaleuleung.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">NYAKWON<small>사랑은 손끝에서 시작된다</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://arbiterkitsune.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">찰나<small>영원에 새겨진다는 것</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://creation-error.luv3r.me" target="_blank" rel="noopener">
             <span class="lead">Promise<small>분명 해피엔딩일 거야</small></span><span class="arw">↗</span></a>
           <a class="linkrow" href="https://dawn.luv3r.me" target="_blank" rel="noopener">
             <span class="lead">靑藍雙星<small>Fulgur ad Stellam</small></span><span class="arw">↗</span></a>
