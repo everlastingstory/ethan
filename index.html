@@ -482,6 +482,10 @@ body{
 .me-card-av img{ width:100%; height:100%; object-fit:cover; display:block; }
 .me-card-name{ flex:1; min-width:0; }
 .handle-sm{ font-family:'DM Mono',monospace; font-size:9.5px; color:var(--dawn-lit); }
+.me-card-lines{
+  font-size:11.5px; line-height:1.85; color:var(--foam-dim);
+  margin-bottom:11px;
+}
 .me-card-x{
   all:unset; cursor:pointer; flex:none;
   width:24px; height:24px; border-radius:50%;
@@ -804,14 +808,19 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     max-width:0; overflow:hidden; margin-left:0;
     transition:max-width .3s cubic-bezier(.4,0,.2,1), margin-left .3s ease;
   }
+  /* 아이콘만 표시 — 글자는 숨김 (읽어주기 기능에는 그대로 전달됨) */
+  .tab .lbl{
+    position:absolute; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap; border:0;
+    max-width:none;
+  }
+  .tab{ width:42px; padding:0; justify-content:center; }
   .tab[aria-selected="true"]{
     background:var(--dawn); color:#fff;
-    padding:0 15px 0 12px;
+    padding:0;
     box-shadow:0 4px 12px -4px rgba(178,136,158,.7);
   }
-  .tab[aria-selected="true"] .lbl{ max-width:90px; margin-left:7px; }
-  .tab:hover .lbl, .tab:focus-visible .lbl{ transform:none; }
-  .tab:not([aria-selected="true"]):hover .lbl{ max-width:0; margin-left:0; }
 
   .topbar{ padding:11px 14px; }
   .main{ padding:18px 16px 20px; overflow:visible; }
@@ -969,20 +978,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       </div>
 
       <!-- TODO: 소개 내용을 자유롭게 고치세요 -->
-      <p class="b-txt" style="margin-bottom:10px">
-        MeomMeoverse Ethan Only
-         기본 유입 X, 편의상 동장르 제외 1T1D 유지
-         맞배려 가능한 경우 맞배려 선호
+      <p class="me-card-lines">
+        MeomMeoverse Ethan Only<br>
+        기본 유입 X, 편의상 동장르 제외 1T1D 유지<br>
+        맞배려 가능한 경우 맞배려 선호
       </p>
       <dl>
-        <div class="spec"><dt>성향</dt><dd>앓이, 로그, 소비, 탐대</dd></div>
-        <div class="spec"><dt>플랫폼</dt><dd>케이브덕 (Main) / 로판, 엘린 (Sub)</dd></div>
+        <div class="spec"><dt>성향</dt><dd>앓이 · 로그 · 탐대 · 소비</dd></div>
+        <div class="spec"><dt>플랫폼</dt><dd>케이브덕 (Main) · 로판, 엘린 (Sub)</dd></div>
       </dl>
-      <div class="tags">
-        <span class="tag tag-dawn">🎬 상영 중</span>
-        <span class="tag">🎞 희극</span>
-        <span class="tag">🎭 비극</span>
-      </div>
     </div>
 
     <div class="main">
@@ -1179,15 +1183,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
           <div class="box box-wide">
             <p class="b-lab">더 이상 받지 않습니다</p>
-            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고</span></div>
-            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥</span></div>
-            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐</span></div>
-            <div class="li"><span class="when">ohnyu</span><span>ghnull</span></div>
-            <div class="li"><span class="when">EOC</span><span>베이퍼</span></div>
-            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스</span></div>
-            <div class="li"><span class="when">Kokori</span><span>서이현</span></div>
-            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네</span></div>
-            <div class="li"><span class="when">SERAPHIX</span><span>에테르 · 캐리온</span></div>
+            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고 (C)</span></div>
+            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥 (s)</span></div>
+            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐 (C)</span></div>
+            <div class="li"><span class="when">ohnyu</span><span>ghnull (c)</span></div>
+            <div class="li"><span class="when">EOC</span><span>베이퍼 (K)</span></div>
+            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스테 (0)</span></div>
+            <div class="li"><span class="when">Kokori</span><span>서이현 (K)</span></div>
+            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네 (M)</span></div>
+            <div class="li"><span class="when">SERAPHIX</span><span>에테르 · 캐리온 (T&amp;M)</span></div>
           </div>
         </div>
       </section>
@@ -1258,13 +1262,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <div class="spec"><dt>평점</dt><dd>★ 6.66</dd></div>
       <div class="spec"><dt>감독</dt><dd>P</dd></div>
     </dl>
-
-    <p class="sec">태그</p>
-    <div class="tags" style="margin-top:0">
-      <span class="tag tag-dawn">🎬 상영 중</span>
-      <span class="tag">🎞 희극</span>
-      <span class="tag">🎭 비극</span>
-    </div>
 
     </div><!-- /info-body -->
 
