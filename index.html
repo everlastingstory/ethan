@@ -278,6 +278,55 @@ body{
 }
 
 /* ============================================================
+   명대사 · 사운드트랙 · 로그 목록
+   ============================================================ */
+.line-q{
+  font-size:13px; line-height:1.75; color:var(--foam);
+  letter-spacing:-.01em; margin-bottom:5px;
+}
+.line-who{
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--dawn-lit);
+}
+
+/* 곡 목록 */
+.track{
+  display:flex; align-items:baseline; gap:9px;
+  padding:6px 0; font-size:11.5px;
+  border-bottom:1px solid rgba(239,234,240,.07);
+}
+.track:last-child{ border-bottom:none; }
+.track .no{
+  flex:none; font-family:'DM Mono',monospace; font-size:9.5px;
+  color:var(--dawn-lit); opacity:.8; min-width:16px;
+}
+.track .t{ flex:1; min-width:0; color:var(--foam);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.track .who{ flex:none; color:var(--foam-dim); font-size:10.5px; }
+
+/* 로그 목록 */
+.logrow{
+  display:block; text-decoration:none; color:var(--foam);
+  padding:8px 10px; margin-bottom:5px;
+  border-radius:9px; background:rgba(239,234,240,.07);
+  transition:background .18s ease, transform .14s ease;
+}
+.logrow:hover{ background:rgba(178,136,158,.28); transform:translateX(2px); }
+.logrow .d{
+  display:block; font-family:'DM Mono',monospace;
+  font-size:9px; color:var(--dawn-lit); margin-bottom:1px;
+}
+.logrow .s{
+  display:block; font-size:11.5px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.logrow.more{
+  background:none; text-align:center; margin-top:auto; margin-bottom:0;
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--foam-dim);
+  padding:9px 0 2px;
+}
+.logrow.more:hover{ background:none; color:var(--foam); transform:none; }
+
+/* ============================================================
    배너 — 이미지 비율에 맞춰 자동 정렬
    가로 배너(200x40)든 정사각(100x100)이든 높이만 맞추고
    가로는 이미지 원래 비율대로 늘어납니다.
@@ -885,13 +934,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ HOME ============ -->
       <section class="panel active" data-panel="home">
-        <!-- ===== 벤토 그리드: 카드마다 크기가 다릅니다 =====
-             bento-hero : 가로 전체 · 큰 히어로
-             span-2     : 가로 2칸      row-2 : 세로 2칸
-             크기를 바꾸고 싶으면 이 클래스만 바꿔 끼우세요 -->
         <div class="bento">
 
-          <!-- 히어로: 가로 전체, 이미지 위에 문구 -->
+          <!-- 히어로 -->
           <div class="bento-cell span-3 over">
             <div class="media" style="min-height:190px">
               <img src="https://cdn.luv3r.me/og/74303e0239a4.png" alt="키비주얼">
@@ -903,7 +948,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </div>
           </div>
 
-          <!-- 캐치프레이즈: 가로 전체, 낮게 -->
+          <!-- 캐치프레이즈 -->
           <div class="bento-cell span-3 box-dawn tall-xs">
             <p class="b-tit" style="margin:0">이 시대 최악의 로맨스 코미디가 찾아온다!</p>
           </div>
@@ -925,49 +970,49 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </p>
           </div>
 
-          <!-- 인용: 작게 -->
+          <!-- 명대사 1 -->
           <div class="bento-cell box-plain center-y">
-            <p class="quote" style="margin:0">Lost, little lamb?</p>
+            <p class="quote" style="margin:0; font-size:13.5px">Lost, little lamb?</p>
           </div>
 
-          <!-- 주연 A: 이미지 위 이름 -->
-          <div class="bento-cell over pad-0">
-            <div class="media" style="min-height:118px">
-              <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
-            </div>
-            <div class="cap">
-              <p class="b-tit" style="font-size:12.5px; margin:0">셰인 블랙우드</p>
-              <p class="b-txt" style="font-size:10.5px">에단 역</p>
-            </div>
+          <!-- 명대사 2 -->
+          <div class="bento-cell center-y">
+            <p class="b-lab">명대사</p>
+            <p class="line-q">"여기에 대사를 적어주세요."</p>
+            <p class="line-who">— 인물 이름</p>
           </div>
 
-          <!-- 주연 B -->
-          <div class="bento-cell over pad-0">
-            <div class="media" style="min-height:118px">
-              <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
-            </div>
-            <div class="cap">
-              <p class="b-tit" style="font-size:12.5px; margin:0">달리아 슈미트</p>
-              <p class="b-txt" style="font-size:10.5px">모킹버드 역</p>
-            </div>
+          <!-- 사운드트랙 -->
+          <div class="bento-cell span-2 row-2">
+            <p class="b-lab">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/></svg>
+              soundtrack
+            </p>
+            <!-- TODO: 곡 목록을 자유롭게 고치세요 -->
+            <div class="track"><span class="no">01</span><span class="t">곡 제목</span><span class="who">아티스트</span></div>
+            <div class="track"><span class="no">02</span><span class="t">곡 제목</span><span class="who">아티스트</span></div>
+            <div class="track"><span class="no">03</span><span class="t">곡 제목</span><span class="who">아티스트</span></div>
+            <div class="track"><span class="no">04</span><span class="t">곡 제목</span><span class="who">아티스트</span></div>
+            <div class="track"><span class="no">05</span><span class="t">곡 제목</span><span class="who">아티스트</span></div>
           </div>
 
-          <!-- 개봉 정보: 작은 숫자 카드 -->
-          <div class="bento-cell box-deep">
-            <p class="b-lab">개봉</p>
-            <p class="b-val" style="font-size:16px">2026.04.18</p>
-          </div>
-
-          <!-- 평점 -->
-          <div class="bento-cell box-deep">
-            <p class="b-lab">평점</p>
-            <p class="b-val" style="font-size:16px">★ 6.66</p>
-          </div>
-
-          <!-- 러닝타임 -->
-          <div class="bento-cell">
-            <p class="b-lab">러닝타임</p>
-            <p class="b-val" style="font-size:16px">216분</p>
+          <!-- 최근 로그 -->
+          <div class="bento-cell row-2 box-deep">
+            <p class="b-lab">recent log</p>
+            <!-- TODO: 로그 파일을 만들면 href 를 바꿔주세요 -->
+            <a class="logrow" href="logs/0000-00-00.html">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </a>
+            <a class="logrow" href="logs/0000-00-00.html">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </a>
+            <a class="logrow" href="logs/0000-00-00.html">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </a>
+            <a class="logrow more" href="#" data-goto="stills">전체 보기 →</a>
           </div>
 
         </div>
@@ -1320,6 +1365,17 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     var open = pwr.getAttribute('aria-expanded') === 'true';
     pwr.setAttribute('aria-expanded', String(!open));
     win.classList.toggle('side-mini', open);
+  });
+})();
+
+/* ===== 카드 안의 "전체 보기" 링크 → 해당 탭으로 이동 ===== */
+(function(){
+  document.querySelectorAll('[data-goto]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector('.tab[data-panel="'+el.dataset.goto+'"]');
+      if(target) target.click();
+    });
   });
 })();
 </script>
