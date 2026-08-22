@@ -277,6 +277,19 @@ body{
   width:0; padding-left:0; padding-right:0; opacity:0; border-left-width:0;
 }
 
+/* 인물 카드 링크 */
+.cast-link{ text-decoration:none; color:inherit; display:flex; }
+.cast-link .go{
+  display:inline-block; margin-top:7px;
+  font-family:'DM Mono',monospace; font-size:9.5px;
+  color:var(--dawn-lit); opacity:0;
+  transform:translateY(4px);
+  transition:opacity .22s ease, transform .22s ease;
+}
+.cast-link:hover .go, .cast-link:focus-visible .go{ opacity:1; transform:translateY(0); }
+.cast-link:hover .media img{ transform:scale(1.04); }
+.cast-link .media img{ transition:transform .4s cubic-bezier(.2,.8,.3,1); }
+
 /* ============================================================
    명대사 · 사운드트랙 · 로그 목록
    ============================================================ */
@@ -512,6 +525,25 @@ body{
 }
 .bgm-state{ font-family:'DM Mono',monospace; font-size:9px; color:var(--foam-dim); }
 
+/* 유튜브 바로가기 (광고는 유튜브에서 건너뛸 수 있어요) */
+.bgm-yt{
+  flex:none; width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--foam-dim); text-decoration:none;
+  transition:background .18s ease, color .18s ease;
+}
+.bgm-yt:hover{ background:rgba(239,234,240,.14); color:var(--foam); }
+.bgm-yt .ico{ width:13px; height:13px; margin:0; }
+
+/* 광고 재생 중 표시 */
+.bgm.ad{ background:rgba(200,140,60,.28); }
+.bgm.ad .bgm-state{ color:#F0C89A; }
+.bgm.ad .bgm-yt{
+  background:rgba(240,200,154,.24); color:#FFE3BE;
+  animation:adPulse 1.6s ease-in-out infinite;
+}
+@keyframes adPulse{ 0%,100%{ opacity:.75; } 50%{ opacity:1; } }
+
 /* 재생 중 막대 애니메이션 */
 .bgm-eq{ flex:none; display:flex; align-items:flex-end; gap:2px; height:14px; }
 .bgm-eq i{
@@ -632,6 +664,16 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     width:auto;
   }
   .bgm-meta, .bgm-eq{ display:none; }   /* 제목·이퀄라이저는 모바일에서 숨김 */
+  .bgm{ display:flex; flex-direction:row; align-items:center; gap:6px; }
+  .bgm-yt{
+    width:34px; height:34px;
+    background:rgba(14,15,48,.82);
+    border:1px solid rgba(239,234,240,.2);
+    backdrop-filter:blur(20px) saturate(1.3);
+    -webkit-backdrop-filter:blur(20px) saturate(1.3);
+    box-shadow:0 8px 20px -8px rgba(5,5,46,.8);
+  }
+  .bgm-yt .ico{ width:14px; height:14px; }
   .bgm-btn{
     width:46px; height:46px;
     border:1px solid rgba(239,234,240,.2);
@@ -1021,23 +1063,41 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <!-- ============ 주연 ============ -->
       <section class="panel" data-panel="cast">
         <p class="sec">주연</p>
-        <div class="grid">
-          <div class="box box-deep">
-            <div class="media" style="min-height:150px; margin-bottom:9px">
+        <div class="bento">
+
+          <!-- 인물 카드를 누르면 개인 프로필 페이지로 이동합니다 -->
+          <a class="bento-cell span-2 row-2 over cast-link"
+             href="profile/ethan.html">
+            <div class="media" style="min-height:260px">
               <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
             </div>
-            <p class="b-lab">no. 01</p>
-            <p class="b-tit">셰인 블랙우드</p>
-            <p class="b-txt">에단 역</p>
-          </div>
-          <div class="box box-dawn">
-            <div class="media" style="min-height:150px; margin-bottom:9px">
+            <div class="cap">
+              <p class="b-lab" style="margin-bottom:3px">no. 01</p>
+              <p class="b-tit" style="font-size:16px">셰인 블랙우드</p>
+              <p class="b-txt">에단 역</p>
+              <span class="go">프로필 보기 →</span>
+            </div>
+          </a>
+
+          <a class="bento-cell row-2 over cast-link"
+             href="profile/mockingbird.html">
+            <div class="media" style="min-height:260px">
               <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
             </div>
-            <p class="b-lab">no. 02</p>
-            <p class="b-tit">달리아 슈미트</p>
-            <p class="b-txt">모킹버드 역</p>
+            <div class="cap">
+              <p class="b-lab" style="margin-bottom:3px">no. 02</p>
+              <p class="b-tit" style="font-size:16px">달리아 슈미트</p>
+              <p class="b-txt">모킹버드 역</p>
+              <span class="go">프로필 보기 →</span>
+            </div>
+          </a>
+
+          <!-- 관계 -->
+          <div class="bento-cell span-3 box-dawn">
+            <p class="b-lab">relation</p>
+            <p class="b-txt">두 사람의 관계를 짧게 적어주세요.</p>
           </div>
+
         </div>
       </section>
 
@@ -1191,6 +1251,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     </div><!-- /info-body -->
 
     <p class="sec sec-bgm">now playing</p>
+    <!-- 유튜브 플레이어 (화면에 안 보임) -->
+    <div id="ytHost" style="position:absolute; width:0; height:0; overflow:hidden; opacity:0; pointer-events:none"></div>
+
     <!-- ===== BGM 플레이어 ===== -->
     <div class="bgm" id="bgm">
       <button class="bgm-btn" id="bgmBtn" aria-label="음악 재생/정지">
@@ -1202,6 +1265,10 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <p class="bgm-state" id="bgmState">일시정지</p>
       </div>
       <div class="bgm-eq" id="bgmEq"><i></i><i></i><i></i><i></i></div>
+      <a class="bgm-yt" id="bgmLink" href="#" target="_blank" rel="noopener"
+         title="유튜브에서 열기 (광고는 여기서 건너뛸 수 있어요)" aria-label="유튜브에서 열기">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>
+      </a>
     </div>
   </aside>
 
@@ -1247,56 +1314,93 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 })();
 
 /* ============================================================
-   BGM — 음원 파일 재생 (광고 없음)
-   ⬇️ 바꾸려면 BGM_SRC 와 BGM_TITLE 만 고치세요.
-      mp3 파일을 깃헙 저장소에 올린 뒤 파일 이름을 적으면 됩니다.
-      예) 저장소에 bgm.mp3 를 올렸다면  BGM_SRC = 'bgm.mp3'
-          music 폴더에 넣었다면        BGM_SRC = 'music/bgm.mp3'
+   BGM — 유튜브 배경 재생
+   ⬇️ 바꾸려면 YT_ID 와 BGM_TITLE 만 고치세요.
+      https://youtu.be/1pI242Hsi5U  →  YT_ID = '1pI242Hsi5U'
+   ※ 광고는 유튜브가 재생하는 것이라 사이트에서 건너뛸 수 없습니다.
+      광고가 나오는 동안 안내가 표시되고, 유튜브 버튼으로 이동하면
+      그쪽에서 건너뛰기를 누를 수 있습니다.
    ============================================================ */
 (function(){
-  var BGM_SRC   = 'bgm.mp3';                     // ← 음원 파일 경로
+  var YT_ID     = '1pI242Hsi5U';                 // ← 유튜브 영상 ID
   var BGM_TITLE = 'Never-Ending Curtain Call';   // ← 표시할 곡 제목
-  var VOLUME    = 0.35;                          // ← 음량 (0 ~ 1)
+  var VOLUME    = 35;                            // ← 음량 (0~100)
 
   var bgm   = document.getElementById('bgm');
   var btn   = document.getElementById('bgmBtn');
   var state = document.getElementById('bgmState');
   var title = document.getElementById('bgmTitle');
+  var link  = document.getElementById('bgmLink');
+  var player = null, ready = false, adTimer = null;
+
   if(!bgm || !btn) return;
-
   title.textContent = BGM_TITLE;
+  state.textContent = '불러오는 중…';
+  if(link) link.href = 'https://www.youtube.com/watch?v=' + YT_ID;
 
-  var audio = new Audio(BGM_SRC);
-  audio.loop = true;
-  audio.volume = VOLUME;
-  audio.preload = 'auto';
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
 
-  audio.addEventListener('play',  function(){
-    bgm.classList.add('playing');  state.textContent = '재생 중';
-  });
-  audio.addEventListener('pause', function(){
-    bgm.classList.remove('playing'); state.textContent = '일시정지';
-  });
-  audio.addEventListener('error', function(){
-    state.textContent = '음원 없음';
-  });
+  // 광고 중인지 확인 (재생 중인데 영상 시간이 원래 길이와 크게 다르면 광고)
+  function watchAd(){
+    clearInterval(adTimer);
+    adTimer = setInterval(function(){
+      if(!player || !player.getVideoData) return;
+      var d = player.getDuration();
+      var playingAd = d > 0 && d < 60 && player.getPlayerState() === 1;
+      bgm.classList.toggle('ad', playingAd);
+      if(playingAd) state.textContent = '광고 재생 중';
+      else if(bgm.classList.contains('playing')) state.textContent = '재생 중';
+    }, 1000);
+  }
 
-  // 자동재생 시도 → 막히면 첫 터치 때 재생
-  audio.play().catch(function(){
-    state.textContent = '일시정지';
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('ytHost', {
+      height:'1', width:'1', videoId:YT_ID,
+      playerVars:{ autoplay:1, loop:1, playlist:YT_ID, controls:0,
+                   disablekb:1, modestbranding:1, playsinline:1 },
+      events:{
+        onReady: function(e){
+          ready = true;
+          e.target.setVolume(VOLUME);
+          e.target.playVideo();
+          state.textContent = '일시정지';
+          watchAd();
+          setTimeout(function(){
+            if(!bgm.classList.contains('playing')) armFirstTouch();
+          }, 900);
+        },
+        onStateChange: function(e){
+          if(e.data === YT.PlayerState.PLAYING){
+            bgm.classList.add('playing');
+            state.textContent = '재생 중';
+          } else if(e.data === YT.PlayerState.ENDED){
+            e.target.playVideo();
+          } else {
+            bgm.classList.remove('playing');
+            state.textContent = '일시정지';
+          }
+        }
+      }
+    });
+  };
+
+  function armFirstTouch(){
     function go(){
-      audio.play().catch(function(){});
+      if(ready && player) player.playVideo();
       document.removeEventListener('pointerdown', go);
       document.removeEventListener('keydown', go);
     }
     document.addEventListener('pointerdown', go, { once:true });
     document.addEventListener('keydown', go, { once:true });
-  });
+  }
 
   btn.addEventListener('click', function(e){
     e.stopPropagation();
-    if(audio.paused) audio.play().catch(function(){});
-    else audio.pause();
+    if(!ready || !player) return;
+    if(bgm.classList.contains('playing')) player.pauseVideo();
+    else player.playVideo();
   });
 })();
 
