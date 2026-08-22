@@ -278,6 +278,39 @@ body{
 }
 
 /* ============================================================
+   배너 — 이미지 비율에 맞춰 자동 정렬
+   가로 배너(200x40)든 정사각(100x100)이든 높이만 맞추고
+   가로는 이미지 원래 비율대로 늘어납니다.
+   높이를 바꾸고 싶으면 --banner-h 값만 고치세요.
+   ============================================================ */
+.banners{
+  --banner-h:40px;
+  display:flex; flex-wrap:wrap; gap:7px;
+  align-items:center;
+}
+.banner{
+  display:block; line-height:0;
+  border-radius:6px; overflow:hidden;
+  border:1px solid rgba(239,234,240,.16);
+  transition:border-color .2s ease, transform .16s ease, box-shadow .2s ease;
+}
+.banner:hover{
+  border-color:var(--dawn-lit);
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px -8px rgba(5,5,46,.8);
+}
+.banner img{
+  height:var(--banner-h);
+  width:auto;              /* 비율 자동 */
+  max-width:100%;
+  display:block;
+  object-fit:contain;
+}
+/* 큰 배너로 쓰고 싶을 때: <div class="banners banners-lg"> */
+.banners-lg{ --banner-h:64px; }
+.banners-sm{ --banner-h:31px; }
+
+/* ============================================================
    벤토 그리드 — 카드마다 크기가 다른 레이아웃
    span-2 / span-3 : 가로 칸 수
    row-2           : 세로 2칸
@@ -612,40 +645,48 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     width:100%; border-right:none; border-bottom:1px solid var(--glass-line);
     padding:20px 16px 16px;
   }
-  /* 모바일: 왼쪽 캡슐은 쓰지 않고 하단 탭바만 사용 */
   .me{ display:none; }
-  .side{
-    position:static; transform:none; width:auto;
-    background:none; border:none; box-shadow:none;
-    backdrop-filter:none; -webkit-backdrop-filter:none;
-    padding:0; gap:0;
-  }
-  .pwr{ display:none; }
-  .window.side-mini .side .menu{ max-height:none; opacity:1; }
-  .center-col{ padding-left:0; }
-  .me{ padding-bottom:0; }
-  .me .avatar{ width:78px; height:78px; }
-  .me h1{ font-size:19px; }
-  .me .handle{ font-size:11px; }
   .side-foot{ display:none; }
+  .center-col{ padding-left:0; }
 
-  /* 바닥에 붙지 않고 떠 있는 캡슐 탭바 */
-  .menu{
-    position:fixed; left:50%; z-index:20;
+  /* ===== 하단에 떠 있는 캡슐: 전원 버튼 + 메뉴 (PC와 같은 방식) ===== */
+  .side{
+    position:fixed; z-index:20;
+    left:14px; right:74px; top:auto;
     bottom:calc(14px + env(safe-area-inset-bottom));
-    transform:translateX(-50%);
-    width:max-content; max-width:calc(100% - 28px);
-    flex-direction:row; gap:3px; justify-content:center; align-items:center;
-    padding:6px;
+    transform:none; width:auto;
+    flex-direction:row; align-items:center; justify-content:flex-start;
+    gap:4px; padding:6px;
     border-radius:999px;
     background:rgba(14,15,48,.82);
+    border:1px solid rgba(239,234,240,.2);
     backdrop-filter:blur(20px) saturate(1.3);
     -webkit-backdrop-filter:blur(20px) saturate(1.3);
-    border:1px solid rgba(239,234,240,.2);
     box-shadow:0 12px 32px -10px rgba(5,5,46,.8),
                0 2px 8px -2px rgba(5,5,46,.5),
                inset 0 1px 0 rgba(255,255,255,.14);
+    transition:right .34s cubic-bezier(.4,0,.2,1),
+               padding .3s cubic-bezier(.4,0,.2,1);
   }
+  .pwr{ display:flex; width:40px; height:40px; }
+  .pwr .ico{ width:16px; height:16px; }
+
+  /* 메뉴는 캡슐 안에서 가로로, 접히면 가로 폭이 0 */
+  .menu{
+    position:static; transform:none;
+    flex:1; min-width:0;
+    flex-direction:row; align-items:center; justify-content:space-evenly;
+    gap:2px; padding:0; margin:0;
+    background:none; border:none; box-shadow:none;
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+    max-width:600px; max-height:none; opacity:1;
+    overflow:hidden;
+    transition:max-width .34s cubic-bezier(.4,0,.2,1),
+               opacity .22s ease, margin .3s ease;
+  }
+  /* 접힘: 전원 버튼만 남음 */
+  .window.side-mini .menu{ max-width:0; opacity:0; margin:0; flex:none; }
+  .window.side-mini .side{ right:auto; width:max-content; }
   /* 기본은 아이콘만, 선택된 것만 이름이 옆에 펼쳐짐 */
   .tab{
     flex:none; width:auto; height:40px; margin:0;
@@ -1045,32 +1086,26 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             <span class="lead">tistory<small>블로그</small></span><span class="arw">↗</span></a>
         </div>
 
-        <p class="sec">🤝 Recommended movie</p>
-        <div class="grid">
-          <a class="linkrow" href="https://ttaleuleung.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">NYAKWON<small>사랑은 손끝에서 시작된다</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://arbiterkitsune.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">찰나<small>영원에 새겨진다는 것</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://creation-error.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">Promise<small>분명 해피엔딩일 거야</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://dawn.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">靑藍雙星<small>Fulgur ad Stellam</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://dove.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">Afebrile, but warm<small>삭제되지 않는 감정</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://carrion.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">クズ男とバカ女<small>純愛</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://sweet-paradise.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">A Haven of Sweet Delight<small>&nbsp;</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://cosmos.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">少年少女<small>그 언젠가의 세계에서</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://jaeha-log.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">Where the System Ends<small>잔해 속에서 영원을</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://vapor.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">月<small>my only moon ♥︎</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://dive.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">VINCERE<small>&nbsp;</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://h3ll0world.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">H3LL0, WORLD!<small>네 옆에는 내가 있잖아</small></span><span class="arw">↗</span></a>
+        <p class="sec">배너</p>
+        <!-- ===== 배너 =====
+             이미지 비율은 자동으로 맞춰집니다.
+             (가로 배너 200x40 이든 정사각 100x100 이든 그대로 넣으세요)
+             한 줄 복사해서 늘리면 됩니다. -->
+        <div class="banners">
+          <a class="banner" href="https://주소" target="_blank" rel="noopener">
+            <img src="banners/파일이름.png" alt="사이트 이름">
+          </a>
+          <a class="banner" href="https://주소" target="_blank" rel="noopener">
+            <img src="banners/파일이름2.png" alt="사이트 이름">
+          </a>
+          <a class="banner" href="https://주소" target="_blank" rel="noopener">
+            <img src="banners/파일이름3.gif" alt="사이트 이름">
+          </a>
+        </div>
+
+        <p class="sec">credit</p>
+        <div class="bento-cell box-plain" style="padding:2px">
+          <p class="b-txt">사용한 폰트, 리소스 출처를 적는 자리입니다.</p>
         </div>
       </section>
 
@@ -1123,8 +1158,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       </div>
       <div class="bgm-eq" id="bgmEq"><i></i><i></i><i></i><i></i></div>
     </div>
-    <!-- 유튜브 플레이어 (화면에 안 보임) -->
-    <div id="ytHost" style="position:absolute; width:0; height:0; overflow:hidden; opacity:0; pointer-events:none"></div>
   </aside>
 
 </div>
@@ -1169,77 +1202,56 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 })();
 
 /* ============================================================
-   BGM — 유튜브 배경 재생
-   ⬇️ 영상을 바꾸려면 YT_ID 와 BGM_TITLE 만 고치세요.
-      유튜브 주소가 https://www.youtube.com/watch?v=AbCdEfG1234 라면
-      YT_ID 는 'AbCdEfG1234' 입니다.
+   BGM — 음원 파일 재생 (광고 없음)
+   ⬇️ 바꾸려면 BGM_SRC 와 BGM_TITLE 만 고치세요.
+      mp3 파일을 깃헙 저장소에 올린 뒤 파일 이름을 적으면 됩니다.
+      예) 저장소에 bgm.mp3 를 올렸다면  BGM_SRC = 'bgm.mp3'
+          music 폴더에 넣었다면        BGM_SRC = 'music/bgm.mp3'
    ============================================================ */
 (function(){
-  var YT_ID      = '1pI242Hsi5U';               // ← 유튜브 영상 ID
-  var BGM_TITLE  = 'Never-Ending Curtain Call';  // ← 표시할 곡 제목
-  var VOLUME     = 35;                           // ← 음량 (0~100)
+  var BGM_SRC   = 'bgm.mp3';                     // ← 음원 파일 경로
+  var BGM_TITLE = 'Never-Ending Curtain Call';   // ← 표시할 곡 제목
+  var VOLUME    = 0.35;                          // ← 음량 (0 ~ 1)
 
   var bgm   = document.getElementById('bgm');
   var btn   = document.getElementById('bgmBtn');
   var state = document.getElementById('bgmState');
   var title = document.getElementById('bgmTitle');
-  var player = null, ready = false;
-
   if(!bgm || !btn) return;
+
   title.textContent = BGM_TITLE;
-  state.textContent = '불러오는 중…';
 
-  // 유튜브 API 불러오기
-  var tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
+  var audio = new Audio(BGM_SRC);
+  audio.loop = true;
+  audio.volume = VOLUME;
+  audio.preload = 'auto';
 
-  window.onYouTubeIframeAPIReady = function(){
-    player = new YT.Player('ytHost', {
-      height:'1', width:'1', videoId:YT_ID,
-      playerVars:{ autoplay:1, loop:1, playlist:YT_ID, controls:0,
-                   disablekb:1, modestbranding:1, playsinline:1 },
-      events:{
-        onReady: function(e){
-          ready = true;
-          e.target.setVolume(VOLUME);
-          e.target.playVideo();          // 자동재생 시도
-          state.textContent = '일시정지';
-          // 브라우저가 막았으면 첫 터치 때 재생
-          setTimeout(function(){
-            if(!bgm.classList.contains('playing')) armFirstTouch();
-          }, 900);
-        },
-        onStateChange: function(e){
-          if(e.data === YT.PlayerState.PLAYING){
-            bgm.classList.add('playing');
-            state.textContent = '재생 중';
-          } else if(e.data === YT.PlayerState.ENDED){
-            e.target.playVideo();        // 반복
-          } else {
-            bgm.classList.remove('playing');
-            state.textContent = '일시정지';
-          }
-        }
-      }
-    });
-  };
+  audio.addEventListener('play',  function(){
+    bgm.classList.add('playing');  state.textContent = '재생 중';
+  });
+  audio.addEventListener('pause', function(){
+    bgm.classList.remove('playing'); state.textContent = '일시정지';
+  });
+  audio.addEventListener('error', function(){
+    state.textContent = '음원 없음';
+  });
 
-  function armFirstTouch(){
+  // 자동재생 시도 → 막히면 첫 터치 때 재생
+  audio.play().catch(function(){
+    state.textContent = '일시정지';
     function go(){
-      if(ready && player) player.playVideo();
+      audio.play().catch(function(){});
       document.removeEventListener('pointerdown', go);
       document.removeEventListener('keydown', go);
     }
     document.addEventListener('pointerdown', go, { once:true });
     document.addEventListener('keydown', go, { once:true });
-  }
+  });
 
   btn.addEventListener('click', function(e){
     e.stopPropagation();
-    if(!ready || !player) return;
-    if(bgm.classList.contains('playing')) player.pauseVideo();
-    else player.playVideo();
+    if(audio.paused) audio.play().catch(function(){});
+    else audio.pause();
   });
 })();
 
