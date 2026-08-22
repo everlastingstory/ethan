@@ -423,6 +423,16 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
   .info-col{ padding-bottom:14px; }
   .poster{ max-width:180px; }
+
+  /* 모바일 순서: 프로필 → 작품 정보 → 내용
+     (작품 정보를 위로 올려 하단 캡슐바와 겹치지 않게 합니다) */
+  .side{ order:1; }
+  .info-col{
+    order:2;
+    border-top:none;
+    border-bottom:1px solid var(--glass-line);
+  }
+  .center-col{ order:3; }
 }
 @media (max-width:960px){
   body{
@@ -533,7 +543,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   .window.info-closed .info-col{
     max-height:0; opacity:0;
     padding-top:0; padding-bottom:0;
-    border-top-width:0;
+    border-top-width:0; border-bottom-width:0;
     width:auto;
   }
 
@@ -618,7 +628,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       </button>
     </nav>
 
-    <p class="side-foot">© ethan.luv3r.me</p>
+    <p class="side-foot">© everlastingstory</p>
   </aside>
 
   <!-- ==================== ② 가운데 ==================== -->
@@ -630,7 +640,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       </button>
       <span class="search">
         <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
-        <span id="addr">ethan.luv3r.me / home</span>
+        <span id="addr">everlastingstory.github.io/ethan / home</span>
       </span>
       <span class="pill">🎬 상영 중</span>
     </div>
@@ -884,7 +894,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     if(!document.querySelector('.panel[data-panel="'+name+'"]')) name = 'home';
     tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.panel === name)); });
     panels.forEach(function(p){ p.classList.toggle('active', p.dataset.panel === name); });
-    addr.textContent = 'ethan.luv3r.me / ' + name;
+    addr.textContent = 'everlastingstory.github.io/ethan / ' + name;
     if(main) main.scrollTop = 0;
     if(window.innerWidth <= 960){
       var t = document.querySelector('.center-col');
