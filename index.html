@@ -277,6 +277,16 @@ body{
   width:0; padding-left:0; padding-right:0; opacity:0; border-left-width:0;
 }
 
+/* 인물 카드 — 둘이 같은 크기 */
+.cast-card{
+  grid-column:span 3;
+  min-height:300px;
+}
+@media (min-width:640px){
+  .bento:has(.cast-card){ grid-template-columns:repeat(2,1fr); }
+  .cast-card{ grid-column:span 1; }
+}
+
 /* 인물 카드 링크 */
 .cast-link{ text-decoration:none; color:inherit; display:flex; }
 .cast-link .go{
@@ -1066,9 +1076,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <div class="bento">
 
           <!-- 인물 카드를 누르면 개인 프로필 페이지로 이동합니다 -->
-          <a class="bento-cell span-2 row-2 over cast-link"
+          <a class="bento-cell cast-card over cast-link"
              href="profile/ethan.html">
-            <div class="media" style="min-height:260px">
+            <div class="media">
               <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
             </div>
             <div class="cap">
@@ -1079,9 +1089,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </div>
           </a>
 
-          <a class="bento-cell row-2 over cast-link"
+          <a class="bento-cell cast-card over cast-link"
              href="profile/mockingbird.html">
-            <div class="media" style="min-height:260px">
+            <div class="media">
               <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
             </div>
             <div class="cap">
@@ -1093,7 +1103,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           </a>
 
           <!-- 관계 -->
-          <div class="bento-cell span-3 box-dawn">
+          <div class="bento-cell box-dawn" style="grid-column:1 / -1">
             <p class="b-lab">relation</p>
             <p class="b-txt">두 사람의 관계를 짧게 적어주세요.</p>
           </div>
