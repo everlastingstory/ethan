@@ -276,7 +276,7 @@
   }
   .relation-note{
     margin-top: 22px;
-    text-align:left;
+    text-align:center;
     font-size: 13.5px;
     line-height: 1.85;
     color: #8c8c93;
@@ -411,8 +411,16 @@
       gap:0 20px;
       align-items:start;
     }
+    /* PC 에서는 마무리 문구를 한 줄로 (모바일은 줄바꿈 유지) */
+    .rule-closing br{ display:none; }
+
+    /* 구분선과 마무리 문구는 가로 전체를 씁니다 */
     .block.rules > .divider,
-    .block:has(> .rule-block) > .divider{ grid-column:1 / -1; }
+    .block.rules > .rule-highlight,
+    .block.rules > .rule-closing,
+    .block:has(> .rule-block) > .divider,
+    .block:has(> .rule-block) > .rule-highlight,
+    .block:has(> .rule-block) > .rule-closing{ grid-column:1 / -1; }
     .block.rules > .rule-block,
     .block:has(> .rule-block) > .rule-block{ margin:0 0 14px; }
     /* 2열일 때 첫 줄 제목의 위 여백 정리 */
