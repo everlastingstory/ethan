@@ -300,6 +300,11 @@ body{
 .cast-link:hover .media img{ transform:scale(1.04); }
 .cast-link .media img{ transition:transform .4s cubic-bezier(.2,.8,.3,1); }
 
+/* 홈 탭: 글자만 가운데 정렬 (카드 배치는 그대로) */
+.panel[data-panel="home"] .bento-cell:not(.over){
+  text-align:center;
+}
+
 /* ============================================================
    명대사 · 사운드트랙 · 로그 목록
    ============================================================ */
@@ -1088,7 +1093,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
              href="profile/ethan.html">
             <div class="media">
               <!-- 주연 1 -->
-              <img src="images/cast-01.jpg" alt="셰인 블랙우드">
+              <img src="images/cast-01.png" alt="셰인 블랙우드">
             </div>
             <div class="cap">
               <p class="b-lab" style="margin-bottom:3px">no. 01</p>
