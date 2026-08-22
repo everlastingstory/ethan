@@ -355,6 +355,65 @@ body{
 .logrow.more:hover{ background:none; color:var(--foam); transform:none; }
 
 /* ============================================================
+   오른쪽 패널 보조 요소
+   ============================================================ */
+/* 섹션 사이 여백을 조금 넓게 */
+.info-col .sec{ margin-top:22px; }
+.info-col .sec:first-of-type{ margin-top:0; }
+
+/* 방문자 카운터 배지 */
+.visit-badge{
+  height:15px; width:auto; display:block;
+  margin-left:auto; border-radius:4px;
+  opacity:.9;
+}
+
+/* 상태 표시 */
+.stat-row{
+  display:flex; align-items:center; gap:8px;
+  padding:5px 0; font-size:11.5px; color:var(--foam-dim);
+}
+.stat-dot{
+  width:7px; height:7px; border-radius:50%; flex:none;
+  background:var(--dawn);
+  box-shadow:0 0 0 3px rgba(178,136,158,.18);
+  animation:statPulse 2.4s ease-in-out infinite;
+}
+.stat-dot.dot-b{ background:var(--foam-dim); box-shadow:none; animation:none; }
+@keyframes statPulse{
+  0%,100%{ box-shadow:0 0 0 3px rgba(178,136,158,.18); }
+  50%{ box-shadow:0 0 0 5px rgba(178,136,158,.06); }
+}
+
+/* 숫자 카운트 */
+.count-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.count-box{
+  background:rgba(239,234,240,.07);
+  border-radius:var(--r); padding:11px 9px; text-align:center;
+  transition:background .2s ease;
+}
+.count-box:hover{ background:rgba(178,136,158,.2); }
+.count-n{
+  font-family:'DM Mono',monospace; font-size:18px;
+  color:var(--foam); line-height:1.2;
+}
+.count-l{
+  font-size:9.5px; color:var(--foam-dim); margin-top:3px;
+}
+
+/* 작은 메모 줄 */
+.mini-note{
+  display:flex; align-items:center; gap:8px;
+  padding:9px 11px; border-radius:var(--r);
+  background:rgba(0,0,128,.22);
+  font-size:11.5px; color:var(--foam-dim);
+}
+.mini-note .ico{ width:15px; height:15px; margin:0; color:var(--dawn-lit); }
+
+/* BGM 앞 여백 */
+.sec-bgm{ margin-top:24px !important; }
+
+/* ============================================================
    배너 — 이미지 비율에 맞춰 자동 정렬
    가로 배너(200x40)든 정사각(100x100)이든 높이만 맞추고
    가로는 이미지 원래 비율대로 늘어납니다.
@@ -1268,6 +1327,39 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <div class="spec"><dt>감독</dt><dd>P</dd></div>
     </dl>
 
+    <p class="sec">status</p>
+    <div class="stat-row">
+      <span class="stat-dot"></span>
+      <span class="stat-txt">상영 중</span>
+    </div>
+    <!-- 방문자 수 — 외부 카운터 서비스를 씁니다.
+         page_id 값을 본인 것으로 바꿔주세요 (아무 문자열이나 가능, 고유하면 됩니다). -->
+    <div class="stat-row">
+      <span class="stat-dot dot-b"></span>
+      <span class="stat-txt">방문</span>
+      <img class="visit-badge"
+           src="https://visitor-badge.laobi.icu/badge?page_id=everlastingstory.ethan&left_text=&right_color=b2889e"
+           alt="방문자 수">
+    </div>
+
+    <p class="sec">count</p>
+    <div class="count-grid">
+      <div class="count-box">
+        <p class="count-n">00</p>
+        <p class="count-l">로그</p>
+      </div>
+      <div class="count-box">
+        <p class="count-n">00</p>
+        <p class="count-l">스틸컷</p>
+      </div>
+    </div>
+
+    <p class="sec">weather</p>
+    <div class="mini-note">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18a4 4 0 010-8 5 5 0 019.6-1.3A3.5 3.5 0 0117 18z"/></svg>
+      <span>워싱턴 · 흐림</span>
+    </div>
+
     </div><!-- /info-body -->
 
     <p class="sec sec-bgm">now playing</p>
@@ -1281,7 +1373,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <svg class="ico i-pause" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5.5h3v13H8zM13 5.5h3v13h-3z"/></svg>
       </button>
       <div class="bgm-meta">
-        <p class="bgm-title" id="bgmTitle">Never-Ending Curtain Call</p>
+        <p class="bgm-title" id="bgmTitle">なとり — 金木犀</p>
         <p class="bgm-state" id="bgmState">일시정지</p>
       </div>
       <div class="bgm-eq" id="bgmEq"><i></i><i></i><i></i><i></i></div>
@@ -1343,7 +1435,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
    ============================================================ */
 (function(){
   var YT_ID     = '1pI242Hsi5U';                 // ← 유튜브 영상 ID
-  var BGM_TITLE = 'Never-Ending Curtain Call';   // ← 표시할 곡 제목
+  var BGM_TITLE = 'なとり — 金木犀';              // ← 표시할 곡 제목
   var VOLUME    = 35;                            // ← 음량 (0~100)
 
   var bgm   = document.getElementById('bgm');
