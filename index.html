@@ -95,13 +95,52 @@ body{
 }
 
 /* ---------- ① 왼쪽 사이드바 ---------- */
+/* 왼쪽 메뉴 — 창 위에 떠 있는 캡슐 */
 .side{
-  flex:none; width:82px;
-  display:flex; flex-direction:column;
-  padding:18px 12px 14px;
-  background:rgba(5,5,46,.22);
-  border-right:1px solid var(--glass-line);
+  position:absolute; left:14px; top:50%;
+  transform:translateY(-50%);
+  z-index:15;
+  display:flex; flex-direction:column; align-items:center;
+  gap:6px; padding:8px;
+  width:56px;
+  border-radius:999px;
+  background:rgba(14,15,48,.78);
+  border:1px solid rgba(239,234,240,.2);
+  backdrop-filter:blur(20px) saturate(1.3);
+  -webkit-backdrop-filter:blur(20px) saturate(1.3);
+  box-shadow:0 16px 40px -12px rgba(5,5,46,.85),
+             inset 0 1px 0 rgba(255,255,255,.16);
+  transition:gap .32s cubic-bezier(.4,0,.2,1),
+             padding .32s cubic-bezier(.4,0,.2,1);
 }
+
+/* 전원 버튼 */
+.pwr{
+  all:unset; cursor:pointer; flex:none;
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(178,136,158,.28); color:var(--foam);
+  transition:background .2s ease, transform .14s ease, color .2s ease;
+}
+.pwr:hover{ background:var(--dawn); }
+.pwr:active{ transform:scale(.92); }
+.pwr:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+.pwr .ico{ width:17px; height:17px; margin:0; }
+/* 접힌 상태에서는 꺼진 느낌으로 */
+.window.side-mini .pwr{ background:rgba(239,234,240,.12); color:var(--foam-dim); }
+.window.side-mini .pwr:hover{ background:rgba(178,136,158,.3); color:var(--foam); }
+
+/* 접힘: 메뉴 아이콘들이 사라지고 전원 버튼만 남음 */
+.side .menu{
+  overflow:hidden;
+  max-height:400px; opacity:1;
+  transition:max-height .34s cubic-bezier(.4,0,.2,1), opacity .22s ease;
+}
+.window.side-mini .side .menu{ max-height:0; opacity:0; }
+.window.side-mini .side{ gap:0; padding:8px; }
+
+/* 캡슐이 떠 있으므로 가운데 내용에 자리를 비워둡니다 */
+.center-col{ padding-left:84px; }
 
 .me{ text-align:center; padding:0 2px 16px; }
 .me .avatar{
@@ -573,9 +612,17 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     width:100%; border-right:none; border-bottom:1px solid var(--glass-line);
     padding:20px 16px 16px;
   }
-  /* 상단 프로필은 숨김 — 소개는 상단바 프로필 사진으로 봅니다 */
+  /* 모바일: 왼쪽 캡슐은 쓰지 않고 하단 탭바만 사용 */
   .me{ display:none; }
-  .side{ display:none; }
+  .side{
+    position:static; transform:none; width:auto;
+    background:none; border:none; box-shadow:none;
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+    padding:0; gap:0;
+  }
+  .pwr{ display:none; }
+  .window.side-mini .side .menu{ max-height:none; opacity:1; }
+  .center-col{ padding-left:0; }
   .me{ padding-bottom:0; }
   .me .avatar{ width:78px; height:78px; }
   .me h1{ font-size:19px; }
@@ -717,14 +764,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 <div class="window">
 
   <!-- ==================== ① 왼쪽 사이드바 ==================== -->
-  <aside class="side">
-    <div class="me">
-      <div class="avatar">
-        <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="프로필">
-      </div>
-      <h1>에버</h1>
-      <p class="handle">@ethan</p>
-    </div>
+  <aside class="side" id="side">
+    <!-- 전원 버튼: 누르면 캡슐이 이 버튼만 남게 접힙니다 -->
+    <button class="pwr" id="pwrBtn" aria-label="메뉴 접기/펴기" aria-expanded="true">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.9" stroke-linecap="round">
+        <path d="M12 4v8"/>
+        <path d="M7.5 7A7 7 0 1016.5 7"/>
+      </svg>
+    </button>
 
     <!-- 메뉴 5개 · 안 쓰는 건 button과 아래 section을 함께 삭제 -->
     <nav class="menu" role="tablist">
@@ -745,7 +793,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       </button>
     </nav>
 
-    <p class="side-foot">© everlastingstory</p>
+    
   </aside>
 
   <!-- ==================== ② 가운데 ==================== -->
@@ -1204,7 +1252,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   hamb.addEventListener('click', function(){
     var open = hamb.getAttribute('aria-expanded') === 'true';
     hamb.setAttribute('aria-expanded', String(!open));
-    win.classList.toggle('side-closed', open);
     win.classList.toggle('info-closed', open);
   });
 })();
@@ -1249,6 +1296,19 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   card.addEventListener('click', function(e){ e.stopPropagation(); });
   document.addEventListener('click', function(){ if(!card.hidden) shut(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !card.hidden) shut(); });
+})();
+
+/* ===== 전원 버튼: 왼쪽 캡슐 접기/펴기 ===== */
+(function(){
+  var pwr = document.getElementById('pwrBtn');
+  var win = document.querySelector('.window');
+  if(!pwr || !win) return;
+
+  pwr.addEventListener('click', function(){
+    var open = pwr.getAttribute('aria-expanded') === 'true';
+    pwr.setAttribute('aria-expanded', String(!open));
+    win.classList.toggle('side-mini', open);
+  });
 })();
 </script>
 
