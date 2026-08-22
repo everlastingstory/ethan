@@ -306,9 +306,7 @@
 
   /* 메인으로 돌아가기 */
   .back-home{
-    position:sticky; top:12px; z-index:50;
     display:inline-flex; align-items:center; gap:6px;
-    margin:12px 0 -4px 16px;
     padding:8px 14px; border-radius:999px;
     background:rgba(255,255,255,.92);
     border:1px solid rgba(0,0,0,.08);
@@ -378,32 +376,53 @@
     .bg-sea path, .bg-feather, .bg-star{ animation:none !important; }
   }
 
-  /* ===== PC: 가로로 넓게 펴서 스크롤 줄이기 ===== */
-  @media (min-width:900px){
-    .phone{ width:1080px; max-width:calc(100vw - 48px); }
-    .content{ padding:14px 20px 44px; }
-
-    /* 블록들을 2단으로 배치, 히어로만 가로 전체 */
-    .section{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      align-items:start;
-      padding:14px;
-    }
-    .section > .hero{ grid-column:1 / -1; }
-    .section > .block{ margin:0; }
-
-    /* 돌아가기 버튼은 화면 왼쪽 위에 고정 */
-    .back-home{
-      position:fixed; top:18px; left:18px; margin:0; z-index:60;
-    }
+  /* ===== 돌아가기 버튼: 화면 위에 고정 (모바일 · PC 공통) ===== */
+  .back-home{
+    position:fixed; top:14px; left:14px; z-index:60;
+    margin:0;
   }
 
-  /* 넓은 화면에서 3단까지 */
-  @media (min-width:1360px){
-    .phone{ width:1300px; }
-    .section{ grid-template-columns:repeat(3,1fr); }
+  /* ===== PC: 카드 폭 720px + 규칙 블록만 2열 =====
+     센티넬 / 가이드 / 안정제 / 빌런 이 좌우로 나란히 놓입니다.
+     나머지 블록은 모바일과 동일하게 세로로 이어집니다. */
+  @media (min-width:900px){
+    .phone{ width:720px; max-width:calc(100vw - 40px); }
+    .content{ padding:64px 20px 48px; }
+    .back-home{ top:18px; left:18px; }
+
+    /* 프로필: 이미지 왼쪽 · 정보 오른쪽 */
+    .pc-split{
+      display:grid;
+      grid-template-columns:230px 1fr;
+      gap:26px;
+      align-items:start;
+      margin-top:6px;
+    }
+    .pc-split > .avatar-frame{ margin:0; width:100%; }
+    .pc-split > .avatar-frame img{ width:100%; height:auto; display:block; }
+    .pc-side > .info-row:first-child{ margin-top:2px; }
+    .pc-side > .section-title:first-of-type{ margin-top:16px !important; }
+
+    /* rule-block 들을 담은 블록만 2열 그리드로 */
+    .block.rules,
+    .block:has(> .rule-block){
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0 20px;
+      align-items:start;
+    }
+    .block.rules > .divider,
+    .block:has(> .rule-block) > .divider{ grid-column:1 / -1; }
+    .block.rules > .rule-block,
+    .block:has(> .rule-block) > .rule-block{ margin:0 0 14px; }
+    /* 2열일 때 첫 줄 제목의 위 여백 정리 */
+    .block.rules > .rule-block .section-title,
+    .block:has(> .rule-block) > .rule-block .section-title{ margin-top:0; }
+  }
+
+  /* 모바일: 고정 버튼에 가리지 않도록 위 여백 */
+  @media (max-width:899px){
+    .content{ padding-top:58px; }
   }
 </style>
 </head>
@@ -467,9 +486,12 @@
           <div class="profile-title">MOCKINGBIRD</div>
           <div class="profile-tags">#S급 가이드 &nbsp;#인외 &nbsp;#미스터리 &nbsp;#허무주의</div>
 
-          <div class="avatar-frame">
+          <div class="pc-split">
+            <div class="avatar-frame">
             <img src="https://i.ibb.co/pBMWbLg6/1-2-artist-0jae-0-7-artist-nong-345-0-5-artist-soybean-hisoybean-s-585294068.png" alt="MOCKINGBIRD">
           </div>
+            <div class="pc-side">
+
 
           <div class="info-row">
             <div class="label">소속</div>
@@ -488,6 +510,8 @@
           <div class="section-title" style="margin-top:22px;">성격</div>
           <div class="section-text">
             굉장히 무질서한 성격. 대상을 가리지 않는 침묵. 고양이와 어린아이 그 사이 어딘가. 무표정과 어울리는 용건만 말하는 짧은 말투와 예의가 약간은 존재하는 반말. 그러나 실제로 존댓말을 쓰는 이들은 극소수로, 대부분에게는 반말을 사용한다.
+          </div>
+            </div>
           </div>
 
           <hr class="divider-dash">
@@ -544,7 +568,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block rules">
         <div class="divider" style="margin-top:0;"></div>
 
         <div class="rule-block">
