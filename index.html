@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#000080">
-<title>OOO</title>
+<title>EVER</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 
 <style>
 /* ============================================================
-   🎨 색 — 여기만 고치면 전체 톤이 바뀝니다
+   🎨 색 — 이 블록만 고치면 전체 톤이 바뀝니다
    ============================================================ */
 :root{
   --deep:#000080; --deep-ink:#05052E; --pair:#4E5180;
@@ -20,7 +20,7 @@
   --foam:#EFEAF0; --foam-dim:#B9B3C8;
   --glass:rgba(239,234,240,.10);
   --glass-line:rgba(239,234,240,.22);
-  --r:14px; --r-lg:22px; --r-xl:30px;
+  --r:12px; --r-lg:20px;
 }
 *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
@@ -79,215 +79,361 @@ body{
 }
 
 /* ============================================================
-   창
+   창 — 3단 대시보드
    ============================================================ */
 .window{
   position:relative; z-index:4;
-  width:100%; max-width:1180px; height:100%; max-height:660px;
-  display:flex; gap:0;
+  width:100%; max-width:1180px; height:100%; max-height:700px;
+  display:flex;
   background:var(--glass);
   border:1px solid var(--glass-line);
-  border-radius:var(--r-xl);
+  border-radius:var(--r-lg);
   backdrop-filter:blur(20px) saturate(1.25);
   -webkit-backdrop-filter:blur(20px) saturate(1.25);
   box-shadow:0 26px 70px -22px rgba(5,5,46,.72), inset 0 1px 0 rgba(255,255,255,.16);
   overflow:hidden;
 }
 
-/* ---------- ① 왼쪽 아이콘 바 ---------- */
-.railbar{
-  flex:none; width:62px;
-  display:flex; flex-direction:column; align-items:center;
-  padding:18px 0 16px; gap:4px;
-  background:linear-gradient(180deg, var(--dawn), #8E6C85);
+/* ---------- ① 왼쪽 사이드바 ---------- */
+.side{
+  flex:none; width:186px;
+  display:flex; flex-direction:column;
+  padding:18px 12px 14px;
+  background:rgba(5,5,46,.22);
+  border-right:1px solid var(--glass-line);
 }
-.rail-btn{
+
+.me{ text-align:center; padding:0 4px 16px; }
+.me .avatar{
+  width:66px; height:66px; border-radius:50%; margin:0 auto 9px;
+  overflow:hidden; background:rgba(5,5,46,.4);
+  border:1px solid var(--glass-line);
+  box-shadow:0 6px 16px -6px rgba(5,5,46,.6);
+}
+.me .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.me h1{ font-size:16px; font-weight:600; letter-spacing:-.02em; }
+.me .handle{ font-family:'DM Mono',monospace; font-size:9.5px; color:var(--dawn-lit); margin-top:2px; }
+
+/* 메뉴 */
+.menu{ display:flex; flex-direction:column; gap:2px; }
+.tab{
   all:unset; cursor:pointer;
-  width:38px; height:38px; border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  color:rgba(255,255,255,.78);
+  display:flex; align-items:center; gap:10px;
+  padding:9px 12px; border-radius:10px;
+  font-size:12.5px; color:var(--foam-dim);
   transition:background .18s ease, color .18s ease;
 }
-.rail-btn:hover{ background:rgba(255,255,255,.16); color:#fff; }
-.rail-btn:focus-visible{ outline:2px solid #fff; outline-offset:-2px; }
-.rail-btn[aria-selected="true"]{ background:rgba(255,255,255,.24); color:#fff; }
-.rail-btn .ico{ width:18px; height:18px; margin:0; }
-.rail-gap{ margin-top:auto; }
+.tab:hover{ background:rgba(239,234,240,.08); color:var(--foam); }
+.tab:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:-2px; }
+.tab[aria-selected="true"]{
+  background:rgba(178,136,158,.28); color:var(--foam); font-weight:500;
+}
+.tab .ico{ width:15px; height:15px; margin:0; }
 
-/* ---------- ② 가운데 ---------- */
-.center-col{
-  flex:1; min-width:0; display:flex; flex-direction:column;
-  padding:16px 18px 18px;
+.side-foot{
+  margin-top:auto; padding-top:14px; text-align:center;
+  font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.1em;
+  color:var(--foam-dim); opacity:.55;
+}
+
+/* ---------- ② 가운데 메인 ---------- */
+.center-col{ flex:1; min-width:0; display:flex; flex-direction:column; }
+
+.topbar{
+  flex:none; display:flex; align-items:center; gap:10px;
+  padding:11px 16px; border-bottom:1px solid var(--glass-line);
+}
+.search{
+  flex:1; min-width:0; display:flex; align-items:center; gap:8px;
+  padding:7px 13px; border-radius:999px;
+  background:rgba(239,234,240,.08); border:1px solid var(--glass-line);
+  font-family:'DM Mono',monospace; font-size:10.5px; color:var(--foam-dim);
+}
+.search .ico{ width:13px; height:13px; margin:0; opacity:.8; }
+.topbar .pill{
+  flex:none; padding:6px 13px; border-radius:999px;
+  background:rgba(178,136,158,.26); font-size:11px; white-space:nowrap;
+}
+
+.main{
+  flex:1; min-width:0; padding:16px;
   overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--glass-line) transparent;
 }
-.center-col::-webkit-scrollbar{ width:5px; }
-.center-col::-webkit-scrollbar-thumb{ background:var(--glass-line); border-radius:9px; }
+.main::-webkit-scrollbar{ width:5px; }
+.main::-webkit-scrollbar-thumb{ background:var(--glass-line); border-radius:9px; }
 
-/* 검색줄 */
-.searchrow{ display:flex; align-items:center; gap:10px; margin-bottom:16px; flex:none; }
-.icon-sq{
-  flex:none; width:38px; height:38px; border-radius:12px;
-  background:var(--dawn); color:#fff;
-  display:flex; align-items:center; justify-content:center;
-  border:none; cursor:pointer;
-  transition:filter .18s ease;
-}
-.icon-sq:hover{ filter:brightness(1.12); }
-.icon-sq .ico{ width:17px; height:17px; margin:0; }
-.search{
-  flex:1; min-width:0; display:flex; align-items:center; gap:9px;
-  padding:10px 16px; border-radius:999px;
-  background:rgba(239,234,240,.12); border:1px solid var(--glass-line);
-  font-size:11.5px; color:var(--foam-dim);
-}
-.search .ico{ width:14px; height:14px; margin:0; }
+.panel{ display:none; }
+.panel.active{ display:block; animation:panelIn .3s ease; }
+@keyframes panelIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
 
-/* 히어로 */
-.hero-wrap{ display:flex; gap:10px; align-items:stretch; margin-bottom:16px; flex:none; }
-.hero{
-  flex:1; min-width:0; position:relative;
-  border-radius:var(--r-lg); overflow:hidden;
-  background:rgba(5,5,46,.3);
-  min-height:210px;
-}
-.hero img{ width:100%; height:100%; object-fit:cover; display:block; }
-.hero .placeholder{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--foam-dim);
-}
-/* 히어로 위에 겹쳐지는 둥근 설명 박스 */
-.hero-card{
-  position:absolute; left:14px; right:14px; bottom:14px;
-  background:rgba(178,136,158,.86);
-  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  border-radius:var(--r-lg); padding:13px 16px;
-  box-shadow:0 10px 26px -10px rgba(5,5,46,.6);
-}
-.hero-card h2{ font-size:14px; font-weight:600; letter-spacing:-.015em; margin-bottom:3px; }
-.hero-card p{ font-size:11px; color:rgba(255,255,255,.9); line-height:1.65; }
-
-/* 히어로 오른쪽 아이콘 열 */
-.hero-side{ flex:none; display:flex; flex-direction:column; gap:9px; justify-content:center; }
-
-.credit{ font-size:10.5px; color:var(--foam-dim); margin-bottom:12px; flex:none; }
-.credit b{ color:var(--dawn-lit); font-weight:400; }
-
-/* 하단 카드 줄 */
-.cardrow{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; flex:none; }
-.mini{ cursor:pointer; }
-.mini .thumb{
-  border-radius:var(--r); overflow:hidden; background:rgba(5,5,46,.3);
-  aspect-ratio:3/4; margin-bottom:7px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.16em; color:var(--foam-dim);
-  transition:transform .2s ease;
-}
-.mini:hover .thumb{ transform:translateY(-3px); }
-.mini .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.mini h3{ font-size:12px; font-weight:600; letter-spacing:-.01em; }
-.mini span{ font-family:'DM Mono',monospace; font-size:9.5px; color:var(--foam-dim); }
-
-/* ---------- ③ 오른쪽 패널 ---------- */
+/* ---------- ③ 오른쪽 정보 패널 ---------- */
 .info-col{
-  flex:none; width:270px; margin:12px 12px 12px 0;
-  border-radius:var(--r-lg);
-  background:rgba(239,234,240,.13);
-  border:1px solid var(--glass-line);
-  padding:18px 16px;
+  flex:none; width:250px;
+  padding:16px 14px;
+  border-left:1px solid var(--glass-line);
+  background:rgba(239,234,240,.04);
   overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--glass-line) transparent;
 }
 .info-col::-webkit-scrollbar{ width:4px; }
 .info-col::-webkit-scrollbar-thumb{ background:var(--glass-line); border-radius:9px; }
 
-/* 프로필 */
-.who{ display:flex; gap:11px; align-items:flex-start; margin-bottom:18px; }
-.who .avatar{
-  flex:none; width:52px; height:52px; border-radius:12px; overflow:hidden;
-  background:rgba(5,5,46,.35);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'DM Mono',monospace; font-size:8px; color:var(--foam-dim);
-}
-.who .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-.who h1{ font-size:18px; font-weight:600; letter-spacing:-.02em; color:var(--dawn-lit); }
-.who .role{ font-size:11px; color:var(--foam-dim); margin-bottom:7px; }
-.pill-btn{
-  display:inline-block; padding:4px 14px; border-radius:999px;
-  background:var(--dawn); color:#fff; font-size:10.5px;
-  border:none; cursor:pointer; text-decoration:none;
-  transition:filter .18s ease;
-}
-.pill-btn:hover{ filter:brightness(1.12); }
-
-.info-h{ font-size:14px; font-weight:600; letter-spacing:-.015em; color:var(--dawn-lit); margin-bottom:9px; }
-
-/* 본문 + View 버튼 */
-.para{ display:flex; gap:10px; align-items:flex-start; margin-bottom:11px; }
-.para p{ flex:1; min-width:0; font-size:11.5px; color:var(--foam-dim); }
-.view{
-  flex:none; padding:2px 11px; border-radius:999px;
-  background:rgba(178,136,158,.3); color:var(--foam);
-  font-size:9.5px; text-decoration:none; cursor:pointer;
-  border:none; transition:background .18s ease;
-}
-.view:hover{ background:var(--dawn); }
-
-.divider{ height:1px; background:var(--glass-line); margin:16px 0; border:none; }
-
-/* 추가 이미지 3장 */
-.addrow{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-.addrow .cell .thumb{
-  border-radius:11px; overflow:hidden; background:rgba(5,5,46,.3);
-  aspect-ratio:3/4; margin-bottom:5px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'DM Mono',monospace; font-size:8px; color:var(--foam-dim);
-}
-.addrow .cell .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.addrow .cell p{ font-size:10px; color:var(--foam-dim); text-align:center; }
-
-/* 패널 전환 */
-.panel{ display:none; }
-.panel.active{ display:block; animation:panelIn .3s ease; }
-@keyframes panelIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+.poster{ border-radius:12px; overflow:hidden; background:rgba(5,5,46,.3); margin-bottom:12px; }
+.poster img{ width:100%; display:block; aspect-ratio:3/4; object-fit:cover; }
 
 /* ============================================================
-   좁은 화면
+   햄버거 · 사이드바 접기
+   ============================================================ */
+.hamb{
+  all:unset; cursor:pointer; flex:none;
+  width:32px; height:32px; border-radius:10px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  transition:background .18s ease;
+}
+.hamb:hover{ background:rgba(239,234,240,.1); }
+.hamb:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:-2px; }
+.hamb span{
+  display:block; width:16px; height:1.8px; border-radius:2px;
+  background:var(--foam);
+  transition:transform .3s cubic-bezier(.4,0,.2,1), opacity .2s ease;
+}
+/* 펼쳐진 상태(=접힘 아님)에서 X 모양으로 */
+.hamb[aria-expanded="true"] span:nth-child(1){ transform:translateY(5.8px) rotate(45deg); }
+.hamb[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.hamb[aria-expanded="true"] span:nth-child(3){ transform:translateY(-5.8px) rotate(-45deg); }
+
+/* 사이드바 접힘 — 폭이 부드럽게 줄어듦 */
+.side{
+  transition:width .34s cubic-bezier(.4,0,.2,1),
+             padding .34s cubic-bezier(.4,0,.2,1),
+             opacity .24s ease;
+  overflow:hidden;
+}
+.window.side-closed .side{
+  width:0; padding-left:0; padding-right:0; opacity:0; border-right-width:0;
+}
+
+/* 오른쪽 정보 패널도 같이 여닫기 (넓은 화면에서만) */
+.info-col{
+  transition:width .34s cubic-bezier(.4,0,.2,1),
+             padding .34s cubic-bezier(.4,0,.2,1),
+             opacity .24s ease;
+  overflow-x:hidden;
+}
+.window.info-closed .info-col{
+  width:0; padding-left:0; padding-right:0; opacity:0; border-left-width:0;
+}
+
+/* ============================================================
+   BGM 플레이어
+   ============================================================ */
+.bgm{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; border-radius:var(--r);
+  background:rgba(178,136,158,.18);
+  transition:background .2s ease;
+}
+.bgm:hover{ background:rgba(178,136,158,.26); }
+
+.bgm-btn{
+  all:unset; cursor:pointer; flex:none;
+  width:32px; height:32px; border-radius:50%;
+  background:var(--dawn); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  transition:filter .18s ease, transform .12s ease;
+}
+.bgm-btn:hover{ filter:brightness(1.14); }
+.bgm-btn:active{ transform:scale(.92); }
+.bgm-btn:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+.bgm-btn .ico{ width:14px; height:14px; margin:0; }
+.bgm-btn .i-pause{ display:none; }
+.bgm.playing .bgm-btn .i-play{ display:none; }
+.bgm.playing .bgm-btn .i-pause{ display:block; }
+
+.bgm-meta{ flex:1; min-width:0; }
+.bgm-title{
+  font-size:12px; font-weight:600; letter-spacing:-.01em;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.bgm-state{ font-family:'DM Mono',monospace; font-size:9px; color:var(--foam-dim); }
+
+/* 재생 중 막대 애니메이션 */
+.bgm-eq{ flex:none; display:flex; align-items:flex-end; gap:2px; height:14px; }
+.bgm-eq i{
+  width:2.5px; height:4px; border-radius:2px;
+  background:var(--dawn-lit); opacity:.35;
+}
+.bgm.playing .bgm-eq i{ opacity:1; animation:eq .9s ease-in-out infinite; }
+.bgm.playing .bgm-eq i:nth-child(2){ animation-delay:.15s; }
+.bgm.playing .bgm-eq i:nth-child(3){ animation-delay:.3s; }
+.bgm.playing .bgm-eq i:nth-child(4){ animation-delay:.45s; }
+@keyframes eq{
+  0%,100%{ height:4px; }
+  50%{ height:13px; }
+}
+
+/* ============================================================
+   부품
+   ============================================================ */
+.sec{ font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--dawn-lit); margin:16px 0 8px; }
+.panel > .sec:first-child, .info-col .sec:first-of-type{ margin-top:0; }
+
+.grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:7px; }
+.grid-3{ grid-template-columns:repeat(3,1fr); }
+.grid-4{ grid-template-columns:repeat(4,1fr); }
+
+.box{ background:rgba(239,234,240,.07); border-radius:var(--r); padding:12px;
+  transition:background .2s ease; }
+.box:hover{ background:rgba(239,234,240,.12); }
+.box-wide{ grid-column:1 / -1; }
+.box-dawn{ background:rgba(178,136,158,.18); }
+.box-dawn:hover{ background:rgba(178,136,158,.26); }
+.box-deep{ background:rgba(0,0,128,.26); }
+.box-deep:hover{ background:rgba(0,0,128,.34); }
+.box-plain{ background:none; padding:2px; }
+.box-plain:hover{ background:none; }
+
+.b-lab{ font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--foam-dim); opacity:.75; margin-bottom:5px; }
+.b-tit{ font-size:13.5px; font-weight:600; letter-spacing:-.015em; margin-bottom:3px; }
+.b-txt{ font-size:11.5px; color:var(--foam-dim); }
+.b-val{ font-size:18px; font-weight:600; letter-spacing:-.015em; line-height:1.4; }
+
+.spec{ display:flex; gap:9px; padding:3px 0; font-size:11.5px; }
+.spec dt{ flex:none; min-width:38px; color:var(--dawn-lit); opacity:.85; }
+.spec dd{ color:var(--foam-dim); }
+
+.media{ border-radius:10px; overflow:hidden; min-height:80px; background:rgba(5,5,46,.3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.16em; color:var(--foam-dim); }
+.media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.row{ display:flex; gap:10px; align-items:flex-start; }
+.row > .media{ flex:none; width:38%; min-height:70px; }
+.row > .rt{ flex:1; min-width:0; }
+
+.over{ position:relative; border-radius:10px; overflow:hidden; }
+.over .media{ min-height:120px; border-radius:0; }
+.over .cap{ position:absolute; left:0; right:0; bottom:0; padding:18px 12px 10px;
+  background:linear-gradient(to top, rgba(5,5,46,.88), transparent); }
+
+.polaroid{ background:rgba(239,234,240,.13); border-radius:5px; padding:6px 6px 16px; }
+.polaroid .media{ border-radius:3px; min-height:70px; }
+
+.ico{ width:13px; height:13px; stroke:currentColor; fill:none; stroke-width:1.5;
+  stroke-linecap:round; stroke-linejoin:round; vertical-align:-2px; margin-right:5px; flex:none; }
+.badge{ width:28px; height:28px; border-radius:50%; flex:none;
+  background:rgba(178,136,158,.26); color:var(--foam);
+  display:flex; align-items:center; justify-content:center; margin-bottom:7px; }
+.badge .ico{ margin:0; width:14px; height:14px; }
+
+.tags{ display:flex; flex-wrap:wrap; gap:4px; margin-top:7px; }
+.tag{ font-size:10px; padding:2px 9px; border-radius:999px;
+  background:rgba(239,234,240,.11); color:var(--foam-dim); }
+.tag-dawn{ background:rgba(178,136,158,.26); color:var(--foam); }
+.tag-no{ background:rgba(180,64,92,.24); color:#F0C8D2; }
+
+.linkrow{ display:flex; align-items:center; justify-content:space-between; gap:9px;
+  padding:9px 12px; margin-bottom:5px; text-decoration:none;
+  border-radius:10px; background:rgba(239,234,240,.07);
+  color:var(--foam); font-size:11.5px; transition:background .2s ease; }
+.linkrow:last-child{ margin-bottom:0; }
+.linkrow:hover{ background:rgba(178,136,158,.24); }
+.linkrow .lead{ display:flex; flex-direction:column; line-height:1.4; min-width:0; }
+.linkrow .lead small{ color:var(--foam-dim); font-size:9.5px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.linkrow .arw{ font-family:'DM Mono',monospace; color:var(--foam-dim); flex:none; }
+
+.li{ display:flex; gap:9px; padding:4px 0; font-size:11.5px; }
+.li .when{ font-family:'DM Mono',monospace; font-size:10px; color:var(--dawn-lit);
+  flex:none; min-width:58px; }
+
+.quote{ font-size:13px; line-height:1.8; text-align:center; padding:4px; }
+.quote::before{ content:"\201C"; display:block; font-size:24px; color:var(--dawn-lit); line-height:1; }
+.rule{ height:1px; background:var(--glass-line); margin:10px 0; border:none; }
+.center{ text-align:center; }
+
+details.fold{ border-radius:var(--r); padding:10px 12px; background:rgba(239,234,240,.07); }
+details.fold summary{ cursor:pointer; list-style:none; font-size:11.5px; color:var(--dawn-lit);
+  display:flex; align-items:center; gap:6px; }
+details.fold summary::-webkit-details-marker{ display:none; }
+details.fold summary::after{ content:"▾"; margin-left:auto; color:var(--foam-dim); font-size:10px; }
+details.fold[open] summary::after{ content:"▴"; }
+details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
+
+/* ============================================================
+   좁은 화면 — 세로로 쌓고 메뉴는 하단 탭바로
    ============================================================ */
 @media (max-width:960px){
   body{
     height:auto; min-height:100svh; overflow-y:auto;
-    align-items:flex-start; padding:14px 12px 82px;
+    align-items:flex-start; padding:14px 12px 84px;  /* 아래는 탭바 자리 */
     font-size:13.5px;
   }
-  .window{ flex-direction:column; height:auto; max-height:none; max-width:560px; }
+  .window{
+    flex-direction:column; height:auto; max-height:none; max-width:560px;
+  }
 
-  /* 아이콘 바 → 하단 고정 탭바 */
-  .railbar{
+  /* 사이드바 → 상단 프로필 + 하단 고정 탭바로 분리 */
+  .side{
+    width:100%; border-right:none; border-bottom:1px solid var(--glass-line);
+    padding:20px 16px 16px;
+  }
+  .me{ padding-bottom:0; }
+  .me .avatar{ width:78px; height:78px; }
+  .me h1{ font-size:19px; }
+  .me .handle{ font-size:11px; }
+  .side-foot{ display:none; }
+
+  .menu{
     position:fixed; left:0; right:0; bottom:0; z-index:20;
-    width:100%; flex-direction:row; justify-content:space-around;
-    padding:7px 8px calc(7px + env(safe-area-inset-bottom));
-    background:linear-gradient(90deg, var(--dawn), #8E6C85);
+    flex-direction:row; gap:0; justify-content:space-around;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+    background:rgba(10,11,40,.86);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border-top:1px solid var(--glass-line);
   }
-  .rail-gap{ display:none; }
-  .rail-btn{ width:44px; height:40px; }
-  .rail-btn .ico{ width:20px; height:20px; }
+  .tab{
+    flex:1; flex-direction:column; gap:3px; padding:7px 2px;
+    font-size:10px; border-radius:12px; text-align:center;
+  }
+  .tab .ico{ width:18px; height:18px; }
+  .tab[aria-selected="true"]{ background:rgba(178,136,158,.3); }
 
-  .center-col{ padding:16px; overflow:visible; }
-  .hero{ min-height:200px; }
-  .hero-wrap{ flex-direction:column; }
-  .hero-side{ flex-direction:row; justify-content:center; }
-  .cardrow{ grid-template-columns:repeat(2,1fr); }
-
+  .topbar{ padding:11px 14px; }
+  .main{ padding:18px 16px 20px; overflow:visible; }
   .info-col{
-    width:auto; margin:0 12px 12px; overflow:visible;
+    width:100%; border-left:none; border-top:1px solid var(--glass-line);
+    overflow:visible; padding:18px 16px 22px;
   }
-  .search{ font-size:12.5px; }
-  .hero-card h2{ font-size:15px; }
-  .hero-card p{ font-size:12px; }
-  .mini h3{ font-size:13px; }
-  .para p{ font-size:12.5px; }
+  .poster{ max-width:210px; margin-left:auto; margin-right:auto; }
+
+  /* 모바일 글자 크기 */
+  .spec{ font-size:12.5px; }
+  .b-tit{ font-size:14.5px; }
+  .b-txt{ font-size:12.5px; }
+  .tag{ font-size:11px; padding:3px 10px; }
+  .linkrow{ font-size:12.5px; padding:11px 13px; }
+  .linkrow .lead small{ font-size:10.5px; }
+  .li{ font-size:12.5px; }
+  .quote{ font-size:14px; }
+  details.fold summary{ font-size:12.5px; }
+  .media{ min-height:96px; }
+  .over .media{ min-height:150px; }
 }
-@media (max-width:400px){
-  .cardrow{ grid-template-columns:1fr 1fr; }
+@media (max-width:960px){
+  /* 좁은 화면에서는 접기 기능을 쓰지 않습니다 */
+  .window.side-closed .side,
+  .window.info-closed .info-col{
+    width:100%; opacity:1; padding-left:16px; padding-right:16px;
+  }
+  .window.side-closed .side{ padding:20px 16px 16px; }
+  .hamb{ display:none; }
+}
+@media (max-width:560px){
+  .grid{ grid-template-columns:1fr; }
+  .grid-3, .grid-4{ grid-template-columns:repeat(2,1fr); }
+  .row > .media{ width:42%; }
 }
 @media (prefers-reduced-motion: reduce){
   .sea path,.feather,.ripple,.star{ animation:none !important; }
@@ -330,196 +476,297 @@ body{
 
 <div class="window">
 
-  <!-- ==================== ① 왼쪽 아이콘 바 ==================== -->
-  <!-- 아이콘만 바꾸고 싶으면 <path> 부분만 교체하세요 (tabler-icons.io) -->
-  <nav class="railbar" role="tablist">
-    <button class="rail-btn" aria-label="메뉴" style="cursor:default">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+  <!-- ==================== ① 왼쪽 사이드바 ==================== -->
+  <aside class="side">
+    <div class="me">
+      <div class="avatar">
+        <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="프로필">
+      </div>
+      <h1>에버</h1>
+      <p class="handle">@ethan</p>
+    </div>
 
-    <div style="height:10px"></div>
+    <!-- 메뉴 5개 · 안 쓰는 건 button과 아래 section을 함께 삭제 -->
+    <nav class="menu" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-panel="home">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg>home
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="cast">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>주연
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="stills">
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg>스틸컷
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="info">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>성향
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="links">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg>links
+      </button>
+    </nav>
 
-    <button class="rail-btn" role="tab" aria-selected="true" data-panel="home" aria-label="home">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg>
-    </button>
-    <button class="rail-btn" role="tab" aria-selected="false" data-panel="cast" aria-label="주연">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>
-    </button>
-    <button class="rail-btn" role="tab" aria-selected="false" data-panel="gallery" aria-label="갤러리">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg>
-    </button>
-    <button class="rail-btn" role="tab" aria-selected="false" data-panel="info" aria-label="정보">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-    </button>
-    <button class="rail-btn" role="tab" aria-selected="false" data-panel="links" aria-label="링크">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg>
-    </button>
-
-    <span class="rail-gap"></span>
-    <button class="rail-btn" aria-label="도움말" style="cursor:default">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 013.9-1.9c1.2.8 1 2.3 0 3-.7.5-1.4.9-1.4 2M12 17h.01"/></svg>
-    </button>
-  </nav>
+    <p class="side-foot">© ethan.luv3r.me</p>
+  </aside>
 
   <!-- ==================== ② 가운데 ==================== -->
   <div class="center-col">
 
-    <!-- 검색줄 -->
-    <div class="searchrow">
-      <button class="icon-sq" aria-label="알림">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M18 15V10a6 6 0 10-12 0v5l-1.5 2.5h15z"/><path d="M10 20a2 2 0 004 0"/></svg>
+    <div class="topbar">
+      <button class="hamb" id="hamb" aria-label="메뉴 접기/펴기" aria-expanded="true">
+        <span></span><span></span><span></span>
       </button>
       <span class="search">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
-        <span id="addr">Search…</span>
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+        <span id="addr">ethan.luv3r.me / home</span>
       </span>
+      <span class="pill">🎬 상영 중</span>
     </div>
 
-    <!-- ============ HOME ============ -->
-    <section class="panel active" data-panel="home">
-      <div class="hero-wrap">
-        <div class="hero">
-          <!-- TODO: <img src="이미지.jpg" alt=""> 로 교체 -->
-          <span class="placeholder">HERO IMAGE</span>
-          <div class="hero-card">
-            <h2>제목을 입력하세요</h2>
-            <p>여기에 짧은 소개 문장을 적어주세요. 이미지 위에 겹쳐져 보입니다.</p>
+    <div class="main">
+
+      <!-- ============ HOME ============ -->
+      <section class="panel active" data-panel="home">
+        <div class="grid">
+          <div class="box box-wide over" style="padding:0">
+            <div class="media" style="min-height:150px">
+              <img src="https://cdn.luv3r.me/og/74303e0239a4.png" alt="키비주얼">
+            </div>
+            <div class="cap">
+              <p class="b-tit">내 비극의 유일한 관객</p>
+              <p class="b-txt">Never-Ending Curtain Call</p>
+            </div>
+          </div>
+
+          <div class="box box-wide box-dawn">
+            <p class="b-tit">이 시대 최악의 로맨스 코미디가 찾아온다!</p>
+          </div>
+
+          <div class="box box-wide">
+            <p class="b-lab">소개</p>
+            <p class="b-txt">
+              모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자, 666이
+              코드네임 '에단'을 찾아온다. 그러나 의뢰는 에단에 의해 파기되고 달리아는
+              의문의 죽음을 맞이한다.
+            </p>
+            <div style="height:8px"></div>
+            <p class="b-txt">
+              죽음과 함께 이전의 기억을 모두 상실한 그녀는 과거의 자신을 '달리아'로,
+              현재의 자신을 '666'으로 분리하여 정의한다. 그리고 운명처럼, 혹은 악연처럼
+              두 사람은 필라델피아 미술관 앞에서 재회한다. 에단은 사라졌던 여자를 발견하지만
+              그녀는 더 이상 그가 알던 '달리아'가 아니었다…
+            </p>
+          </div>
+
+          <div class="box box-wide box-plain">
+            <p class="quote">Lost, little lamb?</p>
           </div>
         </div>
+      </section>
 
-        <!-- 히어로 옆 아이콘 버튼 4개 -->
-        <div class="hero-side">
-          <button class="icon-sq" aria-label="사진">
-            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="6" width="17" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/></svg>
-          </button>
-          <button class="icon-sq" aria-label="영상">
-            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 11l6-3v8l-6-3z"/></svg>
-          </button>
-          <button class="icon-sq" aria-label="저장">
-            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg>
-          </button>
-          <button class="icon-sq" aria-label="공유">
-            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 12l16-7-6 16-2.5-6.5z"/></svg>
-          </button>
+      <!-- ============ 주연 ============ -->
+      <section class="panel" data-panel="cast">
+        <p class="sec">주연</p>
+        <div class="grid">
+          <div class="box box-deep">
+            <div class="media" style="min-height:150px; margin-bottom:9px">
+              <img src="https://cdn.luv3r.me/og/e2b68e911450.jpg" alt="셰인 블랙우드">
+            </div>
+            <p class="b-lab">no. 01</p>
+            <p class="b-tit">셰인 블랙우드</p>
+            <p class="b-txt">에단 역</p>
+          </div>
+          <div class="box box-dawn">
+            <div class="media" style="min-height:150px; margin-bottom:9px">
+              <img src="https://cdn.luv3r.me/og/0fe7b893f8c8.png" alt="달리아 슈미트">
+            </div>
+            <p class="b-lab">no. 02</p>
+            <p class="b-tit">달리아 슈미트</p>
+            <p class="b-txt">모킹버드 역</p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <p class="credit">Edit by <b>@아이디</b> · <b>@아이디</b></p>
-
-      <!-- 하단 카드 4장 -->
-      <div class="cardrow">
-        <!-- TODO: <div class="thumb"><img src="1.jpg" alt=""></div> 로 교체 -->
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>00:00</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>00:00</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>00:00</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>00:00</span></div>
-      </div>
-    </section>
-
-    <!-- ============ 주연 ============ -->
-    <section class="panel" data-panel="cast">
-      <div class="cardrow" style="grid-template-columns:repeat(2,1fr)">
-        <div class="mini"><div class="thumb">IMAGE</div><h3>이름</h3><span>역할</span></div>
-        <div class="mini"><div class="thumb">IMAGE</div><h3>이름</h3><span>역할</span></div>
-      </div>
-    </section>
-
-    <!-- ============ 갤러리 ============ -->
-    <section class="panel" data-panel="gallery">
-      <div class="cardrow">
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-      </div>
-      <div style="height:10px"></div>
-      <div class="cardrow">
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-        <div class="mini"><div class="thumb">IMG</div><h3>제목</h3><span>설명</span></div>
-      </div>
-    </section>
-
-    <!-- ============ 정보 ============ -->
-    <section class="panel" data-panel="info">
-      <div class="hero" style="min-height:0; background:none">
-        <div style="padding:0">
-          <p class="info-h">정보</p>
-          <div class="para"><p>여기에 내용을 적어주세요.</p><span class="view">View</span></div>
-          <div class="para"><p>여기에 내용을 적어주세요.</p><span class="view">View</span></div>
-          <div class="para"><p>여기에 내용을 적어주세요.</p><span class="view">View</span></div>
+      <!-- ============ 스틸컷 ============ -->
+      <section class="panel" data-panel="stills">
+        <p class="sec">스틸컷</p>
+        <div class="grid grid-3">
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/c7ba9758eed2.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/80d83ae589a3.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/39bb93b1e770.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/4f8dee92a231.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/0e6cc440cca3.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="https://cdn.luv3r.me/og/4a986a4fc11c.jpg" alt=""></div></div>
         </div>
-      </div>
-    </section>
+        <p class="b-txt" style="margin-top:8px; opacity:.6; font-size:10px">TT · ⓒefloydp_cms</p>
+      </section>
 
-    <!-- ============ 링크 ============ -->
-    <section class="panel" data-panel="links">
-      <p class="info-h">링크</p>
-      <div class="para"><p>Twitter / X — @아이디</p><a class="view" href="#" target="_blank" rel="noopener">Go</a></div>
-      <div class="para"><p>Instagram — @아이디</p><a class="view" href="#" target="_blank" rel="noopener">Go</a></div>
-      <div class="para"><p>기타 링크 — 설명</p><a class="view" href="#" target="_blank" rel="noopener">Go</a></div>
-    </section>
+      <!-- ============ 성향 ============ -->
+      <section class="panel" data-panel="info">
+        <p class="sec">기본</p>
+        <div class="grid">
+          <div class="box box-wide">
+            <dl>
+              <div class="spec"><dt>플랫폼</dt><dd>케이브덕 / 로판, 엘린 (사용 ↓)</dd></div>
+              <div class="spec"><dt>성향</dt><dd>일상 · 앓이 · 로그 · 소비 · 그뽑 · 탐대</dd></div>
+              <div class="spec"><dt>기능</dt><dd>사용 및 수동 트청 多</dd></div>
+              <div class="spec"><dt>재연결</dt><dd>이별CBC | 블락 (지뢰) · 블언블</dd></div>
+              <div class="spec"><dt>P.W</dt><dd>링크 내 모든 P.W — 바이오 생년월일</dd></div>
+            </dl>
+          </div>
 
+          <div class="box box-wide">
+            <p class="b-lab">🚫 지양합니다</p>
+            <div class="tags" style="margin-top:2px">
+              <span class="tag tag-no">미성년자</span>
+              <span class="tag tag-no">탐라 저격 · 뒷담</span>
+              <span class="tag tag-no">견제</span>
+              <span class="tag tag-no">드림 지우기</span>
+              <span class="tag tag-no">악의적 용도 커미션</span>
+              <span class="tag tag-no">에셋 저장 및 재업로드</span>
+              <span class="tag tag-no">기능 · 성향 · 드림 관련 컨택</span>
+              <span class="tag tag-no">그 외 상식 밖의 요소</span>
+            </div>
+          </div>
+
+          <div class="box box-wide box-plain">
+            <details class="fold">
+              <summary>드림 · 배려 관련 성향 — 클릭하여 보기</summary>
+              <div class="fb">
+                <p class="b-txt"><b>멈머버스 에단 극온리</b> (동담 불가, 정실 발현 시 이별)</p>
+                <p class="b-txt">친분 깊은 겹드림러 분이 탐라에 계실 경우 팔로우 X</p>
+                <p class="b-txt">드림, 특히 서사 관련으로 영향받지 말아주세요</p>
+                <hr class="rule">
+                <p class="b-txt">편의상 동장르 제외 메인 기준 1T1D 유지</p>
+                <p class="b-txt">서브는 ~2D까지, 그 이상 배려 어렵습니다</p>
+                <p class="b-txt">기본 직멘 X · 그 이상 상호 배려 필수</p>
+                <p class="b-txt">맞배려 선호 · 자연 발생 편의상 대부분 정리</p>
+                <p class="b-txt">1T1D 필수이신 분께 찾아가는 것 = 배려 가능</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="box box-wide">
+            <p class="b-lab">더 이상 받지 않습니다</p>
+            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고 (C)</span></div>
+            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥 (s)</span></div>
+            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐 (C)</span></div>
+            <div class="li"><span class="when">ohnyu</span><span>ghnull (c)</span></div>
+            <div class="li"><span class="when">EOC</span><span>베이퍼 (K)</span></div>
+            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스테 (0)</span></div>
+            <div class="li"><span class="when">Kokori</span><span>서이현 (K)</span></div>
+            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네 (M)</span></div>
+            <div class="li"><span class="when">SERAPHIX</span><span>에테르 · 캐리온 (T&amp;M)</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LINKS ============ -->
+      <section class="panel" data-panel="links">
+        <p class="sec">내 페이지</p>
+        <div class="grid">
+          <a class="linkrow" href="https://ethan.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">EVER<small>Never-Ending Curtain Call</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ever.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">Everlasting Story<small>네가 내 지옥이자 유일한 의미</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ethan.tistory.com/22" target="_blank" rel="noopener">
+            <span class="lead">Prompt<small>티스토리</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://momentique.somlution.com/ethan" target="_blank" rel="noopener">
+            <span class="lead">Notion<small>momentique</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://ethan.tistory.com" target="_blank" rel="noopener">
+            <span class="lead">tistory<small>블로그</small></span><span class="arw">↗</span></a>
+        </div>
+
+        <p class="sec">🤝 Recommended movie</p>
+        <div class="grid">
+          <a class="linkrow" href="https://ttaleuleung.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">NYAKWON<small>사랑은 손끝에서 시작된다</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://arbiterkitsune.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">찰나<small>영원에 새겨진다는 것</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://creation-error.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">Promise<small>분명 해피엔딩일 거야</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://dawn.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">靑藍雙星<small>Fulgur ad Stellam</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://dove.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">Afebrile, but warm<small>삭제되지 않는 감정</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://carrion.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">クズ男とバカ女<small>純愛</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://sweet-paradise.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">A Haven of Sweet Delight<small>&nbsp;</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://cosmos.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">少年少女<small>그 언젠가의 세계에서</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://jaeha-log.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">Where the System Ends<small>잔해 속에서 영원을</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://vapor.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">月<small>my only moon ♥︎</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://dive.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">VINCERE<small>&nbsp;</small></span><span class="arw">↗</span></a>
+          <a class="linkrow" href="https://h3ll0world.luv3r.me" target="_blank" rel="noopener">
+            <span class="lead">H3LL0, WORLD!<small>네 옆에는 내가 있잖아</small></span><span class="arw">↗</span></a>
+        </div>
+      </section>
+
+    </div>
   </div>
 
-  <!-- ==================== ③ 오른쪽 패널 ==================== -->
+  <!-- ==================== ③ 오른쪽 정보 패널 ==================== -->
   <aside class="info-col">
-    <!-- 프로필 -->
-    <div class="who">
-      <div class="avatar">
-        <!-- TODO: <img src="프로필.jpg" alt=""> -->
-        IMG
+    <div class="poster">
+      <img src="https://cdn.luv3r.me/og/d5ba31a295ac.png" alt="EVER 포스터">
+    </div>
+
+    <p class="b-tit" style="margin-bottom:2px">에버</p>
+    <p class="b-txt" style="margin-bottom:12px">영화 · EVER · 2026</p>
+
+    <p class="sec">정보</p>
+    <dl>
+      <div class="spec"><dt>개요</dt><dd>희비극 · 미국 · 216분</dd></div>
+      <div class="spec"><dt>개봉</dt><dd>2026. 04. 18</dd></div>
+      <div class="spec"><dt>평점</dt><dd>★ 6.66</dd></div>
+      <div class="spec"><dt>감독</dt><dd>P</dd></div>
+    </dl>
+
+    <p class="sec">태그</p>
+    <div class="tags" style="margin-top:0">
+      <span class="tag tag-dawn">🎬 상영 중</span>
+      <span class="tag">🎞 희극</span>
+      <span class="tag">🎭 비극</span>
+    </div>
+
+    <p class="sec">now playing</p>
+    <!-- ===== BGM 플레이어 ===== -->
+    <div class="bgm" id="bgm">
+      <button class="bgm-btn" id="bgmBtn" aria-label="음악 재생/정지">
+        <svg class="ico i-play" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5.5v13l11-6.5z"/></svg>
+        <svg class="ico i-pause" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5.5h3v13H8zM13 5.5h3v13h-3z"/></svg>
+      </button>
+      <div class="bgm-meta">
+        <p class="bgm-title" id="bgmTitle">Never-Ending Curtain Call</p>
+        <p class="bgm-state" id="bgmState">일시정지</p>
       </div>
-      <div>
-        <h1>이름</h1>
-        <p class="role">한 줄 소개</p>
-        <button class="pill-btn">Follow</button>
-      </div>
+      <div class="bgm-eq" id="bgmEq"><i></i><i></i><i></i><i></i></div>
     </div>
-
-    <p class="info-h">제목을 입력하세요</p>
-    <div class="para">
-      <p>여기에 본문을 적어주세요. 오른쪽 View 버튼은 필요 없으면 지우면 됩니다.</p>
-      <span class="view">View</span>
-    </div>
-    <div class="para">
-      <p>문단을 더 추가하고 싶으면 이 블록을 복사해서 붙여넣으세요.</p>
-      <span class="view">View</span>
-    </div>
-    <div class="para">
-      <p>여기에 또 다른 내용을 적어주세요.</p>
-      <span class="view">View</span>
-    </div>
-
-    <hr class="divider">
-
-    <p class="info-h">Additional images</p>
-    <div class="addrow">
-      <div class="cell"><div class="thumb">IMG</div><p>설명</p></div>
-      <div class="cell"><div class="thumb">IMG</div><p>설명</p></div>
-      <div class="cell"><div class="thumb">IMG</div><p>설명</p></div>
-    </div>
+    <!-- 유튜브 플레이어 (화면에 안 보임) -->
+    <div id="ytHost" style="position:absolute; width:0; height:0; overflow:hidden; opacity:0; pointer-events:none"></div>
   </aside>
 
 </div>
 
 <script>
 (function(){
-  var tabs = document.querySelectorAll('.rail-btn[role="tab"]');
+  var tabs = document.querySelectorAll('.tab');
   var panels = document.querySelectorAll('.panel');
   var addr = document.getElementById('addr');
-  var center = document.querySelector('.center-col');
+  var main = document.querySelector('.main');
 
   function show(name){
     if(!document.querySelector('.panel[data-panel="'+name+'"]')) name = 'home';
     tabs.forEach(function(t){ t.setAttribute('aria-selected', String(t.dataset.panel === name)); });
     panels.forEach(function(p){ p.classList.toggle('active', p.dataset.panel === name); });
-    if(addr) addr.textContent = name;
-    if(center) center.scrollTop = 0;
+    addr.textContent = 'ethan.luv3r.me / ' + name;
+    if(main) main.scrollTop = 0;
     if(window.innerWidth <= 960){
-      var w = document.querySelector('.window');
-      if(w) w.scrollIntoView({ behavior:'smooth', block:'start' });
+      var t = document.querySelector('.center-col');
+      if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
     }
   }
 
@@ -530,7 +777,106 @@ body{
     });
   });
 
+  document.querySelector('.menu').addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var list = Array.prototype.slice.call(tabs);
+    var i = list.indexOf(document.activeElement);
+    if(i < 0) return;
+    var fwd = (e.key === 'ArrowDown' || e.key === 'ArrowRight');
+    var next = list[(i + (fwd ? 1 : -1) + list.length) % list.length];
+    next.focus(); next.click(); e.preventDefault();
+  });
+
   show((location.hash || '#home').slice(1));
+})();
+
+/* ============================================================
+   BGM — 유튜브 배경 재생
+   ⬇️ 영상을 바꾸려면 YT_ID 와 BGM_TITLE 만 고치세요.
+      유튜브 주소가 https://www.youtube.com/watch?v=AbCdEfG1234 라면
+      YT_ID 는 'AbCdEfG1234' 입니다.
+   ============================================================ */
+(function(){
+  var YT_ID      = '1pI242Hsi5U';               // ← 유튜브 영상 ID
+  var BGM_TITLE  = 'Never-Ending Curtain Call';  // ← 표시할 곡 제목
+  var VOLUME     = 35;                           // ← 음량 (0~100)
+
+  var bgm   = document.getElementById('bgm');
+  var btn   = document.getElementById('bgmBtn');
+  var state = document.getElementById('bgmState');
+  var title = document.getElementById('bgmTitle');
+  var player = null, ready = false;
+
+  if(!bgm || !btn) return;
+  title.textContent = BGM_TITLE;
+  state.textContent = '불러오는 중…';
+
+  // 유튜브 API 불러오기
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('ytHost', {
+      height:'1', width:'1', videoId:YT_ID,
+      playerVars:{ autoplay:1, loop:1, playlist:YT_ID, controls:0,
+                   disablekb:1, modestbranding:1, playsinline:1 },
+      events:{
+        onReady: function(e){
+          ready = true;
+          e.target.setVolume(VOLUME);
+          e.target.playVideo();          // 자동재생 시도
+          state.textContent = '일시정지';
+          // 브라우저가 막았으면 첫 터치 때 재생
+          setTimeout(function(){
+            if(!bgm.classList.contains('playing')) armFirstTouch();
+          }, 900);
+        },
+        onStateChange: function(e){
+          if(e.data === YT.PlayerState.PLAYING){
+            bgm.classList.add('playing');
+            state.textContent = '재생 중';
+          } else if(e.data === YT.PlayerState.ENDED){
+            e.target.playVideo();        // 반복
+          } else {
+            bgm.classList.remove('playing');
+            state.textContent = '일시정지';
+          }
+        }
+      }
+    });
+  };
+
+  function armFirstTouch(){
+    function go(){
+      if(ready && player) player.playVideo();
+      document.removeEventListener('pointerdown', go);
+      document.removeEventListener('keydown', go);
+    }
+    document.addEventListener('pointerdown', go, { once:true });
+    document.addEventListener('keydown', go, { once:true });
+  }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(!ready || !player) return;
+    if(bgm.classList.contains('playing')) player.pauseVideo();
+    else player.playVideo();
+  });
+})();
+
+/* ===== 햄버거: 사이드바 접기/펴기 ===== */
+(function(){
+  var hamb = document.getElementById('hamb');
+  var win  = document.querySelector('.window');
+  if(!hamb || !win) return;
+
+  hamb.addEventListener('click', function(){
+    var open = hamb.getAttribute('aria-expanded') === 'true';
+    hamb.setAttribute('aria-expanded', String(!open));
+    win.classList.toggle('side-closed', open);
+    win.classList.toggle('info-closed', open);
+  });
 })();
 </script>
 
