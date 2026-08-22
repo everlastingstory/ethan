@@ -361,44 +361,44 @@ body{
 .info-col .sec{ margin-top:22px; }
 .info-col .sec:first-of-type{ margin-top:0; }
 
-/* 방문자 카운터 배지 */
-.visit-badge{
-  height:15px; width:auto; display:block;
-  margin-left:auto; border-radius:4px;
-  opacity:.9;
-}
-
-/* 상태 표시 */
-.stat-row{
-  display:flex; align-items:center; gap:8px;
-  padding:5px 0; font-size:11.5px; color:var(--foam-dim);
-}
-.stat-dot{
-  width:7px; height:7px; border-radius:50%; flex:none;
-  background:var(--dawn);
-  box-shadow:0 0 0 3px rgba(178,136,158,.18);
-  animation:statPulse 2.4s ease-in-out infinite;
-}
-.stat-dot.dot-b{ background:var(--foam-dim); box-shadow:none; animation:none; }
-@keyframes statPulse{
-  0%,100%{ box-shadow:0 0 0 3px rgba(178,136,158,.18); }
-  50%{ box-shadow:0 0 0 5px rgba(178,136,158,.06); }
-}
-
-/* 숫자 카운트 */
-.count-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7px; }
-.count-box{
+/* status — 두 칸짜리 귀여운 박스 */
+.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.stat-box{
   background:rgba(239,234,240,.07);
-  border-radius:var(--r); padding:11px 9px; text-align:center;
+  border-radius:var(--r); padding:12px 9px 10px;
+  text-align:center;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:66px;
   transition:background .2s ease;
 }
-.count-box:hover{ background:rgba(178,136,158,.2); }
-.count-n{
-  font-family:'DM Mono',monospace; font-size:18px;
+.stat-box:hover{ background:rgba(178,136,158,.2); }
+
+/* 살아있는 점 */
+.live-dot{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--dawn); margin-bottom:6px;
+  box-shadow:0 0 0 3px rgba(178,136,158,.2);
+  animation:statPulse 2.4s ease-in-out infinite;
+}
+@keyframes statPulse{
+  0%,100%{ box-shadow:0 0 0 3px rgba(178,136,158,.2); }
+  50%{ box-shadow:0 0 0 6px rgba(178,136,158,.05); }
+}
+
+.stat-v{
+  font-size:12.5px; font-weight:600; letter-spacing:-.01em;
   color:var(--foam); line-height:1.2;
 }
-.count-l{
-  font-size:9.5px; color:var(--foam-dim); margin-top:3px;
+.stat-l{
+  font-family:'DM Mono',monospace; font-size:9px;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--foam-dim); margin-top:4px;
+}
+
+/* 방문자 배지 */
+.visit-badge{
+  height:19px; width:auto; display:block;
+  border-radius:5px; opacity:.95;
 }
 
 /* 작은 메모 줄 */
@@ -1328,29 +1328,18 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     </dl>
 
     <p class="sec">status</p>
-    <div class="stat-row">
-      <span class="stat-dot"></span>
-      <span class="stat-txt">상영 중</span>
-    </div>
-    <!-- 방문자 수 — 외부 카운터 서비스를 씁니다.
-         page_id 값을 본인 것으로 바꿔주세요 (아무 문자열이나 가능, 고유하면 됩니다). -->
-    <div class="stat-row">
-      <span class="stat-dot dot-b"></span>
-      <span class="stat-txt">방문</span>
-      <img class="visit-badge"
-           src="https://visitor-badge.laobi.icu/badge?page_id=everlastingstory.ethan&left_text=&right_color=b2889e"
-           alt="방문자 수">
-    </div>
-
-    <p class="sec">count</p>
-    <div class="count-grid">
-      <div class="count-box">
-        <p class="count-n">00</p>
-        <p class="count-l">로그</p>
+    <div class="stat-grid">
+      <div class="stat-box">
+        <span class="live-dot"></span>
+        <p class="stat-v">상영 중</p>
+        <p class="stat-l">now</p>
       </div>
-      <div class="count-box">
-        <p class="count-n">00</p>
-        <p class="count-l">스틸컷</p>
+      <div class="stat-box">
+        <!-- 방문자 수 — page_id 를 본인 것으로 바꿔주세요 (고유한 문자열이면 됩니다) -->
+        <img class="visit-badge"
+             src="https://visitor-badge.laobi.icu/badge?page_id=everlastingstory.ethan&left_text=&right_color=b2889e"
+             alt="방문자 수">
+        <p class="stat-l">visit</p>
       </div>
     </div>
 
