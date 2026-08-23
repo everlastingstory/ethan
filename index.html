@@ -78,6 +78,248 @@ body{
   100%{ transform:translate(-50%,-50%) scale(3.2); opacity:0; }
 }
 
+
+/* ============================================================
+   인트로 화면 (사이트 들어오기 전)
+   배경은 화면 비율에 따라 자동으로 바뀝니다.
+   - 가로가 넓으면  images/intro-pc.jpg
+   - 세로가 길면    images/intro-mobile.jpg
+   ============================================================ */
+#intro{
+  position:fixed; inset:0; z-index:900;
+  display:flex; align-items:center; justify-content:center;
+  padding:28px 22px;
+  background:
+    linear-gradient(180deg, rgba(10,11,40,.72), rgba(5,5,46,.88)),
+    url('images/intro-pc.jpg') center/cover no-repeat;
+  transition:opacity .7s ease, visibility .7s;
+}
+#intro[hidden]{ display:none; }
+#intro.leaving{ opacity:0; visibility:hidden; }
+
+/* 세로가 더 긴 화면(폰)에서는 세로 배경으로 */
+@media (max-aspect-ratio: 1/1){
+  #intro{
+    background:
+      linear-gradient(180deg, rgba(10,11,40,.72), rgba(5,5,46,.88)),
+      url('images/intro-mobile.jpg') center/cover no-repeat;
+  }
+}
+
+.intro-inner{
+  width:100%; max-width:340px; text-align:center;
+  animation:introUp .8s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes introUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.intro-kicker{
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--dawn-lit); margin-bottom:12px;
+}
+.intro-title{
+  font-size:30px; font-weight:600; letter-spacing:-.02em;
+  color:var(--foam); line-height:1.3;
+}
+.intro-sub{
+  font-size:13px; color:var(--foam-dim); margin-top:9px; line-height:1.8;
+}
+.intro-line{
+  width:34px; height:1px; background:var(--dawn-lit);
+  margin:20px auto; opacity:.6;
+}
+
+
+/* ===== 온라인 예매 티켓 ===== */
+.ticket{
+  background:rgba(239,234,240,.1);
+  border:1px solid rgba(239,234,240,.26);
+  border-radius:18px;
+  backdrop-filter:blur(18px) saturate(1.2);
+  -webkit-backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:0 22px 54px -18px rgba(5,5,46,.85),
+             inset 0 1px 0 rgba(255,255,255,.16);
+  overflow:hidden;
+  text-align:left;
+}
+.tk-top{ padding:18px 18px 15px; }
+
+.tk-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:14px;
+}
+.tk-brand{
+  font-family:'DM Mono',monospace; font-size:8.5px;
+  letter-spacing:.2em; color:var(--dawn-lit);
+}
+.tk-badge{
+  font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.14em;
+  padding:3px 8px; border-radius:999px;
+  background:rgba(178,136,158,.32); color:var(--foam);
+}
+
+.tk-title{
+  font-size:27px; font-weight:600; letter-spacing:-.02em;
+  color:var(--foam); line-height:1.15;
+}
+.tk-sub{
+  font-size:11.5px; color:var(--foam-dim); margin-top:4px; margin-bottom:16px;
+}
+
+.tk-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:10px 12px;
+}
+.tk-grid > div{ display:flex; flex-direction:column; gap:2px; }
+.tk-l{
+  font-family:'DM Mono',monospace; font-size:8px;
+  letter-spacing:.16em; color:var(--foam-dim); opacity:.75;
+}
+.tk-v{
+  font-family:'DM Mono',monospace; font-size:12.5px; color:var(--foam);
+}
+
+/* 절취선 */
+.tk-rip{
+  position:relative; display:flex; align-items:center;
+  height:16px; margin:0 0 2px;
+}
+.tk-notch{
+  position:absolute; width:16px; height:16px; border-radius:50%;
+  background:rgba(5,5,46,.92);
+  box-shadow:inset 0 0 0 1px rgba(239,234,240,.16);
+}
+.tk-notch.left{ left:-8px; }
+.tk-notch.right{ right:-8px; }
+.tk-dash{
+  flex:1; height:1px; margin:0 14px;
+  background:repeating-linear-gradient(90deg,
+    rgba(239,234,240,.34) 0 5px, transparent 5px 10px);
+}
+
+.tk-bot{
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px 17px;
+}
+
+/* QR 느낌의 격자 */
+.tk-qr{
+  flex:none; width:52px; height:52px;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:3px;
+  padding:5px; border-radius:7px;
+  background:rgba(239,234,240,.92);
+}
+.tk-qr span{ border-radius:1px; background:#0d0e2c; }
+.tk-qr span:nth-child(2),
+.tk-qr span:nth-child(7),
+.tk-qr span:nth-child(9),
+.tk-qr span:nth-child(12),
+.tk-qr span:nth-child(14){ background:transparent; }
+
+.tk-bot-side{ flex:1; min-width:0; }
+.tk-rate{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:6px;
+  background:#C0455C; color:#fff;
+  font-family:'DM Mono',monospace; font-size:12px;
+  margin:4px 0 6px;
+}
+.tk-code{
+  font-family:'DM Mono',monospace; font-size:9px;
+  letter-spacing:.1em; color:var(--foam-dim);
+}
+
+/* 티켓 안에서의 버튼·입력창 여백 */
+.ticket .intro-btn{ display:flex; width:100%; justify-content:center;
+  border-radius:0; border:none; border-top:1px solid rgba(239,234,240,.2);
+  background:rgba(178,136,158,.28); padding:14px; }
+.ticket .intro-btn:hover{ background:var(--dawn); }
+.ticket .intro-form{ padding:12px 14px 14px; border-top:1px solid rgba(239,234,240,.2); }
+.ticket .intro-hint,
+.ticket .intro-err{ padding:0 16px; }
+.ticket .intro-err:empty{ display:none; }
+.ticket .intro-hint{ padding-bottom:4px; }
+
+/* 입장할 때 티켓이 찢어지는 연출 */
+.ticket.tearing .tk-top{
+  animation:tearUp .55s cubic-bezier(.5,0,.75,0) forwards;
+}
+.ticket.tearing .tk-bot,
+.ticket.tearing .intro-btn,
+.ticket.tearing .intro-form{
+  animation:tearDown .55s cubic-bezier(.5,0,.75,0) forwards;
+}
+@keyframes tearUp{
+  to{ transform:translate(-16px,-42px) rotate(-5deg); opacity:0; }
+}
+@keyframes tearDown{
+  to{ transform:translate(16px,42px) rotate(4deg); opacity:0; }
+}
+
+.intro-inner{ max-width:300px; }
+
+/* 들어가기 버튼 */
+.intro-btn{
+  all:unset; cursor:pointer;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 24px; border-radius:999px;
+  background:rgba(239,234,240,.12);
+  border:1px solid rgba(239,234,240,.28);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  color:var(--foam); font-size:13px;
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  transition:background .2s ease, transform .12s ease;
+}
+.intro-btn:hover{ background:rgba(178,136,158,.34); }
+.intro-btn:active{ transform:scale(.96); }
+.intro-btn:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:3px; }
+.intro-btn .ico{ width:14px; height:14px; margin:0; }
+
+/* 비밀번호 입력 */
+.intro-form{ display:flex; gap:7px; justify-content:center; margin-top:4px; }
+.intro-form[hidden]{ display:none; }
+.intro-input{
+  flex:1; min-width:0; max-width:180px;
+  background:rgba(5,5,46,.42);
+  border:1px solid rgba(239,234,240,.26);
+  border-radius:999px; padding:10px 15px;
+  color:var(--foam); font-size:13px; text-align:center;
+  font-family:'DM Mono',monospace; letter-spacing:.24em;
+  outline:none;
+}
+.intro-input::placeholder{ color:#8b8799; letter-spacing:.1em; }
+.intro-input:focus{ border-color:var(--dawn); }
+.intro-go{
+  flex:none; border:none; cursor:pointer;
+  width:42px; border-radius:999px;
+  background:var(--dawn); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  transition:filter .18s ease, transform .12s ease;
+}
+.intro-go:hover{ filter:brightness(1.18); }
+.intro-go:active{ transform:scale(.94); }
+.intro-go .ico{ width:15px; height:15px; margin:0; }
+
+.intro-hint{ font-size:11px; color:var(--foam-dim); margin-top:12px; opacity:.8; }
+.intro-err{ font-size:11.5px; color:#F0A8B8; margin-top:10px; min-height:16px; }
+.intro-shake{ animation:introShake .4s ease; }
+@keyframes introShake{
+  10%,90%{ transform:translateX(-2px); }
+  20%,80%{ transform:translateX(4px); }
+  30%,50%,70%{ transform:translateX(-6px); }
+  40%,60%{ transform:translateX(6px); }
+}
+
+/* 인트로가 떠 있는 동안 본문 감추기 */
+body.intro-on{ overflow:hidden; }
+body.intro-on .window,
+body.intro-on .sea,
+body.intro-on .feather,
+body.intro-on .ripple,
+body.intro-on .star,
+body.intro-on .dawn-glow{ visibility:hidden; }
+
 /* ============================================================
    창 — 3단 대시보드
    ============================================================ */
@@ -202,6 +444,12 @@ body{
   padding:7px 13px; border-radius:999px;
   background:rgba(239,234,240,.08); border:1px solid var(--glass-line);
   font-family:'DM Mono',monospace; font-size:10.5px; color:var(--foam-dim);
+  white-space:nowrap; overflow:hidden;
+}
+/* 주소가 길면 줄바꿈 대신 끝을 … 으로 줄입니다 */
+.search > span{
+  flex:1; min-width:0;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 .search .ico{ width:13px; height:13px; margin:0; opacity:.8; }
 .topbar .pill{
@@ -226,12 +474,18 @@ body{
   padding:16px 14px;
   border-left:1px solid var(--glass-line);
   background:rgba(239,234,240,.04);
-  overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--glass-line) transparent;
+  overflow:hidden;
+  display:flex; flex-direction:column;
 }
+/* 위쪽 내용은 남는 만큼만 쓰고, 넘치면 조용히 잘립니다 */
+.info-body{ flex:1; min-height:0; overflow:hidden; }
+/* BGM 은 항상 패널 맨 아래에 붙어 잘리지 않습니다 */
+.sec-bgm{ flex:none; }
+.info-col > .bgm{ flex:none; margin-top:auto; }
 .info-col::-webkit-scrollbar{ width:4px; }
 .info-col::-webkit-scrollbar-thumb{ background:var(--glass-line); border-radius:9px; }
 
-.poster{ border-radius:12px; overflow:hidden; background:rgba(5,5,46,.3); margin-bottom:12px; }
+.poster{ border-radius:12px; overflow:hidden; background:rgba(5,5,46,.3); margin-bottom:14px; }
 .poster img{ width:100%; display:block; aspect-ratio:3/4; object-fit:cover; }
 
 /* ============================================================
@@ -358,17 +612,17 @@ body{
    오른쪽 패널 보조 요소
    ============================================================ */
 /* 섹션 사이 여백을 조금 넓게 */
-.info-col .sec{ margin-top:22px; }
+.info-col .sec{ margin-top:24px; }
 .info-col .sec:first-of-type{ margin-top:0; }
 
 /* status — 두 칸짜리 귀여운 박스 */
 .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:7px; }
 .stat-box{
   background:rgba(239,234,240,.07);
-  border-radius:var(--r); padding:12px 9px 10px;
+  border-radius:var(--r); padding:13px 9px 11px;
   text-align:center;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height:66px;
+  min-height:68px;
   transition:background .2s ease;
 }
 .stat-box:hover{ background:rgba(178,136,158,.2); }
@@ -395,10 +649,11 @@ body{
   color:var(--foam-dim); margin-top:4px;
 }
 
-/* 방문자 배지 */
-.visit-badge{
-  height:19px; width:auto; display:block;
-  border-radius:5px; opacity:.95;
+/* 방문자 숫자 */
+.stat-num{
+  font-family:'DM Mono',monospace;
+  font-size:19px; letter-spacing:.02em;
+  color:var(--dawn-lit);
 }
 
 /* 작은 메모 줄 */
@@ -412,6 +667,112 @@ body{
 
 /* BGM 앞 여백 */
 .sec-bgm{ margin-top:24px !important; }
+
+/* ============================================================
+   내 배너 나눔
+   ============================================================ */
+.my-banner{
+  display:flex; align-items:center; gap:13px;
+  background:rgba(239,234,240,.07);
+  border-radius:var(--r); padding:12px;
+  margin-bottom:4px;
+}
+.my-banner img{
+  flex:none; height:40px; width:auto; max-width:60%;
+  display:block; border-radius:5px;
+  border:1px solid rgba(239,234,240,.16);
+}
+.my-banner-side{ flex:1; min-width:0; }
+
+.copy-btn{
+  all:unset; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:8px; padding:6px 12px;
+  border-radius:999px;
+  background:rgba(178,136,158,.26); color:var(--foam);
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  font-size:11px;
+  transition:background .18s ease, transform .12s ease;
+}
+.copy-btn:hover{ background:var(--dawn); }
+.copy-btn:active{ transform:scale(.96); }
+.copy-btn:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+.copy-btn .ico{ width:13px; height:13px; margin:0; }
+.copy-btn.done{ background:rgba(143,166,142,.4); }
+
+/* ============================================================
+   배너 캐러셀 — 큰 한 장 + 아래 필름 목록
+   ============================================================ */
+.bn-stage{
+  display:flex; align-items:center; gap:8px;
+  padding:14px 10px;
+  background:rgba(239,234,240,.06);
+  border-radius:var(--r);
+}
+.bn-arrow{
+  all:unset; cursor:pointer; flex:none;
+  width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(239,234,240,.1); color:var(--foam-dim);
+  transition:background .18s ease, color .18s ease, transform .12s ease;
+}
+.bn-arrow:hover{ background:var(--dawn); color:#fff; }
+.bn-arrow:active{ transform:scale(.9); }
+.bn-arrow:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+.bn-arrow .ico{ width:14px; height:14px; margin:0; }
+
+/* 큰 배너 한 장이 보이는 자리 (200x40 고정 비율) */
+.bn-track{
+  flex:1; min-width:0; position:relative;
+  aspect-ratio:200/40; max-width:200px; margin:0 auto;
+  border-radius:6px; overflow:hidden;
+  background:rgba(5,5,46,.3);
+}
+.bn-item{
+  position:absolute; inset:0;
+  display:block; line-height:0;
+  opacity:0; visibility:hidden;
+  transform:scale(1.02);
+  transition:opacity .38s ease, transform .38s ease, visibility .38s;
+}
+.bn-item.on{ opacity:1; visibility:visible; transform:scale(1); }
+.bn-item img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+
+/* 현재 배너 이름 */
+.bn-name{
+  text-align:center; margin:9px 0 11px;
+  font-size:11.5px; color:var(--foam-dim);
+}
+
+/* 아래 필름 목록 */
+.bn-film{
+  display:flex; gap:11px; justify-content:center; flex-wrap:wrap;
+}
+.bn-film{ align-items:center; min-height:32px; }
+.bn-cell{
+  all:unset; cursor:pointer;
+  width:34px; height:14px; border-radius:6px;
+  overflow:hidden; line-height:0;
+  opacity:.38; filter:saturate(.35) brightness(.85);
+  border:1px solid transparent;
+  transform-origin:center bottom;
+  transition:opacity .28s ease, filter .28s ease,
+             border-color .28s ease, transform .28s cubic-bezier(.2,.8,.3,1),
+             box-shadow .28s ease;
+}
+.bn-cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+.bn-cell:hover{ opacity:.75; filter:saturate(.8); transform:scale(1.08); }
+/* 현재 보고 있는 칸 — 한 단계 크게 튀어나옵니다 */
+.bn-cell.on{
+  opacity:1; filter:none;
+  border-color:var(--dawn-lit);
+  transform:scale(1.45) translateY(-2px);
+  box-shadow:0 6px 14px -5px rgba(178,136,158,.9);
+  z-index:2; position:relative;
+}
+.bn-cell:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:3px; }
 
 /* ============================================================
    배너 — 이미지 비율에 맞춰 자동 정렬
@@ -503,6 +864,81 @@ body{
   .row-2{ grid-row:span 1; }
 }
 
+
+/* ============================================================
+   상영 종료 확인 팝업
+   ============================================================ */
+#endPop{
+  position:fixed; inset:0; z-index:800;
+  display:flex; align-items:center; justify-content:center;
+  padding:28px 22px;
+  background:rgba(5,5,46,.72);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  animation:popFade .26s ease;
+}
+#endPop[hidden]{ display:none; }
+@keyframes popFade{ from{ opacity:0; } to{ opacity:1; } }
+
+.end-box{
+  width:100%; max-width:280px; text-align:center;
+  background:rgba(239,234,240,.1);
+  border:1px solid rgba(239,234,240,.24);
+  border-radius:20px; overflow:hidden;
+  backdrop-filter:blur(18px) saturate(1.2);
+  -webkit-backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:0 20px 50px -16px rgba(5,5,46,.9);
+  animation:popUp .3s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes popUp{
+  from{ opacity:0; transform:translateY(12px) scale(.96); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+.end-body{ padding:24px 20px 20px; }
+.end-ico{
+  width:40px; height:40px; margin:0 auto 13px; border-radius:50%;
+  background:rgba(178,136,158,.3);
+  display:flex; align-items:center; justify-content:center;
+}
+.end-ico .ico{ width:18px; height:18px; margin:0; color:var(--foam); }
+.end-title{
+  font-size:15px; font-weight:600; letter-spacing:-.015em;
+  color:var(--foam); margin-bottom:5px;
+}
+.end-sub{ font-size:11.5px; color:var(--foam-dim); line-height:1.7; }
+
+.end-btns{ display:flex; border-top:1px solid rgba(239,234,240,.2); }
+.end-btn{
+  all:unset; cursor:pointer; flex:1;
+  padding:14px 0; text-align:center;
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  font-size:13px; color:var(--foam-dim);
+  transition:background .18s ease, color .18s ease;
+}
+.end-btn:hover{ background:rgba(239,234,240,.1); color:var(--foam); }
+.end-btn:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:-3px; }
+.end-btn.yes{
+  border-left:1px solid rgba(239,234,240,.2);
+  color:var(--foam);
+}
+.end-btn.yes:hover{ background:var(--dawn); color:#fff; }
+
+/* 전원 버튼을 누르고 있는 동안 차오르는 표시 */
+.pwr{ position:relative; overflow:hidden; }
+.pwr::after{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  background:var(--dawn); opacity:0;
+  transform:scale(0); transform-origin:center;
+}
+.pwr.holding::after{
+  animation:pwrHold .75s linear forwards;
+}
+@keyframes pwrHold{
+  from{ opacity:.55; transform:scale(0); }
+  to{ opacity:.75; transform:scale(1); }
+}
+.pwr > svg{ position:relative; z-index:1; }
+
 /* ============================================================
    상단 프로필 버튼 + 소개 카드
    ============================================================ */
@@ -548,8 +984,14 @@ body{
 .handle-sm{ font-family:'DM Mono',monospace; font-size:9.5px; color:var(--dawn-lit); }
 .me-card-lines{
   font-size:11.5px; line-height:1.85; color:var(--foam-dim);
-  margin-bottom:11px;
+  margin-bottom:10px;
 }
+.me-card-more{
+  font-family:'DM Mono',monospace; font-size:9.5px;
+  color:var(--foam-dim); opacity:.7;
+  padding-top:9px; border-top:1px solid rgba(239,234,240,.12);
+}
+.me-card-more b{ color:var(--dawn-lit); font-weight:400; }
 .me-card-x{
   all:unset; cursor:pointer; flex:none;
   width:24px; height:24px; border-radius:50%;
@@ -665,7 +1107,7 @@ body{
 .b-txt{ font-size:11.5px; color:var(--foam-dim); }
 .b-val{ font-size:18px; font-weight:600; letter-spacing:-.015em; line-height:1.4; }
 
-.spec{ display:flex; gap:9px; padding:3px 0; font-size:11.5px; }
+.spec{ display:flex; gap:9px; padding:4px 0; font-size:11.5px; }
 .spec dt{ flex:none; min-width:38px; color:var(--dawn-lit); opacity:.85; }
 .spec dd{ color:var(--foam-dim); }
 
@@ -886,12 +1328,17 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     box-shadow:0 4px 12px -4px rgba(178,136,158,.7);
   }
 
-  .topbar{ padding:11px 14px; }
+  .topbar{ padding:11px 14px; gap:8px; }
+  /* 모바일: 주소가 길어 두 줄이 되지 않도록 글자를 조금 줄임 */
+  .search{ font-size:10px; padding:7px 11px; }
+  .search .ico{ width:12px; height:12px; }
   .main{ padding:18px 16px 20px; overflow:visible; }
   .info-col{
     width:100%; border-left:none; border-top:1px solid var(--glass-line);
     overflow:visible; padding:18px 16px 22px;
+    display:block;
   }
+  .info-body{ flex:none; overflow:visible; }
   .poster{ max-width:210px; margin-left:auto; margin-right:auto; }
 
   /* 모바일 글자 크기 */
@@ -944,7 +1391,73 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 }
 </style>
 </head>
-<body>
+<body class="intro-on">
+<!-- ==================== 인트로 화면 ==================== -->
+<div id="intro">
+  <div class="intro-inner" id="introInner">
+    <div class="ticket" id="ticket">
+
+      <!-- 티켓 윗부분 -->
+      <div class="tk-top">
+        <div class="tk-head">
+          <span class="tk-brand">EVERLASTING CINEMA</span>
+          <span class="tk-badge">MOBILE</span>
+        </div>
+
+        <p class="tk-title">EVER</p>
+        <p class="tk-sub">Never-Ending Curtain Call</p>
+
+        <div class="tk-grid">
+          <div><span class="tk-l">DATE</span><span class="tk-v">2026.04.18</span></div>
+          <div><span class="tk-l">TIME</span><span class="tk-v">21:6</span></div>
+          <div><span class="tk-l">SCREEN</span><span class="tk-v">02</span></div>
+          <div><span class="tk-l">SEAT</span><span class="tk-v">E-14</span></div>
+        </div>
+      </div>
+
+      <!-- 절취선 -->
+      <div class="tk-rip">
+        <span class="tk-notch left"></span>
+        <span class="tk-dash"></span>
+        <span class="tk-notch right"></span>
+      </div>
+
+      <!-- 티켓 아랫부분 -->
+      <div class="tk-bot">
+        <div class="tk-qr" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="tk-bot-side">
+          <p class="tk-l">RATING</p>
+          <p class="tk-rate">19</p>
+          <p class="tk-code">NO. 0401-EVER</p>
+        </div>
+      </div>
+
+      <!-- 들어가기 -->
+      <button class="intro-btn" id="introBtn">
+        입장하기
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+
+      <!-- 비밀번호를 쓸 때 -->
+      <div class="intro-form" id="introForm" hidden>
+        <input class="intro-input" id="introInput" type="password" inputmode="numeric"
+               placeholder="예매번호" autocomplete="off" aria-label="예매번호">
+        <button class="intro-go" id="introGo" aria-label="확인">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <p class="intro-hint" id="introHint" hidden></p>
+      <p class="intro-err" id="introErr"></p>
+    </div>
+  </div>
+</div>
+
 
 <div class="dawn-glow"></div>
 
@@ -976,6 +1489,23 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 <div class="ripple" style="left:95%; top:54%; width:84px; height:22px; animation-duration:24s; animation-delay:4.24s"></div>
 
 
+<!-- ==================== 상영 종료 확인 ==================== -->
+<div id="endPop" hidden>
+  <div class="end-box">
+    <div class="end-body">
+      <div class="end-ico">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v8"/><path d="M7.5 7A7 7 0 1016.5 7"/></svg>
+      </div>
+      <p class="end-title">상영을 종료하시겠습니까?</p>
+      <p class="end-sub">처음 화면으로 돌아갑니다.</p>
+    </div>
+    <div class="end-btns">
+      <button class="end-btn no" id="endNo">아니오</button>
+      <button class="end-btn yes" id="endYes">예</button>
+    </div>
+  </div>
+</div>
+
 <div class="window">
 
   <!-- ==================== ① 왼쪽 사이드바 ==================== -->
@@ -995,13 +1525,13 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <svg class="ico" viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></svg><span class="lbl">home</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="cast">
-        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg><span class="lbl">주연</span>
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="12" r="2.4"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg><span class="lbl">cast</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="stills">
-        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg><span class="lbl">스틸컷</span>
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 15l4-4 4 4 3-3 6 5"/></svg><span class="lbl">stills</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="info">
-        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="lbl">성향</span>
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="lbl">info</span>
       </button>
       <button class="tab" role="tab" aria-selected="false" data-panel="links">
         <svg class="ico" viewBox="0 0 24 24"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg><span class="lbl">links</span>
@@ -1044,13 +1574,10 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <!-- TODO: 소개 내용을 자유롭게 고치세요 -->
       <p class="me-card-lines">
         MeomMeoverse Ethan Only<br>
-        기본 유입 X, 편의상 동장르 제외 1T1D 유지<br>
-        맞배려 가능한 경우 맞배려 선호
+        기본 유입 X · 동장르 제외 1T1D<br>
+        앓이 · 로그 · 탐대 · 소비
       </p>
-      <dl>
-        <div class="spec"><dt>성향</dt><dd>앓이 · 로그 · 탐대 · 소비</dd></div>
-        <div class="spec"><dt>플랫폼</dt><dd>케이브덕 (Main) · 로판, 엘린 (Sub)</dd></div>
-      </dl>
+      <p class="me-card-more">자세한 내용은 <b>성향</b> 탭에서</p>
     </div>
 
     <div class="main">
@@ -1079,7 +1606,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
           <!-- 소개: 세로로 긴 카드 -->
           <div class="bento-cell span-2 row-2">
-            <p class="b-lab">소개</p>
+            <p class="b-lab">synopsis</p>
             <p class="b-txt">
               모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자, 666이
               코드네임 '에단'을 찾아온다. 그러나 의뢰는 에단에 의해 파기되고 달리아는
@@ -1094,16 +1621,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </p>
           </div>
 
-          <!-- 명대사 1 -->
+          <!-- 명대사 -->
           <div class="bento-cell box-plain center-y">
             <p class="quote" style="margin:0; font-size:13.5px">Lost, little lamb?</p>
-          </div>
-
-          <!-- 명대사 2 -->
-          <div class="bento-cell center-y">
-            <p class="b-lab">명대사</p>
-            <p class="line-q">"여기에 대사를 적어주세요."</p>
-            <p class="line-who">— 인물 이름</p>
           </div>
 
           <!-- 사운드트랙 -->
@@ -1122,7 +1642,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
           <!-- 최근 로그 -->
           <div class="bento-cell row-2 box-deep">
-            <p class="b-lab">recent log</p>
+            <p class="b-lab">screening log</p>
             <!-- TODO: 로그 파일을 만들면 href 를 바꿔주세요 -->
             <a class="logrow" href="logs/0000-00-00.html">
               <span class="d">0000.00.00</span>
@@ -1136,7 +1656,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
               <span class="d">0000.00.00</span>
               <span class="s">로그 제목</span>
             </a>
-            <a class="logrow more" href="#" data-goto="stills">전체 보기 →</a>
+            <a class="logrow more" href="#" data-goto="stills">view all →</a>
           </div>
 
         </div>
@@ -1144,7 +1664,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 주연 ============ -->
       <section class="panel" data-panel="cast">
-        <p class="sec">주연</p>
+        <p class="sec">cast</p>
         <div class="bento">
 
           <!-- 인물 카드를 누르면 개인 프로필 페이지로 이동합니다 -->
@@ -1187,7 +1707,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 스틸컷 ============ -->
       <section class="panel" data-panel="stills">
-        <p class="sec">스틸컷</p>
+        <p class="sec">stills</p>
         <!-- 스틸컷: images/still-01 ~ still-06 · 세로 3:4 비율이 잘 맞습니다 -->
         <div class="grid grid-3">
           <div class="polaroid"><div class="media"><img src="images/still-01.png" alt=""></div></div>
@@ -1202,7 +1722,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 성향 ============ -->
       <section class="panel" data-panel="info">
-        <p class="sec">기본</p>
+        <p class="sec">profile</p>
         <div class="grid">
           <div class="box box-wide">
             <dl>
@@ -1262,7 +1782,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ LINKS ============ -->
       <section class="panel" data-panel="links">
-        <p class="sec">내 페이지</p>
+        <p class="sec">my pages</p>
         <div class="grid">
           <a class="linkrow" href="https://ethan.luv3r.me" target="_blank" rel="noopener">
             <span class="lead">EVER<small>Never-Ending Curtain Call</small></span><span class="arw">↗</span></a>
@@ -1276,22 +1796,53 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             <span class="lead">tistory<small>블로그</small></span><span class="arw">↗</span></a>
         </div>
 
-        <p class="sec">배너</p>
-        <!-- ===== 배너 =====
-             이미지 비율은 자동으로 맞춰집니다.
-             (가로 배너 200x40 이든 정사각 100x100 이든 그대로 넣으세요)
-             한 줄 복사해서 늘리면 됩니다. -->
-        <div class="banners">
-          <a class="banner" href="https://주소" target="_blank" rel="noopener">
-            <img src="banners/파일이름.png" alt="사이트 이름">
-          </a>
-          <a class="banner" href="https://주소" target="_blank" rel="noopener">
-            <img src="banners/파일이름2.png" alt="사이트 이름">
-          </a>
-          <a class="banner" href="https://주소" target="_blank" rel="noopener">
-            <img src="banners/파일이름3.gif" alt="사이트 이름">
-          </a>
+        <p class="sec">take my banner</p>
+        <!-- ===== 내 배너 =====
+             images/banner.png 로 올려주세요.
+             복사 버튼을 누르면 아래 코드가 클립보드에 복사됩니다. -->
+        <div class="my-banner">
+          <img src="images/banner.png" alt="EVER — Never-Ending Curtain Call">
+          <div class="my-banner-side">
+            <p class="b-tit" style="margin-bottom:2px">EVER</p>
+            <p class="b-txt" style="font-size:11px">Never-Ending Curtain Call</p>
+            <button class="copy-btn" id="copyBanner">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+              <span id="copyLabel">코드 복사</span>
+            </button>
+          </div>
         </div>
+
+        <p class="sec">now showing</p>
+        <!-- ===== 받은 배너 =====
+             배너를 추가하려면 아래 <a class="bn-item"> 한 덩어리를 복사해
+             필요한 만큼 붙여넣으세요. 아래 필름 목록은 자동으로 만들어집니다.
+             이미지 크기가 달라도 200x40 칸에 맞춰 보입니다. -->
+        <div class="bn-stage">
+          <button class="bn-arrow prev" id="bnPrev" aria-label="이전 배너">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+
+          <div class="bn-track" id="bnTrack">
+            <a class="bn-item" href="https://주소1" target="_blank" rel="noopener" data-name="사이트 이름 1">
+              <img src="banners/banner-01.png" alt="사이트 이름 1">
+            </a>
+            <a class="bn-item" href="https://주소2" target="_blank" rel="noopener" data-name="사이트 이름 2">
+              <img src="banners/banner-02.png" alt="사이트 이름 2">
+            </a>
+            <a class="bn-item" href="https://주소3" target="_blank" rel="noopener" data-name="사이트 이름 3">
+              <img src="banners/banner-03.gif" alt="사이트 이름 3">
+            </a>
+          </div>
+
+          <button class="bn-arrow next" id="bnNext" aria-label="다음 배너">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <p class="bn-name" id="bnName">사이트 이름 1</p>
+
+        <!-- 아래 필름 목록 (자동 생성) -->
+        <div class="bn-film" id="bnFilm"></div>
 
         <p class="sec">credit</p>
         <div class="bento-cell box-plain" style="padding:2px">
@@ -1306,7 +1857,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   <aside class="info-col">
     <!-- 모바일 전용: 접었다 펴는 버튼 -->
     <button class="info-toggle" id="infoToggle" aria-expanded="false">
-      <span>작품 정보 보기</span>
+      <span>Information</span>
       <svg class="ico chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </button>
 
@@ -1319,12 +1870,12 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     <p class="b-tit" style="margin-bottom:2px">에버</p>
     <p class="b-txt" style="margin-bottom:12px">영화 · EVER · 2026</p>
 
-    <p class="sec">정보</p>
+    <p class="sec">information</p>
     <dl>
-      <div class="spec"><dt>개요</dt><dd>희비극 · 미국 · 216분</dd></div>
-      <div class="spec"><dt>개봉</dt><dd>2026. 04. 18</dd></div>
-      <div class="spec"><dt>평점</dt><dd>★ 6.66</dd></div>
-      <div class="spec"><dt>감독</dt><dd>P</dd></div>
+      <div class="spec"><dt>Genre</dt><dd>희비극</dd></div>
+      <div class="spec"><dt>Release</dt><dd>2026. 04. 18</dd></div>
+      <div class="spec"><dt>Rating</dt><dd>★ 6.66</dd></div>
+      <div class="spec"><dt>Runtime</dt><dd>216분</dd></div>
     </dl>
 
     <p class="sec">status</p>
@@ -1335,18 +1886,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <p class="stat-l">now</p>
       </div>
       <div class="stat-box">
-        <!-- 방문자 수 — page_id 를 본인 것으로 바꿔주세요 (고유한 문자열이면 됩니다) -->
-        <img class="visit-badge"
-             src="https://visitor-badge.laobi.icu/badge?page_id=everlastingstory.ethan&left_text=&right_color=b2889e"
-             alt="방문자 수">
-        <p class="stat-l">visit</p>
+        <p class="stat-v stat-num" id="visitCount">—</p>
+        <p class="stat-l">audience</p>
       </div>
-    </div>
-
-    <p class="sec">weather</p>
-    <div class="mini-note">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18a4 4 0 010-8 5 5 0 019.6-1.3A3.5 3.5 0 0117 18z"/></svg>
-      <span>워싱턴 · 흐림</span>
     </div>
 
     </div><!-- /info-body -->
@@ -1528,7 +2070,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     var open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!open));
     body.classList.toggle('open', !open);
-    btn.querySelector('span').textContent = !open ? '작품 정보 접기' : '작품 정보 보기';
+    btn.querySelector('span').textContent = !open ? 'Close' : 'Information';
   });
 })();
 
@@ -1583,7 +2125,246 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     });
   });
 })();
+
+/* ===== 방문자 수 =====
+   깃헙 페이지는 정적 사이트라 방문 수를 직접 셀 수 없어서
+   무료 카운터 서비스를 사용합니다.
+   ⬇️ KEY 값을 본인만의 고유한 문자열로 바꿔주세요. */
+(function(){
+  var NS  = 'everlastingstory';   // ← 네임스페이스 (본인 아이디 등)
+  var KEY = 'ethan-home';         // ← 페이지 구분용 이름
+
+  var el = document.getElementById('visitCount');
+  if(!el) return;
+
+  fetch('https://api.counterapi.dev/v1/' + NS + '/' + KEY + '/up')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var n = d && (d.count != null ? d.count : d.value);
+      if(n == null) throw new Error('no count');
+      el.textContent = Number(n).toLocaleString();
+    })
+    .catch(function(){
+      el.textContent = '—';   // 서비스 응답이 없을 때
+    });
+})();
+
+/* ===== 배너 코드 복사 ===== */
+(function(){
+  var btn   = document.getElementById('copyBanner');
+  var label = document.getElementById('copyLabel');
+  if(!btn) return;
+
+  var SITE   = 'https://everlastingstory.github.io/ethan/';
+  var BANNER = 'https://everlastingstory.github.io/ethan/images/banner.png';
+  var ALT    = 'EVER — Never-Ending Curtain Call';
+
+  var code = '<a href="' + SITE + '" target="_blank">'
+           + '<img src="' + BANNER + '" alt="' + ALT + '"></a>';
+
+  btn.addEventListener('click', function(){
+    function done(){
+      label.textContent = '복사했어요';
+      btn.classList.add('done');
+      setTimeout(function(){
+        label.textContent = '코드 복사';
+        btn.classList.remove('done');
+      }, 1800);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(code).then(done).catch(fallback);
+    } else { fallback(); }
+
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch(e){ label.textContent = '복사 실패'; }
+      document.body.removeChild(ta);
+    }
+  });
+})();
+
+/* ===== 배너 캐러셀 ===== */
+(function(){
+  var track = document.getElementById('bnTrack');
+  var film  = document.getElementById('bnFilm');
+  var name  = document.getElementById('bnName');
+  var prev  = document.getElementById('bnPrev');
+  var next  = document.getElementById('bnNext');
+  if(!track || !film) return;
+
+  var items = Array.prototype.slice.call(track.querySelectorAll('.bn-item'));
+  if(!items.length) return;
+  var cur = 0;
+
+  // 아래 필름 목록을 배너 개수만큼 자동 생성
+  items.forEach(function(item, i){
+    var cell = document.createElement('button');
+    cell.className = 'bn-cell';
+    cell.setAttribute('aria-label', (item.dataset.name || '배너 ' + (i+1)));
+    var img = document.createElement('img');
+    img.src = item.querySelector('img').getAttribute('src');
+    img.alt = '';
+    cell.appendChild(img);
+    cell.addEventListener('click', function(){ show(i); });
+    film.appendChild(cell);
+  });
+  var cells = Array.prototype.slice.call(film.children);
+
+  function show(i){
+    cur = (i + items.length) % items.length;
+    items.forEach(function(el, n){ el.classList.toggle('on', n === cur); });
+    cells.forEach(function(el, n){ el.classList.toggle('on', n === cur); });
+    if(name) name.textContent = items[cur].dataset.name || '';
+  }
+
+  prev.addEventListener('click', function(){ show(cur - 1); });
+  next.addEventListener('click', function(){ show(cur + 1); });
+
+  show(0);
+})();
+
+/* ===== 전원 버튼 꾹 누르기 → 상영 종료 ===== */
+(function(){
+  var pwr   = document.getElementById('pwrBtn');
+  var pop   = document.getElementById('endPop');
+  var no    = document.getElementById('endNo');
+  var yes   = document.getElementById('endYes');
+  var intro = document.getElementById('intro');
+  if(!pwr || !pop) return;
+
+  var HOLD = 750;   // 꾹 누르는 시간 (밀리초)
+  var timer = null, held = false;
+
+  function startHold(e){
+    held = false;
+    pwr.classList.add('holding');
+    timer = setTimeout(function(){
+      held = true;
+      pwr.classList.remove('holding');
+      openPop();
+    }, HOLD);
+  }
+  function cancelHold(){
+    clearTimeout(timer);
+    pwr.classList.remove('holding');
+  }
+
+  pwr.addEventListener('pointerdown', startHold);
+  pwr.addEventListener('pointerup', cancelHold);
+  pwr.addEventListener('pointerleave', cancelHold);
+  pwr.addEventListener('pointercancel', cancelHold);
+
+  // 꾹 눌러서 팝업이 떴다면 일반 클릭(메뉴 접기)은 취소
+  pwr.addEventListener('click', function(e){
+    if(held){ e.stopImmediatePropagation(); e.preventDefault(); held = false; }
+  }, true);
+
+  function openPop(){
+    pop.hidden = false;
+    setTimeout(function(){ no.focus(); }, 100);
+  }
+  function closePop(){ pop.hidden = true; }
+
+  no.addEventListener('click', closePop);
+
+  yes.addEventListener('click', function(){
+    closePop();
+    if(intro){
+      var tk = document.getElementById('ticket');
+      if(tk) tk.classList.remove('tearing');
+      intro.hidden = false;
+      intro.classList.remove('leaving');
+      document.body.classList.add('intro-on');
+      try{ sessionStorage.removeItem('intro-ever'); }catch(e){}
+    }
+  });
+
+  pop.addEventListener('click', function(e){ if(e.target === pop) closePop(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !pop.hidden) closePop();
+  });
+})();
 </script>
 
+
+<script>
+/* ============================================================
+   인트로 화면
+   ⬇️ 여기만 고치면 됩니다.
+   USE_PASSWORD : true 로 두면 비밀번호를 물어보고,
+                  false 로 두면 "들어가기" 버튼만 나옵니다.
+   ============================================================ */
+(function(){
+  var USE_PASSWORD = false;              // ← 비밀번호 사용 여부 (true / false)
+  var PASSWORD     = '0401';             // ← 비밀번호
+  var HINT         = '바이오 생년월일';    // ← 힌트 문구
+  var REMEMBER     = false;              // ← true 로 바꾸면 한 번 들어온 탭에서는 다시 안 물어봅니다
+
+  var intro = document.getElementById('intro');
+  var btn   = document.getElementById('introBtn');
+  var form  = document.getElementById('introForm');
+  var input = document.getElementById('introInput');
+  var go    = document.getElementById('introGo');
+  var hint  = document.getElementById('introHint');
+  var err   = document.getElementById('introErr');
+  var inner = document.getElementById('introInner');
+  if(!intro) return;
+
+  var KEY = 'intro-ever';
+
+  if(USE_PASSWORD){
+    btn.hidden = true;
+    form.hidden = false;
+    hint.hidden = false;
+    hint.textContent = '힌트 · ' + HINT;
+  }
+
+  function enter(){
+    var tk = document.getElementById('ticket');
+    if(tk) tk.classList.add('tearing');
+    setTimeout(function(){ intro.classList.add('leaving'); }, 300);
+    document.body.classList.remove('intro-on');
+    setTimeout(function(){ intro.hidden = true; }, 1100);
+    if(REMEMBER){ try{ sessionStorage.setItem(KEY, '1'); }catch(e){} }
+  }
+
+  if(REMEMBER){
+    try{
+      if(sessionStorage.getItem(KEY) === '1'){
+        intro.hidden = true;
+        document.body.classList.remove('intro-on');
+      }
+    }catch(e){}
+  } else {
+    try{ sessionStorage.removeItem(KEY); }catch(e){}
+  }
+
+  btn.addEventListener('click', enter);
+
+  function check(){
+    if(input.value.trim() === PASSWORD){
+      err.textContent = '';
+      enter();
+    } else {
+      err.textContent = '비밀번호가 맞지 않아요';
+      inner.classList.remove('intro-shake');
+      void inner.offsetWidth;
+      inner.classList.add('intro-shake');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  go.addEventListener('click', check);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter') check(); });
+  input.addEventListener('input', function(){ err.textContent = ''; });
+})();
+</script>
 </body>
 </html>
