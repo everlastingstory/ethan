@@ -432,9 +432,90 @@
   @media (max-width:899px){
     .content{ padding-top:58px; }
   }
+
+  /* ===== 비밀번호 잠금 ===== */
+  #gate{
+    position:fixed; inset:0; z-index:999;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    background:linear-gradient(180deg, rgba(10,11,40,.94), rgba(5,5,46,.97));
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  }
+  #gate[hidden]{ display:none; }
+  .gate-box{
+    width:100%; max-width:300px; text-align:center;
+    background:rgba(239,234,240,.08);
+    border:1px solid rgba(239,234,240,.2);
+    border-radius:22px; padding:28px 22px 24px;
+    box-shadow:0 20px 50px -16px rgba(5,5,46,.85);
+  }
+  .gate-ico{
+    width:44px; height:44px; margin:0 auto 14px; border-radius:50%;
+    background:rgba(178,136,158,.45);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .gate-ico svg{ width:20px; height:20px; stroke:#EFEAF0; fill:none; stroke-width:1.7;
+    stroke-linecap:round; stroke-linejoin:round; }
+  .gate-title{
+    font-size:16px; font-weight:600; letter-spacing:-.02em;
+    color:#EFEAF0; margin-bottom:5px;
+  }
+  .gate-hint{ font-size:12px; color:#B9B3C8; margin-bottom:18px; }
+  .gate-form{ display:flex; gap:7px; }
+  .gate-input{
+    flex:1; min-width:0;
+    background:rgba(5,5,46,.4);
+    border:1px solid rgba(239,234,240,.22);
+    border-radius:999px; padding:10px 15px;
+    color:#EFEAF0; font-size:13px; text-align:center;
+    font-family:'DM Mono',monospace; letter-spacing:.24em;
+    outline:none;
+  }
+  .gate-input::placeholder{ color:#7d7a90; letter-spacing:.1em; }
+  .gate-input:focus{ border-color:#B2889E; }
+  .gate-go{
+    flex:none; border:none; cursor:pointer;
+    width:42px; border-radius:999px;
+    background:#B2889E; color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    transition:filter .18s ease, transform .12s ease;
+  }
+  .gate-go:hover{ filter:brightness(1.18); }
+  .gate-go:active{ transform:scale(.94); }
+  .gate-go svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2;
+    stroke-linecap:round; stroke-linejoin:round; }
+  .gate-err{ font-size:11.5px; color:#F0A8B8; margin-top:11px; min-height:16px; }
+  .gate-shake{ animation:gateShake .4s ease; }
+  @keyframes gateShake{
+    10%,90%{ transform:translateX(-2px); }
+    20%,80%{ transform:translateX(4px); }
+    30%,50%,70%{ transform:translateX(-6px); }
+    40%,60%{ transform:translateX(6px); }
+  }
+  body.locked .phone,
+  body.locked .back-home{ visibility:hidden; }
 </style>
 </head>
-<body>
+<body class="locked">
+<div id="gate">
+  <div class="gate-box" id="gateBox">
+    <div class="gate-ico">
+      <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+    </div>
+    <p class="gate-title">MOCKINGBIRD</p>
+    <p class="gate-hint">힌트 · 바이오 생년월일</p>
+    <div class="gate-form">
+      <input class="gate-input" id="gateInput" type="password" inputmode="numeric"
+             placeholder="비밀번호" autocomplete="off" aria-label="비밀번호">
+      <button class="gate-go" id="gateGo" aria-label="확인">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <p class="gate-err" id="gateErr"></p>
+  </div>
+</div>
+
+
 
 <div class="bg-glow"></div>
 <div class="bg-star" style="left:8%; top:7%; animation-delay:.2s"></div>
@@ -457,7 +538,7 @@
 <svg class="bg-feather" style="left:6%; width:18px; height:18px; animation-duration:19s; animation-delay:-8s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
 <svg class="bg-feather" style="left:90%; width:15px; height:15px; animation-duration:24s; animation-delay:-3s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
 
-<a class="back-home" href="../index.html#cast">
+<a class="back-home" href="../index.html?back=1#cast">
   <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
   돌아가기
 </a>
@@ -609,5 +690,52 @@
   </div>
 </div>
 
+
+<script>
+/* ===== 비밀번호 =====
+   바꾸려면 PASSWORD 와 HINT 만 고치세요. */
+(function(){
+  var PASSWORD = '0401';                // 비밀번호
+  var HINT     = '바이오 생년월일';       // 힌트 문구
+  var KEY      = 'gate-mockingbird';
+
+  var gate  = document.getElementById('gate');
+  var input = document.getElementById('gateInput');
+  var go    = document.getElementById('gateGo');
+  var err   = document.getElementById('gateErr');
+  var box   = document.getElementById('gateBox');
+  var hint  = document.querySelector('.gate-hint');
+  if(hint) hint.textContent = '힌트 · ' + HINT;
+
+  function unlock(){
+    gate.hidden = true;
+    document.body.classList.remove('locked');
+    try{ sessionStorage.setItem(KEY, '1'); }catch(e){}
+  }
+
+  try{
+    if(sessionStorage.getItem(KEY) === '1'){ unlock(); }
+  }catch(e){}
+
+  function check(){
+    if(input.value.trim() === PASSWORD){
+      err.textContent = '';
+      unlock();
+    } else {
+      err.textContent = '비밀번호가 맞지 않아요';
+      box.classList.remove('gate-shake');
+      void box.offsetWidth;
+      box.classList.add('gate-shake');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  go.addEventListener('click', check);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter') check(); });
+  input.addEventListener('input', function(){ err.textContent = ''; });
+  if(!gate.hidden) setTimeout(function(){ input.focus(); }, 300);
+})();
+</script>
 </body>
 </html>
