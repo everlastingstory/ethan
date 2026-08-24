@@ -650,7 +650,7 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 }
 
 .stat-v{
-  font-size:12.5px; font-weight:600; letter-spacing:-.01em;
+  font-size:12px; font-weight:600; letter-spacing:.02em;
   color:var(--foam); line-height:1.2;
 }
 .stat-l{
@@ -1348,7 +1348,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
     overflow:visible; padding:18px 16px 22px;
     display:block;
   }
-  .info-body{ flex:none; overflow:visible; display:block; }
+  /* display 는 위의 접기 규칙(none/open)을 따르도록 건드리지 않습니다 */
+  .info-body{ flex:none; overflow:visible; }
   .info-body > .poster{ flex:none; }
   .info-body > .poster img{ height:auto; aspect-ratio:3/4; }
   .poster{ max-width:210px; margin-left:auto; margin-right:auto; }
@@ -1368,7 +1369,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 }
 @media (max-width:960px){
   /* --- 모바일 접기: 프로필/정보를 접어 배경이 드러나게 --- */
-  .hamb{ display:flex; }
+  /* 모바일에는 패널 안의 Information/Close 버튼이 있으므로
+     상단 햄버거는 숨겨 조작을 하나로 통일합니다 */
+  .hamb{ display:none; }
+  /* 혹시 접힌 상태로 넘어와도 모바일에서는 항상 펼쳐 보이게 */
+  .window.info-closed .info-col{
+    max-height:none; opacity:1;
+    padding-top:18px; padding-bottom:22px;
+    border-bottom-width:1px;
+  }
 
   /* 접힘 상태 = 위아래로 줄어듦 (모바일은 세로로 쌓이므로 높이를 접습니다) */
   .side, .info-col{
@@ -1835,8 +1844,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           </button>
 
           <div class="bn-track" id="bnTrack">
-            <a class="bn-item" href="https://arbiterkitsune.tistory.com/notice/1" target="_blank" rel="noopener" data-name="찰나가 영원이 된다는 것">
-              <img src="banner/01.jpg" alt="찰나가 영원이 된다는 것">
+            <a class="bn-item" href="https://direilia.carrd.co" target="_blank" rel="noopener" data-name="찰나가 영원에 새겨진다는 것">
+              <img src="banner/01.jpg" alt="찰나가 영원에 새겨진다는 것">
             </a>
             <a class="bn-item" href="https://주소2" target="_blank" rel="noopener" data-name="사이트 이름 2">
               <img src="banner/02.png" alt="사이트 이름 2">
@@ -1851,7 +1860,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           </button>
         </div>
 
-        <p class="bn-name" id="bnName">찰나가 영원이 된다는 것</p>
+        <p class="bn-name" id="bnName">찰나가 영원에 새겨진다는 것</p>
 
         <!-- 아래 필름 목록 (자동 생성) -->
         <div class="bn-film" id="bnFilm"></div>
@@ -1879,22 +1888,22 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <img src="images/poster.png" alt="EVER 포스터">
     </div>
 
-    <p class="b-tit" style="margin-bottom:2px">에버</p>
-    <p class="b-txt" style="margin-bottom:12px">영화 · EVER · 2026</p>
+    <p class="b-tit" style="margin-bottom:2px">EVER</p>
+    <p class="b-txt" style="margin-bottom:12px">MOVIE · 에버 · 2026</p>
 
     <p class="sec">information</p>
     <dl>
-      <div class="spec"><dt>Genre</dt><dd>희비극</dd></div>
-      <div class="spec"><dt>Release</dt><dd>2026. 04. 18</dd></div>
-      <div class="spec"><dt>Rating</dt><dd>★ 6.66</dd></div>
-      <div class="spec"><dt>Runtime</dt><dd>216분</dd></div>
+      <div class="spec"><dt>GENRE</dt><dd>TRAGICOMEDY</dd></div>
+      <div class="spec"><dt>RELEASE</dt><dd>2026. 04. 18</dd></div>
+      <div class="spec"><dt>RATING</dt><dd>★ 6.66</dd></div>
+      <div class="spec"><dt>RUNTIME</dt><dd>3h 36m</dd></div>
     </dl>
 
     <p class="sec">status</p>
     <div class="stat-grid">
       <div class="stat-box">
         <span class="live-dot"></span>
-        <p class="stat-v">상영 중</p>
+        <p class="stat-v">SHOWING</p>
         <p class="stat-l">now</p>
       </div>
       <div class="stat-box">
