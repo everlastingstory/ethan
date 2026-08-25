@@ -548,6 +548,13 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   width:0; padding-left:0; padding-right:0; opacity:0; border-left-width:0;
 }
 
+/* 사운드트랙: 라벨은 위, 목록은 남는 공간 가운데로 */
+.ost-cell{ display:flex; flex-direction:column; }
+.ost-cell > .b-lab{ flex:none; }
+.ost-cell > .ost-body{
+  flex:1; display:flex; flex-direction:column; justify-content:center;
+}
+
 /* 시놉시스: 라벨은 위에 두고 본문은 남는 공간 가운데로 */
 .syn-cell{ display:flex; flex-direction:column; }
 .syn-cell > .b-lab{ flex:none; }
@@ -1753,17 +1760,19 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           </div>
 
           <!-- 사운드트랙 -->
-          <div class="bento-cell span-2 row-2">
+          <div class="bento-cell span-2 row-2 ost-cell">
             <p class="b-lab">
               <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/></svg>
               soundtrack
             </p>
             <!-- TODO: 곡 목록을 자유롭게 고치세요 -->
+            <div class="ost-body">
             <div class="track"><span class="no">01</span><span class="t">Anchor <b class="main-tag">MAIN THEME</b></span><span class="who">Novo Amor</span></div>
             <div class="track"><span class="no">02</span><span class="t">Autumn Dream</span><span class="who">N.Flying</span></div>
             <div class="track"><span class="no">03</span><span class="t">金木犀</span><span class="who">なとり</span></div>
             <div class="track"><span class="no">04</span><span class="t">Friday Night</span><span class="who">なとり</span></div>
             <div class="track"><span class="no">05</span><span class="t">Deep Sea</span><span class="who">김승민</span></div>
+            </div>
           </div>
 
           <!-- 최근 로그 -->
