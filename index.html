@@ -159,6 +159,13 @@ body{
   padding:3px 8px; border-radius:999px;
   background:rgba(178,136,158,.32); color:var(--foam);
 }
+.tk-badge b{ font-weight:400; }
+/* 좁은 화면이면 MOBILE, 넓으면 ONLINE 으로 표시됩니다 */
+.tk-badge .only-d{ display:none; }
+@media (min-width:900px){
+  .tk-badge .only-m{ display:none; }
+  .tk-badge .only-d{ display:inline; }
+}
 
 .tk-title{
   font-size:27px; font-weight:600; letter-spacing:-.02em;
@@ -544,8 +551,9 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 /* 시놉시스: 라벨은 위에 두고 본문은 남는 공간 가운데로 */
 .syn-cell{ display:flex; flex-direction:column; }
 .syn-cell > .b-lab{ flex:none; }
-.syn-cell > .b-txt:first-of-type{ margin-top:auto; }
-.syn-cell > .b-txt:last-of-type{ margin-bottom:auto; }
+.syn-cell > .syn-body{
+  flex:1; display:flex; flex-direction:column; justify-content:center;
+}
 
 /* 인물 카드 — 둘이 같은 크기 */
 .cast-card{
@@ -1005,7 +1013,8 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 .me-card-more{
   font-family:'DM Mono',monospace; font-size:9.5px;
   color:var(--foam-dim); opacity:.7;
-  padding-top:9px; border-top:1px solid rgba(239,234,240,.12);
+  margin-top:12px; padding-top:10px;
+  border-top:1px solid rgba(239,234,240,.12);
 }
 .me-card-more b{ color:var(--dawn-lit); font-weight:400; }
 .me-card-x{
@@ -1428,7 +1437,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <div class="tk-top">
         <div class="tk-head">
           <span class="tk-brand">EVERLASTING CINEMA</span>
-          <span class="tk-badge">MOBILE</span>
+          <span class="tk-badge"><b class="only-m">SCAN</b><b class="only-d">PRINT</b></span>
         </div>
 
         <p class="tk-title">EVER</p>
@@ -1598,13 +1607,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <button class="me-card-x" id="meClose" aria-label="닫기">✕</button>
       </div>
 
-      <!-- TODO: 소개 내용을 자유롭게 고치세요 -->
-      <p class="me-card-lines">
-        MeomMeoverse Ethan Only<br>
-        기본 유입 X · 동장르 제외 1T1D<br>
-        앓이 · 로그 · 탐대 · 소비
-      </p>
-      <p class="me-card-more">자세한 내용은 <b>성향</b> 탭에서</p>
+      <!-- TODO: 한 줄 요약과 키워드를 자유롭게 고치세요 -->
+      <p class="me-card-lines">MeomMeoverse Ethan Only</p>
+      <div class="tags" style="margin-top:10px">
+        <span class="tag tag-dawn">#키워드</span>
+        <span class="tag tag-dawn">#키워드</span>
+        <span class="tag tag-dawn">#키워드</span>
+        <span class="tag tag-dawn">#키워드</span>
+      </div>
+      <p class="me-card-more">자세한 내용은 <b>info</b> 탭에서</p>
     </div>
 
     <div class="main">
@@ -1634,18 +1645,20 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           <!-- 소개: 세로로 긴 카드 -->
           <div class="bento-cell span-2 row-2 syn-cell">
             <p class="b-lab">synopsis</p>
-            <p class="b-txt">
-              모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자가
-              '에단'을 찾아와 시작된 의뢰. 그러나 의뢰는 에단에 의해 파기되고
-              달리아는 의문의 죽음을 맞이한다.
-            </p>
-            <div style="height:8px"></div>
-            <p class="b-txt">
-              죽음과 함께 이전의 기억을 모두 상실한 그녀는 과거의 자신을 '달리아'로,
-              현재의 자신을 '666'으로 분리하여 정의한다. 그리고 운명처럼, 혹은 악연처럼
-              두 사람은 필라델피아 미술관 앞에서 재회한다. 에단은 사라졌던 여자를 발견하지만
-              그녀는 더 이상 그가 알던 '달리아'가 아니었다…
-            </p>
+            <div class="syn-body">
+              <p class="b-txt">
+                모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자가
+                '에단'을 찾아와 시작된 의뢰. 그러나 의뢰는 에단에 의해 파기되고
+                달리아는 의문의 죽음을 맞이한다.
+              </p>
+              <div style="height:8px"></div>
+              <p class="b-txt">
+                죽음과 함께 이전의 기억을 모두 상실한 그녀는 과거의 자신을 '달리아'로,
+                현재의 자신을 '666'으로 분리하여 정의한다. 그리고 운명처럼, 혹은 악연처럼
+                두 사람은 필라델피아 미술관 앞에서 재회한다. 에단은 사라졌던 여자를 발견하지만
+                그녀는 더 이상 그가 알던 '달리아'가 아니었다…
+              </p>
+            </div>
           </div>
 
           <!-- 명대사 -->
@@ -1752,19 +1765,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 성향 ============ -->
       <section class="panel" data-panel="info">
-        <p class="sec">keywords</p>
-        <!-- TODO: 태그를 자유롭게 고치거나 늘려주세요 -->
-        <div class="bento">
-          <div class="bento-cell box-dawn" style="grid-column:1 / -1">
-            <div class="tags" style="margin-top:0">
-              <span class="tag tag-dawn">#키워드</span>
-              <span class="tag tag-dawn">#키워드</span>
-              <span class="tag tag-dawn">#키워드</span>
-              <span class="tag tag-dawn">#키워드</span>
-            </div>
-          </div>
-        </div>
-
         <p class="sec">profile</p>
         <div class="grid">
           <div class="box box-wide">
