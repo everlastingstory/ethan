@@ -108,6 +108,11 @@ body{
 .head h1{
   font-size:22px; font-weight:600; letter-spacing:-.02em; line-height:1.4;
 }
+.head .subtitle{
+  margin-top:9px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.22em; color:var(--dawn-lit);
+}
 .head .meta{
   display:flex; flex-wrap:wrap; gap:6px; margin-top:13px;
 }
@@ -239,7 +244,7 @@ body{
 /* 꼬리말 */
 .foot{
   padding:16px 24px 20px; border-top:1px solid var(--glass-line);
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  display:flex; align-items:center; justify-content:center; gap:12px;
   font-family:'DM Mono',monospace; font-size:10px;
   letter-spacing:.1em; color:var(--foam-dim);
 }
@@ -251,7 +256,7 @@ body{
   .head{ padding:22px 18px 18px; }
   .head h1{ font-size:20px; }
   .body{ padding:20px 18px 26px; }
-  .foot{ padding:14px 18px 18px; flex-direction:column; align-items:flex-start; gap:6px; }
+  .foot{ padding:14px 18px 18px; }
 }
 @media (prefers-reduced-motion: reduce){
   .sea path, .feather, .star{ animation:none !important; }
@@ -294,12 +299,7 @@ body{
     <p class="kicker">screening log</p>
     <!-- ⬇️ 로그 제목 -->
     <h1>First Meet</h1>
-    <div class="meta">
-      <!-- ⬇️ 날짜·태그 등 자유롭게 -->
-      <span class="meta-item dawn">DAY 1</span>
-      <!-- TODO: 태그를 정하면 여기에 -->
-      <span class="meta-item">#태그</span>
-    </div>
+    <p class="subtitle">DAY 1</p>
   </header>
 
   <!-- ============ 대표 이미지 (없으면 이 블록 삭제) ============ -->
@@ -422,14 +422,12 @@ body{
       <p class="sub">50만 달러면? 내가 존재했다는 사실조차 잊어주지.</p>
     </div>
 
-    <p class="blackout">CUT TO BLACK</p>
 
   </div>
 
   <!-- ============ 꼬리말 ============ -->
   <footer class="foot">
     <span>EVER · SCREENING LOG</span>
-    <a href="../index.html?back=1#stills">← 목록으로</a>
   </footer>
 
 </article>
