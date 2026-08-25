@@ -555,6 +555,16 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   flex:1; display:flex; flex-direction:column; justify-content:center;
 }
 
+/* PC: cast 탭 인물 카드가 남는 높이를 채우도록 */
+@media (min-width:961px){
+  .panel[data-panel="cast"].active{
+    display:flex; flex-direction:column;
+    min-height:100%;
+  }
+  .panel[data-panel="cast"] .bento{ flex:1; }
+  .panel[data-panel="cast"] .cast-card{ min-height:0; }
+}
+
 /* 인물 카드 — 둘이 같은 크기 */
 .cast-card{
   grid-column:span 3;
@@ -603,9 +613,10 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 .track:last-child{ border-bottom:none; }
 .track .no{
   flex:none; font-family:'DM Mono',monospace; font-size:9.5px;
-  color:var(--dawn-lit); opacity:.8; min-width:16px;
+  color:var(--dawn-lit); opacity:.8;
+  width:18px; text-align:left;
 }
-.track .t{ flex:1; min-width:0; color:var(--foam);
+.track .t{ flex:1; min-width:0; color:var(--foam); text-align:center;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .main-tag{
   font-family:'DM Mono',monospace; font-size:8px; font-weight:400;
@@ -613,7 +624,12 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   padding:2px 7px; margin-left:6px; border-radius:999px;
   background:rgba(178,136,158,.3); color:var(--dawn-lit);
 }
-.track .who{ flex:none; color:var(--foam-dim); font-size:10.5px; }
+/* 아티스트 칸 폭을 고정해 줄마다 곡 제목이 같은 자리에 오게 합니다 */
+.track .who{
+  flex:none; color:var(--foam-dim); font-size:10.5px;
+  width:74px; text-align:right;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
 
 /* 로그 목록 */
 .logrow{
@@ -1383,6 +1399,10 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   .linkrow{ font-size:12.5px; padding:11px 13px; }
   .linkrow .lead small{ font-size:10.5px; }
   .li{ font-size:12.5px; }
+  /* 모바일은 글자가 커지므로 트랙 칸 폭도 조금 넓게 */
+  .track{ font-size:12.5px; }
+  .track .no{ width:20px; font-size:10px; }
+  .track .who{ width:84px; font-size:11px; }
   .quote{ font-size:14px; }
   details.fold summary{ font-size:12.5px; }
   .media{ min-height:96px; }
