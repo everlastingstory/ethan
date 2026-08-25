@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000080">
+<!-- ⬇️ 로그 제목으로 바꿔주세요 -->
+<title>Lost, Little Lamb — EVER</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   🎨 색 — 메인과 동일합니다
+   ============================================================ */
+:root{
+  --deep:#000080; --deep-ink:#05052E; --pair:#4E5180;
+  --dawn:#B2889E; --dawn-lit:#D8B8C6;
+  --foam:#EFEAF0; --foam-dim:#B9B3C8;
+  --glass:rgba(239,234,240,.10);
+  --glass-line:rgba(239,234,240,.22);
+  --r:14px; --r-lg:22px;
+}
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body{
+  min-height:100svh;
+  background:linear-gradient(180deg,
+    #1A1B3D 0%, #2E2F5A 22%, var(--pair) 42%,
+    #6A5A80 52%, #2A2A66 58%, var(--deep) 78%, var(--deep-ink) 100%);
+  background-attachment:fixed;
+  color:var(--foam);
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  font-size:14px; line-height:1.9;
+  padding:clamp(56px,10svh,84px) 16px clamp(40px,8svh,72px);
+  display:flex; justify-content:center;
+  position:relative;
+}
+
+/* ===== 배경 ===== */
+.dawn-glow{
+  position:fixed; left:50%; top:52%; transform:translate(-50%,-50%);
+  width:min(140vw,1200px); height:38vh; pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse at center, rgba(178,136,158,.45), transparent 68%);
+  filter:blur(8px);
+}
+.star{ position:fixed; width:2px; height:2px; border-radius:50%;
+  background:var(--foam); z-index:0; pointer-events:none;
+  animation:twinkle 4s ease-in-out infinite; }
+@keyframes twinkle{ 0%,100%{opacity:.12;} 50%{opacity:.7;} }
+
+.sea{ position:fixed; left:0; right:0; bottom:0; height:52%; z-index:1; pointer-events:none; }
+.sea svg{ width:100%; height:100%; display:block; }
+.sea path{ fill:none; stroke:var(--foam); stroke-width:1; }
+.sea .s1{ animation:drift 38s linear infinite; opacity:.28; }
+.sea .s2{ animation:drift 52s linear infinite reverse; opacity:.18; }
+.sea .s3{ animation:drift 68s linear infinite; opacity:.11; }
+@keyframes drift{ from{transform:translateX(0);} to{transform:translateX(-800px);} }
+
+.feather{ position:fixed; z-index:2; pointer-events:none;
+  stroke:var(--dawn-lit); fill:none; stroke-width:1.1; opacity:0;
+  animation:fall linear infinite; }
+@keyframes fall{
+  0%{ opacity:0; transform:translateY(-10vh) rotate(-10deg); }
+  14%{ opacity:.5; } 62%{ opacity:.5; }
+  76%,100%{ opacity:0; transform:translateY(52vh) rotate(30deg); }
+}
+
+/* ===== 돌아가기 ===== */
+.back{
+  position:fixed; top:14px; left:14px; z-index:60;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 15px; border-radius:999px;
+  background:rgba(14,15,48,.8);
+  border:1px solid var(--glass-line);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 22px -10px rgba(5,5,46,.8);
+  color:var(--foam); text-decoration:none; font-size:12.5px;
+  transition:background .2s ease, transform .14s ease;
+}
+.back:hover{ background:rgba(178,136,158,.34); transform:translateX(-2px); }
+.back svg{ width:14px; height:14px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ============================================================
+   본문 카드
+   ============================================================ */
+.sheet{
+  position:relative; z-index:4;
+  width:100%; max-width:720px;
+  background:var(--glass);
+  border:1px solid var(--glass-line);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(20px) saturate(1.25);
+  -webkit-backdrop-filter:blur(20px) saturate(1.25);
+  box-shadow:0 26px 70px -22px rgba(5,5,46,.72), inset 0 1px 0 rgba(255,255,255,.16);
+  overflow:hidden;
+}
+
+/* 머리말 */
+.head{ padding:26px 24px 20px; border-bottom:1px solid var(--glass-line); }
+.head .kicker{
+  font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--dawn-lit); margin-bottom:9px;
+}
+.head h1{
+  font-size:22px; font-weight:600; letter-spacing:-.02em; line-height:1.4;
+}
+.head .subtitle{
+  margin-top:9px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.22em; color:var(--dawn-lit);
+}
+.head .meta{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:13px;
+}
+.meta-item{
+  font-family:'DM Mono',monospace; font-size:10px;
+  padding:3px 10px; border-radius:999px;
+  background:rgba(239,234,240,.1); color:var(--foam-dim);
+}
+.meta-item.dawn{ background:rgba(178,136,158,.26); color:var(--foam); }
+
+/* 대표 이미지 */
+.cover{ line-height:0; background:rgba(5,5,46,.3); }
+.cover img{ width:100%; height:auto; display:block; }
+
+/* 본문 */
+.body{ padding:24px 24px 30px; }
+.body p{ margin-bottom:18px; color:var(--foam); }
+.body p:last-child{ margin-bottom:0; }
+/* 흐릿한 보조 문단 (해설·메모 등) */
+.body p.dim{ color:var(--foam-dim); font-size:13px; }
+
+/* 대사 */
+.line{
+  margin:22px 0; padding:14px 16px;
+  border-radius:var(--r);
+  background:rgba(239,234,240,.07);
+}
+.line .who{
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.14em; color:var(--dawn-lit); margin-bottom:5px;
+}
+.line p{ margin:0; font-size:13.5px; }
+
+/* 인용문 */
+.quote{
+  margin:26px 0; text-align:center;
+  font-size:15px; line-height:1.9; color:var(--foam);
+}
+.quote::before{
+  content:"\201C"; display:block; font-size:28px;
+  color:var(--dawn-lit); line-height:1; margin-bottom:2px;
+}
+
+/* 구분선 */
+.rule{ height:1px; border:none; margin:26px 0;
+  background:repeating-linear-gradient(90deg,
+    var(--glass-line) 0 6px, transparent 6px 12px); }
+
+/* 중간 이미지 */
+.figure{ margin:24px 0; }
+.figure img{ width:100%; height:auto; display:block; border-radius:var(--r); }
+.figure figcaption{
+  margin-top:8px; text-align:center;
+  font-size:11px; color:var(--foam-dim);
+}
+
+
+/* ============================================================
+   시나리오 형식 블록
+   ============================================================ */
+/* 씬 헤딩 — S#1. 실내. 미술관 앞 — 낮 */
+.scene{
+  display:flex; align-items:center; gap:10px;
+  margin:30px 0 16px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.1em; color:var(--dawn-lit);
+}
+.scene::after{ content:""; flex:1; height:1px; background:var(--glass-line); }
+.scene .no{
+  flex:none; padding:3px 9px; border-radius:999px;
+  background:rgba(178,136,158,.28); color:var(--foam);
+  font-size:9.5px; letter-spacing:.12em;
+}
+.body > .scene:first-child{ margin-top:0; }
+
+/* 지문 — 상황 설명 */
+.action{
+  color:var(--foam-dim); font-size:13px; line-height:1.85;
+  margin-bottom:16px;
+}
+
+/* 대사 — 화자 가운데, 대사 아래 */
+.dialog{ margin:18px 0; text-align:center; }
+.dialog .who{
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.18em; color:var(--dawn-lit); margin-bottom:6px;
+}
+.dialog .paren{
+  font-size:11.5px; color:var(--foam-dim);
+  margin-bottom:3px; font-style:italic;
+}
+.dialog p{
+  margin:0 auto; max-width:34em;
+  font-size:14px; line-height:1.85; color:var(--foam);
+}
+
+
+/* 대사 아래 번역 자막 */
+.dialog .sub{
+  margin-top:5px; font-size:11.5px; line-height:1.7;
+  color:var(--foam-dim);
+}
+
+/* 전환 — CUT TO / FADE OUT 등 */
+.transition{
+  margin:26px 0; text-align:right;
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.2em; color:var(--dawn-lit); opacity:.85;
+}
+
+/* 시간 경과 */
+.timeskip{
+  display:flex; align-items:center; gap:12px;
+  margin:28px 0; color:var(--foam-dim);
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.16em;
+}
+.timeskip::before, .timeskip::after{
+  content:""; flex:1; height:1px; background:var(--glass-line);
+}
+
+/* 암전 */
+.blackout{
+  margin:30px 0; padding:26px 0; text-align:center;
+  border-radius:var(--r); background:rgba(5,5,46,.5);
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.28em; color:var(--foam-dim);
+}
+
+/* 꼬리말 */
+.foot{
+  padding:16px 24px 20px; border-top:1px solid var(--glass-line);
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.1em; color:var(--foam-dim);
+}
+.foot a{ color:var(--dawn-lit); text-decoration:none; }
+.foot a:hover{ color:var(--foam); }
+
+@media (max-width:640px){
+  body{ padding-top:64px; font-size:14.5px; }
+  .head{ padding:22px 18px 18px; }
+  .head h1{ font-size:20px; }
+  .body{ padding:20px 18px 26px; }
+  .foot{ padding:14px 18px 18px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .sea path, .feather, .star{ animation:none !important; }
+  .feather{ opacity:.3; }
+}
+</style>
+</head>
+<body>
+
+<div class="dawn-glow"></div>
+<div class="star" style="left:9%;  top:8%;  animation-delay:.2s"></div>
+<div class="star" style="left:24%; top:16%; animation-delay:1.4s"></div>
+<div class="star" style="left:41%; top:6%;  animation-delay:.8s"></div>
+<div class="star" style="left:63%; top:13%; animation-delay:2.2s"></div>
+<div class="star" style="left:79%; top:7%;  animation-delay:1.1s"></div>
+<div class="star" style="left:91%; top:19%; animation-delay:2.7s"></div>
+
+<div class="sea" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none">
+    <path class="s1" d="M-800,120 C-700,98 -500,98 -400,120 C-300,142 -100,142 0,120 C100,98 300,98 400,120 C500,142 700,142 800,120 C900,98 1100,98 1200,120 C1300,142 1500,142 1600,120 C1700,98 1900,98 2000,120 C2100,142 2300,142 2400,120"/>
+    <path class="s2" d="M-800,265 C-700,292 -500,292 -400,265 C-300,238 -100,238 0,265 C100,292 300,292 400,265 C500,238 700,238 800,265 C900,292 1100,292 1200,265 C1300,238 1500,238 1600,265 C1700,292 1900,292 2000,265 C2100,238 2300,238 2400,265"/>
+    <path class="s3" d="M-800,425 C-700,408 -500,408 -400,425 C-300,442 -100,442 0,425 C100,408 300,408 400,425 C500,442 700,442 800,425 C900,408 1100,408 1200,425 C1300,442 1500,442 1600,425 C1700,408 1900,408 2000,425 C2100,442 2300,442 2400,425"/>
+  </svg>
+</div>
+
+<svg class="feather" style="left:6%; width:18px; height:18px; animation-duration:19s; animation-delay:-8s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+<svg class="feather" style="left:92%; width:15px; height:15px; animation-duration:24s; animation-delay:-3s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+
+<!-- 돌아가기: 메인의 stills 탭으로 -->
+<a class="back" href="../index.html?back=1#stills">
+  <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+  돌아가기
+</a>
+
+
+<article class="sheet">
+
+  <!-- ============ 머리말 ============ -->
+  <header class="head">
+    <p class="kicker">screening log</p>
+    <!-- ⬇️ 로그 제목 -->
+    <h1>Lost, Little Lamb</h1>
+    <p class="subtitle">NEW DAY 1</p>
+  </header>
+
+  <!-- ============ 대표 이미지 (없으면 이 블록 삭제) ============ -->
+  <div class="cover">
+    <img src="../images/still-04.png" alt="">
+  </div>
+
+  <!-- ============ 본문 ============ -->
+  <div class="body">
+    <p class="scene"><span class="no">S#1</span> 실내 · 필라델피아 호텔 객실 — 밤</p>
+
+    <p class="action">
+      화면이 꺼지고 방 안의 푸른빛이 사라진다. 창밖 도시의 불빛만이 희미하게
+      공간을 밝힌다. 맨몸에 아로새겨진 문신들이 조명 아래 어른거린다.
+      용과 해골, 그리고 전장에서 잃은 동료들의 이름.
+    </p>
+
+    <p class="action">
+      건 케이스를 연다. 익숙한 손길로 총을 분해하고 부품 하나하나를 닦는다.
+      기름 냄새가 옅게 퍼지고, 금속이 맞물리는 서늘한 소리만이 정적을 깬다.
+      복잡한 머릿속을 비우고 눈앞의 감각에만 집중하게 만드는 의식.
+      찰칵, 찰칵. 기계적인 소음이 날카로운 신경을 조금씩 무디게 만든다.
+    </p>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ① -->
+      <img src="../images/log-06-a.png" alt="">
+      <figcaption>창밖으로 펼쳐진 도시</figcaption>
+    </figure>
+
+    <p class="action">
+      통유리 너머로 필라델피아의 야경이 펼쳐진다. 저 수많은 불빛 아래
+      그녀는 어디에 있을까. 악마가 쥔 목줄에 묶인 유령이라면.
+      상대가 까다로울수록 사냥의 가치는 올라가는 법이다.
+    </p>
+
+    <p class="action">
+      진동이 짧게 울린다. 사진 한 장과 짧은 문장.
+      필라델피아 미술관 앞, 20분 전. 인파 속에 섞인 흐릿한 형체.
+      허리까지 내려오는 곧은 백발과 특유의 실루엣은 틀림없었다.
+      죽었다던 여자가 아무 일도 없었다는 듯 밤거리를 거닐고 있었다.
+    </p>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#2</span> 실외 · 필라델피아 밤거리 — 밤</p>
+
+    <p class="action">
+      맹수의 포효 같은 엔진음이 좁은 주차장을 뒤흔든다. 라디오를 끄고
+      창문을 살짝 내린다. 도시의 소음과 서늘한 밤공기가 밀려 들어온다.
+      신호등의 붉은빛이 얼굴 위로 스쳐 지나간다.
+    </p>
+
+    <p class="dim">
+      잊고 있던 사냥 본능이 피의 가장 깊은 곳에서부터 깨어나는 감각.
+      그 감각은 위험하면서도 지독하게 달콤했다.
+    </p>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#3</span> 실외 · 필라델피아 미술관 계단 — 밤</p>
+
+    <p class="action">
+      인파의 가장자리, 난간에 기대어 미동도 없이 도시를 내려다보는 형체.
+      바람에 흩날리는 긴 백발, 어둠 속에서도 유독 하얗게 보이는 원피스.
+      주변의 활기와 완벽히 분리된, 고독하고 서늘한 섬 같았다.
+    </p>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ② -->
+      <img src="../images/log-06-b.png" alt="">
+      <figcaption>같은 난간, 다른 온도</figcaption>
+    </figure>
+
+    <p class="action">
+      곧장 다가가는 대신 방향을 살짝 틀어 난간의 다른 한편에 선다.
+      후드 모자가 얼굴에 짙은 그늘을 드리우고, 그늘 아래 푸른 눈동자만이
+      형형하게 빛난다. 먼저 움직이는 쪽이 지는 게임.
+      그는 이 숨 막히는 긴장감을 누구보다 잘 알고, 또 즐기는 남자였다.
+    </p>
+
+    <p class="action">
+      마침내 느리고 나른한 동작으로 몸을 일으킨다. 뚜벅, 뚜벅.
+      그녀가 돌아보기도 전에 등 뒤에 멈춰 선다.
+      자신의 그림자가 그녀의 하얀 실루엣을 완전히 집어삼키는 것을 내려다본다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Lost, little lamb?</p>
+      <p class="sub">길 잃었어, 어린 양?</p>
+    </div>
+
+    <p class="action">
+      그녀가 올려다본다. 그리고 고개를 갸웃한다. 누구.
+      미소가 순간 굳는다. 낯선 이를 보는 것처럼 맑고 투명한 눈.
+      감정의 동요도, 숨기려는 기색도 없다. 정말로 전부 잊어버린 건가.
+      자신을 고용했던 것도, 이용했던 것도, 제 본명을 속삭였던 그 밤까지도.
+    </p>
+
+    <p class="dim">
+      분노와 집착이 허무하게 길을 잃는 감각. 하지만 동시에,
+      백지상태가 된 그녀를 마주하자 뒤틀린 소유욕이 고개를 든다.
+      아무것도 기억하지 못한다면 처음부터 다시 시작하면 그만이었다.
+      이번에는 자신이 주도권을 쥔 채로.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p class="paren">(눈높이를 맞추며)</p>
+      <p>Come on, sweetheart. You wound me. How could you forget a face like this?</p>
+      <p class="sub">이러기야, 자기. 상처받는데. 어떻게 이런 얼굴을 잊을 수가 있어?</p>
+    </div>
+
+    <p class="action">
+      장난스럽게 윙크하지만 미소는 눈에 닿지 않는다.
+      허리를 펴며 그녀의 옆에 나란히 선다. 짤깍, 라이터의 마찰음이
+      고요한 밤공기를 가른다. 희뿌연 연기가 바람을 타고 흩어진다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Just kidding. We haven't met. Thought I'd play the hero for a night.</p>
+      <p class="sub">농담이야. 우리 초면이지. 하룻밤 정도는 영웅 놀이 좀 해볼까 했지.</p>
+    </div>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Ethan. That's my name. And you are...?</p>
+      <p class="sub">에단. 내 이름. 당신은…?</p>
+    </div>
+
+    <hr class="rule">
+
+    <p class="dim">
+      이 유령이 자신에게 어떤 이름을 내어줄지, 어떤 거짓말을 들려줄지.
+      그는 참을성 있게 기다렸다. 사냥은 이제 막 시작되었을 뿐이었다.
+    </p>
+
+  </div>
+
+  <!-- ============ 꼬리말 ============ -->
+  <footer class="foot">
+    <span>EVER · SCREENING LOG</span>
+  </footer>
+
+</article>
+
+</body>
+</html>
