@@ -555,6 +555,29 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   flex:1; display:flex; flex-direction:column; justify-content:center;
 }
 
+/* 스틸컷 = 로그 카드 */
+.log-card{
+  display:block; text-decoration:none; color:inherit;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.log-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 22px -10px rgba(5,5,46,.8);
+}
+.log-card .media{ aspect-ratio:1216/832; min-height:0; }
+.log-card .media img{ width:100%; height:100%; object-fit:cover; }
+.log-card .log-cap{
+  display:flex; flex-direction:column; gap:1px;
+  padding:8px 4px 2px; text-align:center;
+}
+.log-card .log-cap .d{
+  font-family:'DM Mono',monospace; font-size:9px; color:var(--dawn-lit);
+}
+.log-card .log-cap .s{
+  font-size:11.5px; color:var(--foam);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+
 /* PC: cast · stills 탭을 스크롤 없이 화면 높이에 맞춤 */
 @media (min-width:961px){
   .panel[data-panel="cast"].active,
@@ -566,19 +589,20 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   .panel[data-panel="stills"] .bento{ flex:1; min-height:0; }
   .panel[data-panel="cast"] .cast-card{ min-height:0; }
 
-  /* 스틸컷: 2줄 3칸으로 남는 높이를 나눠 씀 */
+  /* 스틸컷: 2칸 x 3줄 (가로 이미지에 맞춘 배치) */
   .panel[data-panel="stills"] .bento{
-    grid-template-rows:repeat(2, 1fr);
+    grid-template-columns:repeat(2, 1fr);
+    grid-template-rows:repeat(3, 1fr);
     grid-auto-rows:1fr;
   }
-  .panel[data-panel="stills"] .polaroid{
+  .panel[data-panel="stills"] .log-card{
     display:flex; flex-direction:column;
-    min-height:0; padding:5px 5px 12px;
+    min-height:0; padding:6px 6px 8px;
   }
-  .panel[data-panel="stills"] .polaroid .media{
+  .panel[data-panel="stills"] .log-card .media{
     flex:1; min-height:0;
   }
-  .panel[data-panel="stills"] .polaroid .media img{
+  .panel[data-panel="stills"] .log-card .media img{
     width:100%; height:100%; object-fit:cover;
   }
 }
@@ -1050,6 +1074,13 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   font-size:11.5px; line-height:1.85; color:var(--foam-dim);
   margin-bottom:10px;
 }
+/* 소개 카드 안 태그 — 한 줄에 들어가도록 조금 작게 */
+.me-card .tags{ gap:4px; flex-wrap:nowrap; overflow:hidden; }
+.me-card .tag{
+  font-size:10px; padding:2px 8px;
+  white-space:nowrap; flex:none;
+}
+
 .me-card-more{
   font-family:'DM Mono',monospace; font-size:9.5px;
   color:var(--foam-dim); opacity:.7;
@@ -1462,6 +1493,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 @media (max-width:560px){
   .grid{ grid-template-columns:1fr; }
   .grid-3, .grid-4{ grid-template-columns:repeat(2,1fr); }
+  /* 스틸컷은 모바일에서도 2칸 유지 */
+  .panel[data-panel="stills"] .bento{ grid-template-columns:repeat(2,1fr); }
   .row > .media{ width:42%; }
 }
 @media (prefers-reduced-motion: reduce){
@@ -1726,10 +1759,10 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
               soundtrack
             </p>
             <!-- TODO: 곡 목록을 자유롭게 고치세요 -->
-            <div class="track"><span class="no">01</span><span class="t">金木犀 <b class="main-tag">MAIN THEME</b></span><span class="who">なとり</span></div>
+            <div class="track"><span class="no">01</span><span class="t">Anchor <b class="main-tag">MAIN THEME</b></span><span class="who">Novo Amor</span></div>
             <div class="track"><span class="no">02</span><span class="t">Autumn Dream</span><span class="who">N.Flying</span></div>
-            <div class="track"><span class="no">03</span><span class="t">Friday Night</span><span class="who">なとり</span></div>
-            <div class="track"><span class="no">04</span><span class="t">Anchor</span><span class="who">Novo Amor</span></div>
+            <div class="track"><span class="no">03</span><span class="t">金木犀</span><span class="who">なとり</span></div>
+            <div class="track"><span class="no">04</span><span class="t">Friday Night</span><span class="who">なとり</span></div>
             <div class="track"><span class="no">05</span><span class="t">Deep Sea</span><span class="who">김승민</span></div>
           </div>
 
@@ -1737,9 +1770,9 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           <div class="bento-cell row-2 box-deep">
             <p class="b-lab">screening log</p>
             <!-- TODO: 로그 파일을 만들면 href 를 바꿔주세요 -->
-            <a class="logrow" href="logs/0000-00-00.html">
-              <span class="d">0000.00.00</span>
-              <span class="s">로그 제목</span>
+            <a class="logrow" href="logs/day-01.html">
+              <span class="d">DAY 1</span>
+              <span class="s">First Meet</span>
             </a>
             <a class="logrow" href="logs/0000-00-00.html">
               <span class="d">0000.00.00</span>
@@ -1795,14 +1828,51 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <!-- ============ 스틸컷 ============ -->
       <section class="panel" data-panel="stills">
         <p class="sec">stills</p>
-        <!-- 스틸컷: images/still-01 ~ still-06 · 세로 3:4 비율이 잘 맞습니다 -->
-        <div class="grid grid-3">
-          <div class="polaroid"><div class="media"><img src="images/still-01.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-02.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-03.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-04.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-05.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-06.png" alt=""></div></div>
+        <!-- 스틸컷을 누르면 해당 로그 페이지로 이동합니다.
+             로그 파일을 만들면 href 를 바꿔주세요. -->
+        <div class="bento">
+          <a class="polaroid log-card" href="logs/day-01.html">
+            <div class="media"><img src="images/still-01.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">DAY 1</span>
+              <span class="s">First Meet</span>
+            </div>
+          </a>
+          <a class="polaroid log-card" href="logs/0000-00-00.html">
+            <div class="media"><img src="images/still-02.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </div>
+          </a>
+          <a class="polaroid log-card" href="logs/0000-00-00.html">
+            <div class="media"><img src="images/still-03.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </div>
+          </a>
+          <a class="polaroid log-card" href="logs/0000-00-00.html">
+            <div class="media"><img src="images/still-04.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </div>
+          </a>
+          <a class="polaroid log-card" href="logs/0000-00-00.html">
+            <div class="media"><img src="images/still-05.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </div>
+          </a>
+          <a class="polaroid log-card" href="logs/0000-00-00.html">
+            <div class="media"><img src="images/still-06.png" alt=""></div>
+            <div class="log-cap">
+              <span class="d">0000.00.00</span>
+              <span class="s">로그 제목</span>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -1990,7 +2060,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <svg class="ico i-pause" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M8 5.5h3v13H8zM13 5.5h3v13h-3z"/></svg>
       </button>
       <div class="bgm-meta">
-        <p class="bgm-title" id="bgmTitle">なとり — 金木犀</p>
+        <p class="bgm-title" id="bgmTitle">Novo Amor — Anchor</p>
         <p class="bgm-state" id="bgmState">일시정지</p>
       </div>
       <div class="bgm-eq" id="bgmEq"><i></i><i></i><i></i><i></i></div>
@@ -2051,8 +2121,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       그쪽에서 건너뛰기를 누를 수 있습니다.
    ============================================================ */
 (function(){
-  var YT_ID     = '1pI242Hsi5U';                 // ← 유튜브 영상 ID
-  var BGM_TITLE = 'なとり — 金木犀';              // ← 표시할 곡 제목
+  var YT_ID     = 'OmKAn8rNbKg';                 // ← 유튜브 영상 ID
+  var BGM_TITLE = 'Novo Amor — Anchor';              // ← 표시할 곡 제목
   var VOLUME    = 35;                            // ← 음량 (0~100)
 
   var bgm   = document.getElementById('bgm');
