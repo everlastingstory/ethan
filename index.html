@@ -541,6 +541,12 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   width:0; padding-left:0; padding-right:0; opacity:0; border-left-width:0;
 }
 
+/* 시놉시스: 라벨은 위에 두고 본문은 남는 공간 가운데로 */
+.syn-cell{ display:flex; flex-direction:column; }
+.syn-cell > .b-lab{ flex:none; }
+.syn-cell > .b-txt:first-of-type{ margin-top:auto; }
+.syn-cell > .b-txt:last-of-type{ margin-bottom:auto; }
+
 /* 인물 카드 — 둘이 같은 크기 */
 .cast-card{
   grid-column:span 3;
@@ -1615,8 +1621,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </div>
             <div class="cap">
               <p class="b-lab" style="margin-bottom:3px">now showing</p>
-              <p class="b-tit" style="font-size:16px">내 비극의 유일한 관객</p>
-              <p class="b-txt">Never-Ending Curtain Call</p>
+              <p class="b-tit" style="font-size:16px">EVER</p>
+              <p class="b-txt">내 비극의 유일한 관객</p>
             </div>
           </div>
 
@@ -1626,12 +1632,12 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           </div>
 
           <!-- 소개: 세로로 긴 카드 -->
-          <div class="bento-cell span-2 row-2">
+          <div class="bento-cell span-2 row-2 syn-cell">
             <p class="b-lab">synopsis</p>
             <p class="b-txt">
-              모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자, 666이
-              코드네임 '에단'을 찾아온다. 그러나 의뢰는 에단에 의해 파기되고 달리아는
-              의문의 죽음을 맞이한다.
+              모든 것의 시작은 하나의 의뢰였다. '달리아 슈미트'라는 가명을 쓰는 여자가
+              '에단'을 찾아와 시작된 의뢰. 그러나 의뢰는 에단에 의해 파기되고
+              달리아는 의문의 죽음을 맞이한다.
             </p>
             <div style="height:8px"></div>
             <p class="b-txt">
@@ -1645,6 +1651,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           <!-- 명대사 -->
           <div class="bento-cell box-plain center-y">
             <p class="quote" style="margin:0; font-size:13.5px">Lost, little lamb?</p>
+          </div>
+
+          <!-- 관람 안내 -->
+          <div class="bento-cell box-deep center-y">
+            <p class="b-lab">notice</p>
+            <!-- TODO: 안내 문구를 자유롭게 바꿔주세요 -->
+            <p class="b-txt" style="line-height:1.75">
+              본 작품에는<br>쿠키 영상이 있습니다.
+            </p>
           </div>
 
           <!-- 사운드트랙 -->
@@ -1717,12 +1732,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             </div>
           </a>
 
-          <!-- 관계 -->
-          <div class="bento-cell box-dawn" style="grid-column:1 / -1">
-            <p class="b-lab">relation</p>
-            <p class="b-txt">두 사람의 관계를 짧게 적어주세요.</p>
-          </div>
-
         </div>
       </section>
 
@@ -1743,6 +1752,19 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 성향 ============ -->
       <section class="panel" data-panel="info">
+        <p class="sec">keywords</p>
+        <!-- TODO: 태그를 자유롭게 고치거나 늘려주세요 -->
+        <div class="bento">
+          <div class="bento-cell box-dawn" style="grid-column:1 / -1">
+            <div class="tags" style="margin-top:0">
+              <span class="tag tag-dawn">#키워드</span>
+              <span class="tag tag-dawn">#키워드</span>
+              <span class="tag tag-dawn">#키워드</span>
+              <span class="tag tag-dawn">#키워드</span>
+            </div>
+          </div>
+        </div>
+
         <p class="sec">profile</p>
         <div class="grid">
           <div class="box box-wide">
@@ -1896,7 +1918,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <div class="spec"><dt>GENRE</dt><dd>TRAGICOMEDY</dd></div>
       <div class="spec"><dt>RELEASE</dt><dd>2026. 04. 18</dd></div>
       <div class="spec"><dt>RATING</dt><dd>★ 6.66</dd></div>
-      <div class="spec"><dt>RUNTIME</dt><dd>3h 36m</dd></div>
+      <div class="spec"><dt>RUNTIME</dt><dd>4H 18M</dd></div>
     </dl>
 
     <p class="sec">status</p>
