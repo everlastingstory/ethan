@@ -555,14 +555,32 @@ body.intro-on .dawn-glow{ visibility:hidden; }
   flex:1; display:flex; flex-direction:column; justify-content:center;
 }
 
-/* PC: cast 탭 인물 카드가 남는 높이를 채우도록 */
+/* PC: cast · stills 탭을 스크롤 없이 화면 높이에 맞춤 */
 @media (min-width:961px){
-  .panel[data-panel="cast"].active{
+  .panel[data-panel="cast"].active,
+  .panel[data-panel="stills"].active{
     display:flex; flex-direction:column;
-    min-height:100%;
+    height:100%;
   }
-  .panel[data-panel="cast"] .bento{ flex:1; }
+  .panel[data-panel="cast"] .bento,
+  .panel[data-panel="stills"] .bento{ flex:1; min-height:0; }
   .panel[data-panel="cast"] .cast-card{ min-height:0; }
+
+  /* 스틸컷: 2줄 3칸으로 남는 높이를 나눠 씀 */
+  .panel[data-panel="stills"] .bento{
+    grid-template-rows:repeat(2, 1fr);
+    grid-auto-rows:1fr;
+  }
+  .panel[data-panel="stills"] .polaroid{
+    display:flex; flex-direction:column;
+    min-height:0; padding:5px 5px 12px;
+  }
+  .panel[data-panel="stills"] .polaroid .media{
+    flex:1; min-height:0;
+  }
+  .panel[data-panel="stills"] .polaroid .media img{
+    width:100%; height:100%; object-fit:cover;
+  }
 }
 
 /* 인물 카드 — 둘이 같은 크기 */
@@ -1781,12 +1799,11 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <div class="grid grid-3">
           <div class="polaroid"><div class="media"><img src="images/still-01.png" alt=""></div></div>
           <div class="polaroid"><div class="media"><img src="images/still-02.png" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-03.jpg" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-04.jpg" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-05.jpg" alt=""></div></div>
-          <div class="polaroid"><div class="media"><img src="images/still-06.jpg" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="images/still-03.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="images/still-04.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="images/still-05.png" alt=""></div></div>
+          <div class="polaroid"><div class="media"><img src="images/still-06.png" alt=""></div></div>
         </div>
-        <p class="b-txt" style="margin-top:8px; opacity:.6; font-size:10px">TT · ⓒefloydp_cms</p>
       </section>
 
       <!-- ============ 성향 ============ -->
@@ -1895,8 +1912,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             <a class="bn-item" href="https://direilia.carrd.co" target="_blank" rel="noopener" data-name="찰나가 영원에 새겨진다는 것">
               <img src="banner/01.jpg" alt="찰나가 영원에 새겨진다는 것">
             </a>
-            <a class="bn-item" href="https://주소2" target="_blank" rel="noopener" data-name="사이트 이름 2">
-              <img src="banner/02.png" alt="사이트 이름 2">
+            <a class="bn-item" href="https://sweet-paradise.luv3r.me" target="_blank" rel="noopener" data-name="A Haven of Sweet Delight">
+              <img src="banner/02.jpg" alt="A Haven of Sweet Delight">
             </a>
             <a class="bn-item" href="https://주소3" target="_blank" rel="noopener" data-name="사이트 이름 3">
               <img src="banner/03.gif" alt="사이트 이름 3">
