@@ -82,8 +82,8 @@ body{
 /* ============================================================
    인트로 화면 (사이트 들어오기 전)
    배경은 화면 비율에 따라 자동으로 바뀝니다.
-   - 가로가 넓으면  images/intro-pc.jpg
-   - 세로가 길면    images/intro-mobile.jpg
+   - 가로가 넓으면  images/intro-pc.png
+   - 세로가 길면    images/intro-mobile.png
    ============================================================ */
 #intro{
   position:fixed; inset:0; z-index:900;
@@ -91,7 +91,7 @@ body{
   padding:28px 22px;
   background:
     linear-gradient(180deg, rgba(10,11,40,.72), rgba(5,5,46,.88)),
-    url('images/intro-pc.jpg') center/cover no-repeat;
+    url('images/intro-pc.png') center/cover no-repeat;
   transition:opacity .7s ease, visibility .7s;
 }
 #intro[hidden]{ display:none; }
@@ -102,7 +102,7 @@ body{
   #intro{
     background:
       linear-gradient(180deg, rgba(10,11,40,.72), rgba(5,5,46,.88)),
-      url('images/intro-mobile.jpg') center/cover no-repeat;
+      url('images/intro-mobile.png') center/cover no-repeat;
   }
 }
 
