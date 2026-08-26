@@ -764,6 +764,74 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 .sec-bgm{ margin-top:24px !important; }
 
 /* ============================================================
+   좌석표 — 링크를 상영관 좌석처럼
+   ============================================================ */
+.seatmap{
+  background:rgba(239,234,240,.06);
+  border-radius:var(--r); padding:14px 13px 16px;
+}
+
+/* 스크린 바 */
+.screen-bar{
+  margin:0 auto 18px; max-width:70%;
+  padding:5px 0; text-align:center;
+  font-family:'DM Mono',monospace; font-size:8.5px;
+  letter-spacing:.34em; color:var(--foam-dim);
+  background:linear-gradient(180deg, rgba(239,234,240,.22), transparent);
+  border-radius:3px 3px 40px 40px;
+}
+
+.seats{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:9px;
+}
+
+.seat{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; padding:13px 6px 11px;
+  border-radius:9px 9px 5px 5px;
+  background:rgba(239,234,240,.08);
+  border:1px solid transparent;
+  text-decoration:none; color:var(--foam);
+  transition:background .2s ease, border-color .2s ease, transform .16s ease;
+}
+.seat:hover{
+  background:var(--dawn);
+  border-color:var(--dawn-lit);
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px -8px rgba(178,136,158,.85);
+}
+.seat:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+
+.seat-no{
+  font-family:'DM Mono',monospace; font-size:9px;
+  letter-spacing:.14em; color:var(--dawn-lit); opacity:.9;
+}
+.seat:hover .seat-no{ color:#fff; }
+.seat-sub{
+  font-size:9.5px; color:var(--foam-dim); text-align:center;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%;
+}
+.seat:hover .seat-sub{ color:rgba(255,255,255,.85); }
+.seat-name{
+  font-size:11.5px; text-align:center; line-height:1.35;
+  overflow:hidden; text-overflow:ellipsis;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+}
+
+/* 빈 좌석 */
+.seat.empty{
+  background:rgba(239,234,240,.03);
+  border:1px dashed rgba(239,234,240,.16);
+  cursor:default; min-height:58px;
+}
+.seat.empty:hover{ background:rgba(239,234,240,.03); transform:none; box-shadow:none; }
+.seat.empty .seat-no{ opacity:.4; }
+
+@media (max-width:560px){
+  .seats{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* ============================================================
    내 배너 나눔
    ============================================================ */
 .my-banner{
@@ -779,20 +847,40 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 }
 .my-banner-side{ flex:1; min-width:0; }
 
+/* 배너 이미지 — 눌러서 내려받기 */
+.mb-img{
+  position:relative; flex:none; display:block; line-height:0;
+  border-radius:5px; overflow:hidden;
+  border:1px solid rgba(239,234,240,.16);
+  transition:border-color .18s ease;
+}
+.mb-img:hover{ border-color:var(--dawn-lit); }
+.mb-img img{ height:40px; width:auto; max-width:100%; display:block; }
+.mb-dl{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(5,5,46,.72); color:var(--foam);
+  opacity:0; transition:opacity .2s ease;
+}
+.mb-img:hover .mb-dl, .mb-img:focus-visible .mb-dl{ opacity:1; }
+.mb-dl .ico{ width:16px; height:16px; margin:0; }
+
+/* 복사 버튼 묶음 */
+.copy-row{ display:flex; flex-wrap:wrap; gap:5px; margin-top:9px; }
 .copy-btn{
   all:unset; cursor:pointer;
-  display:inline-flex; align-items:center; gap:6px;
-  margin-top:8px; padding:6px 12px;
+  display:inline-flex; align-items:center; gap:5px;
+  padding:5px 11px;
   border-radius:999px;
   background:rgba(178,136,158,.26); color:var(--foam);
   font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
-  font-size:11px;
+  font-size:10.5px;
   transition:background .18s ease, transform .12s ease;
 }
 .copy-btn:hover{ background:var(--dawn); }
 .copy-btn:active{ transform:scale(.96); }
 .copy-btn:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
-.copy-btn .ico{ width:13px; height:13px; margin:0; }
+.copy-btn .ico{ width:12px; height:12px; margin:0; }
 .copy-btn.done{ background:rgba(143,166,142,.4); }
 
 /* ============================================================
@@ -1947,37 +2035,72 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ LINKS ============ -->
       <section class="panel" data-panel="links">
-        <p class="sec">my pages</p>
-        <div class="grid">
-          <a class="linkrow" href="https://ethan.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">EVER<small>Never-Ending Curtain Call</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://ever.luv3r.me" target="_blank" rel="noopener">
-            <span class="lead">Everlasting Story<small>네가 내 지옥이자 유일한 의미</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://ethan.tistory.com/22" target="_blank" rel="noopener">
-            <span class="lead">Prompt<small>티스토리</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://momentique.somlution.com/ethan" target="_blank" rel="noopener">
-            <span class="lead">Notion<small>momentique</small></span><span class="arw">↗</span></a>
-          <a class="linkrow" href="https://ethan.tistory.com" target="_blank" rel="noopener">
-            <span class="lead">tistory<small>블로그</small></span><span class="arw">↗</span></a>
+        <p class="sec">official channels</p>
+        <!-- ===== 좌석표 =====
+             좌석 하나가 링크 하나입니다.
+             seat-no : 좌석 번호 (약자)   seat-name : 아래 표시될 이름
+             빈 좌석을 늘리려면 <span class="seat empty">✕</span> 를 복사하세요. -->
+        <div class="seatmap">
+          <div class="screen-bar">SCREEN</div>
+
+          <div class="seats">
+            <a class="seat" href="https://lovesignal.me/ethan" target="_blank" rel="noopener">
+              <span class="seat-no">A1</span>
+              <span class="seat-name">Lovesignal</span>
+              <span class="seat-sub">프롬프트</span>
+            </a>
+            <a class="seat" href="https://momentique.somlution.com/ethan" target="_blank" rel="noopener">
+              <span class="seat-no">A2</span>
+              <span class="seat-name">Notion</span>
+              <span class="seat-sub">momentique</span>
+            </a>
+            <a class="seat" href="https://ethan.tistory.com" target="_blank" rel="noopener">
+              <span class="seat-no">A3</span>
+              <span class="seat-name">Tistory</span>
+              <span class="seat-sub">블로그</span>
+            </a>
+
+            <span class="seat empty" aria-hidden="true"><span class="seat-no">B1</span></span>
+            <span class="seat empty" aria-hidden="true"><span class="seat-no">B2</span></span>
+            <span class="seat empty" aria-hidden="true"><span class="seat-no">B3</span></span>
+          </div>
         </div>
 
         <p class="sec">take my banner</p>
         <!-- ===== 내 배너 =====
              images/banner.png 로 올려주세요.
-             복사 버튼을 누르면 아래 코드가 클립보드에 복사됩니다. -->
+             주소·제목은 각각 복사되고, 이미지는 눌러서 내려받을 수 있습니다. -->
         <div class="my-banner">
-          <img src="images/banner.png" alt="EVER — Never-Ending Curtain Call">
+          <a class="mb-img" id="bannerDl" href="images/banner.png" download="EVER-banner.png"
+             title="배너 이미지 내려받기">
+            <img src="images/banner.png" alt="EVER — Never-Ending Curtain Call">
+            <span class="mb-dl">
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 12l5 5 5-5"/><path d="M5 20h14"/></svg>
+            </span>
+          </a>
+
           <div class="my-banner-side">
             <p class="b-tit" style="margin-bottom:2px">EVER</p>
             <p class="b-txt" style="font-size:11px">Never-Ending Curtain Call</p>
-            <button class="copy-btn" id="copyBanner">
-              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
-              <span id="copyLabel">코드 복사</span>
-            </button>
+
+            <div class="copy-row">
+              <button class="copy-btn" data-copy="https://everlastingstory.github.io/ethan/">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 13.5a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10.5a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg>
+                <span>주소</span>
+              </button>
+              <button class="copy-btn" data-copy="EVER — Never-Ending Curtain Call">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 6h14M5 12h14M5 18h9"/></svg>
+                <span>제목</span>
+              </button>
+              <button class="copy-btn" data-copy="&lt;a href=&quot;https://everlastingstory.github.io/ethan/&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;https://everlastingstory.github.io/ethan/images/banner.png&quot; alt=&quot;EVER — Never-Ending Curtain Call&quot;&gt;&lt;/a&gt;">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg>
+                <span>HTML</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <p class="sec">now showing</p>
+        <p class="sec">concurrent release</p>
         <!-- ===== 받은 배너 =====
              배너를 추가하려면 아래 <a class="bn-item"> 한 덩어리를 복사해
              필요한 만큼 붙여넣으세요. 아래 필름 목록은 자동으로 만들어집니다.
@@ -2009,10 +2132,6 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
         <!-- 아래 필름 목록 (자동 생성) -->
         <div class="bn-film" id="bnFilm"></div>
 
-        <p class="sec">credit</p>
-        <div class="bento-cell box-plain" style="padding:2px">
-          <p class="b-txt">사용한 폰트, 리소스 출처를 적는 자리입니다.</p>
-        </div>
       </section>
 
     </div>
@@ -2291,43 +2410,44 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   });
 })();
 
-/* ===== 배너 코드 복사 ===== */
+/* ===== 복사 버튼 (주소 · 제목 · HTML) ===== */
 (function(){
-  var btn   = document.getElementById('copyBanner');
-  var label = document.getElementById('copyLabel');
-  if(!btn) return;
+  var btns = document.querySelectorAll('.copy-btn[data-copy]');
+  if(!btns.length) return;
 
-  var SITE   = 'https://everlastingstory.github.io/ethan/';
-  var BANNER = 'https://everlastingstory.github.io/ethan/images/banner.png';
-  var ALT    = 'EVER — Never-Ending Curtain Call';
+  btns.forEach(function(btn){
+    var label = btn.querySelector('span');
+    var original = label ? label.textContent : '';
 
-  var code = '<a href="' + SITE + '" target="_blank">'
-           + '<img src="' + BANNER + '" alt="' + ALT + '"></a>';
+    btn.addEventListener('click', function(){
+      var text = btn.dataset.copy;
 
-  btn.addEventListener('click', function(){
-    function done(){
-      label.textContent = '복사했어요';
-      btn.classList.add('done');
-      setTimeout(function(){
-        label.textContent = '코드 복사';
-        btn.classList.remove('done');
-      }, 1800);
-    }
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(code).then(done).catch(fallback);
-    } else { fallback(); }
+      function done(){
+        if(!label) return;
+        label.textContent = '복사됨';
+        btn.classList.add('done');
+        setTimeout(function(){
+          label.textContent = original;
+          btn.classList.remove('done');
+        }, 1500);
+      }
 
-    function fallback(){
-      var ta = document.createElement('textarea');
-      ta.value = code;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); done(); }
-      catch(e){ label.textContent = '복사 실패'; }
-      document.body.removeChild(ta);
-    }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); }
+        catch(e){ if(label) label.textContent = '실패'; }
+        document.body.removeChild(ta);
+      }
+
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else { fallback(); }
+    });
   });
 })();
 
