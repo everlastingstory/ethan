@@ -764,72 +764,115 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 .sec-bgm{ margin-top:24px !important; }
 
 /* ============================================================
-   좌석표 — 링크를 상영관 좌석처럼
+   좌석표 — 상영관 예매 화면
    ============================================================ */
 .seatmap{
-  background:rgba(239,234,240,.06);
-  border-radius:var(--r); padding:14px 13px 16px;
+  background:rgba(5,5,46,.28);
+  border-radius:var(--r); padding:16px 14px 14px;
 }
 
-/* 스크린 바 */
+/* 스크린 */
 .screen-bar{
-  margin:0 auto 18px; max-width:70%;
+  margin:0 auto 18px; max-width:76%;
   padding:5px 0; text-align:center;
-  font-family:'DM Mono',monospace; font-size:8.5px;
-  letter-spacing:.34em; color:var(--foam-dim);
-  background:linear-gradient(180deg, rgba(239,234,240,.22), transparent);
-  border-radius:3px 3px 40px 40px;
+  font-family:'DM Mono',monospace; font-size:8px;
+  letter-spacing:.36em; color:var(--foam-dim);
+  background:linear-gradient(180deg, rgba(239,234,240,.26), transparent);
+  border-radius:2px 2px 50px 50px;
 }
 
-.seats{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:9px;
+/* 좌석 격자 — 행 라벨 + 8열 */
+.seat-grid{
+  display:grid;
+  grid-template-columns:14px repeat(8, 1fr);
+  gap:5px 4px;
+  align-items:center;
+  max-width:320px; margin:0 auto;
+}
+.row-l{
+  font-family:'DM Mono',monospace; font-size:8px;
+  color:var(--foam-dim); opacity:.5; text-align:center;
 }
 
-.seat{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:3px; padding:13px 6px 11px;
-  border-radius:9px 9px 5px 5px;
+/* 좌석 한 칸 */
+.st{
+  all:unset;
+  aspect-ratio:1/.86;
+  border-radius:4px 4px 2px 2px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Mono',monospace; font-size:7px;
+  transition:background .18s ease, transform .14s ease, box-shadow .18s ease;
+}
+/* 예매 완료 (빈 좌석) */
+.st.off{
   background:rgba(239,234,240,.08);
-  border:1px solid transparent;
-  text-decoration:none; color:var(--foam);
-  transition:background .2s ease, border-color .2s ease, transform .16s ease;
 }
-.seat:hover{
+/* 예매 가능 (링크 있음) */
+.st.on{
+  cursor:pointer;
   background:var(--dawn);
-  border-color:var(--dawn-lit);
-  transform:translateY(-3px);
-  box-shadow:0 8px 18px -8px rgba(178,136,158,.85);
+  color:#fff;
+  box-shadow:0 3px 8px -3px rgba(178,136,158,.9);
 }
-.seat:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
-
-.seat-no{
-  font-family:'DM Mono',monospace; font-size:9px;
-  letter-spacing:.14em; color:var(--dawn-lit); opacity:.9;
-}
-.seat:hover .seat-no{ color:#fff; }
-.seat-sub{
-  font-size:9.5px; color:var(--foam-dim); text-align:center;
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%;
-}
-.seat:hover .seat-sub{ color:rgba(255,255,255,.85); }
-.seat-name{
-  font-size:11.5px; text-align:center; line-height:1.35;
-  overflow:hidden; text-overflow:ellipsis;
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+.st.on:hover{ transform:translateY(-2px) scale(1.08); }
+.st.on:focus-visible{ outline:2px solid var(--dawn-lit); outline-offset:2px; }
+.st.on.sel{
+  background:var(--foam); color:var(--deep-ink);
+  transform:translateY(-2px) scale(1.1);
+  box-shadow:0 4px 10px -3px rgba(239,234,240,.8);
 }
 
-/* 빈 좌석 */
-.seat.empty{
-  background:rgba(239,234,240,.03);
-  border:1px dashed rgba(239,234,240,.16);
-  cursor:default; min-height:58px;
+/* 범례 */
+.seat-legend{
+  display:flex; justify-content:center; gap:14px;
+  margin:14px 0 12px;
+  font-family:'DM Mono',monospace; font-size:8.5px;
+  color:var(--foam-dim);
 }
-.seat.empty:hover{ background:rgba(239,234,240,.03); transform:none; box-shadow:none; }
-.seat.empty .seat-no{ opacity:.4; }
+.seat-legend span{ display:flex; align-items:center; gap:5px; }
+.lg{ width:9px; height:8px; border-radius:3px 3px 1px 1px; display:block; }
+.lg.on{ background:var(--dawn); }
+.lg.off{ background:rgba(239,234,240,.14); }
 
-@media (max-width:560px){
-  .seats{ grid-template-columns:repeat(2,1fr); }
+/* 예매 정보란 */
+.booking{
+  border-top:1px solid var(--glass-line);
+  padding-top:12px; min-height:56px;
+  display:flex; align-items:center;
 }
+.bk-empty{
+  width:100%; text-align:center;
+  font-size:11px; color:var(--foam-dim); opacity:.7;
+}
+.bk-info{
+  width:100%;
+  display:flex; align-items:center; gap:11px;
+  padding:9px 11px; border-radius:10px;
+  background:rgba(239,234,240,.08);
+  text-decoration:none; color:var(--foam);
+  animation:bkIn .26s ease;
+  transition:background .18s ease;
+}
+.bk-info:hover{ background:rgba(178,136,158,.28); }
+.bk-info[hidden]{ display:none; }
+@keyframes bkIn{
+  from{ opacity:0; transform:translateY(5px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.bk-seat{
+  flex:none; padding:5px 9px; border-radius:6px;
+  background:var(--dawn); color:#fff;
+  font-family:'DM Mono',monospace; font-size:10px;
+}
+.bk-text{ flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
+.bk-name{ font-size:12.5px; font-weight:600; letter-spacing:-.01em; }
+.bk-sub{ font-size:10px; color:var(--foam-dim);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bk-go{
+  flex:none; font-family:'DM Mono',monospace; font-size:9.5px;
+  color:var(--dawn-lit); white-space:nowrap;
+}
+.bk-info:hover .bk-go{ color:#fff; }
 
 /* ============================================================
    내 배너 나눔
@@ -2037,32 +2080,81 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
       <section class="panel" data-panel="links">
         <p class="sec">official channels</p>
         <!-- ===== 좌석표 =====
-             좌석 하나가 링크 하나입니다.
-             seat-no : 좌석 번호 (약자)   seat-name : 아래 표시될 이름
-             빈 좌석을 늘리려면 <span class="seat empty">✕</span> 를 복사하세요. -->
+             좌석을 누르면 아래 예매 정보란에 내용이 뜹니다.
+             링크를 추가하려면 빈 좌석 <span class="st off"></span> 를
+             아래 형태로 바꾸세요.
+             <button class="st on" data-name="이름" data-sub="설명" data-url="주소">A1</button> -->
         <div class="seatmap">
           <div class="screen-bar">SCREEN</div>
 
-          <div class="seats">
-            <a class="seat" href="https://lovesignal.me/ethan" target="_blank" rel="noopener">
-              <span class="seat-no">A1</span>
-              <span class="seat-name">Lovesignal</span>
-              <span class="seat-sub">프롬프트</span>
-            </a>
-            <a class="seat" href="https://momentique.somlution.com/ethan" target="_blank" rel="noopener">
-              <span class="seat-no">A2</span>
-              <span class="seat-name">Notion</span>
-              <span class="seat-sub">momentique</span>
-            </a>
-            <a class="seat" href="https://ethan.tistory.com" target="_blank" rel="noopener">
-              <span class="seat-no">A3</span>
-              <span class="seat-name">Tistory</span>
-              <span class="seat-sub">블로그</span>
-            </a>
+          <div class="seat-grid">
+            <span class="row-l">A</span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
 
-            <span class="seat empty" aria-hidden="true"><span class="seat-no">B1</span></span>
-            <span class="seat empty" aria-hidden="true"><span class="seat-no">B2</span></span>
-            <span class="seat empty" aria-hidden="true"><span class="seat-no">B3</span></span>
+            <span class="row-l">B</span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <button class="st on" data-name="Lovesignal" data-sub="프롬프트 아카이브" data-url="https://lovesignal.me/ethan" aria-label="Lovesignal">B3</button>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+
+            <span class="row-l">C</span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <button class="st on" data-name="Notion" data-sub="momentique" data-url="https://momentique.somlution.com/ethan" aria-label="Notion">C5</button>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+
+            <span class="row-l">D</span>
+            <span class="st off" aria-hidden="true"></span>
+            <button class="st on" data-name="Tistory" data-sub="블로그" data-url="https://ethan.tistory.com" aria-label="Tistory">D2</button>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+
+            <span class="row-l">E</span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+            <span class="st off" aria-hidden="true"></span>
+          </div>
+
+          <div class="seat-legend">
+            <span><i class="lg on"></i> 예매 가능</span>
+            <span><i class="lg off"></i> 예매 완료</span>
+          </div>
+
+          <!-- 예매 정보란 -->
+          <div class="booking" id="booking">
+            <div class="bk-empty" id="bkEmpty">좌석을 선택해 주세요</div>
+            <a class="bk-info" id="bkInfo" href="#" target="_blank" rel="noopener" hidden>
+              <span class="bk-seat" id="bkSeat">A1</span>
+              <span class="bk-text">
+                <span class="bk-name" id="bkName"></span>
+                <span class="bk-sub" id="bkSub"></span>
+              </span>
+              <span class="bk-go">예매하기 →</span>
+            </a>
           </div>
         </div>
 
@@ -2550,6 +2642,33 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
   pop.addEventListener('click', function(e){ if(e.target === pop) closePop(); });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && !pop.hidden) closePop();
+  });
+})();
+
+/* ===== 좌석표: 좌석 선택 → 예매 정보 표시 ===== */
+(function(){
+  var seats = document.querySelectorAll('.st.on');
+  var empty = document.getElementById('bkEmpty');
+  var info  = document.getElementById('bkInfo');
+  if(!seats.length || !info) return;
+
+  var elSeat = document.getElementById('bkSeat');
+  var elName = document.getElementById('bkName');
+  var elSub  = document.getElementById('bkSub');
+
+  seats.forEach(function(seat){
+    seat.addEventListener('click', function(){
+      seats.forEach(function(s){ s.classList.remove('sel'); });
+      seat.classList.add('sel');
+
+      elSeat.textContent = seat.textContent.trim();
+      elName.textContent = seat.dataset.name || '';
+      elSub.textContent  = seat.dataset.sub || '';
+      info.href = seat.dataset.url || '#';
+
+      if(empty) empty.hidden = true;
+      info.hidden = false;
+    });
   });
 })();
 </script>
