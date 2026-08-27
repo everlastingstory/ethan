@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000080">
+<!-- ⬇️ 로그 제목으로 바꿔주세요 -->
+<title>The Atlantic — EVER</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   🎨 색 — 메인과 동일합니다
+   ============================================================ */
+:root{
+  --deep:#000080; --deep-ink:#05052E; --pair:#4E5180;
+  --dawn:#B2889E; --dawn-lit:#D8B8C6;
+  --foam:#EFEAF0; --foam-dim:#B9B3C8;
+  --glass:rgba(239,234,240,.10);
+  --glass-line:rgba(239,234,240,.22);
+  --r:14px; --r-lg:22px;
+}
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body{
+  min-height:100svh;
+  background:linear-gradient(180deg,
+    #1A1B3D 0%, #2E2F5A 22%, var(--pair) 42%,
+    #6A5A80 52%, #2A2A66 58%, var(--deep) 78%, var(--deep-ink) 100%);
+  background-attachment:fixed;
+  color:var(--foam);
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  font-size:14px; line-height:1.9;
+  padding:clamp(56px,10svh,84px) 16px clamp(40px,8svh,72px);
+  display:flex; justify-content:center;
+  position:relative;
+}
+
+/* ===== 배경 ===== */
+.dawn-glow{
+  position:fixed; left:50%; top:52%; transform:translate(-50%,-50%);
+  width:min(140vw,1200px); height:38vh; pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse at center, rgba(178,136,158,.45), transparent 68%);
+  filter:blur(8px);
+}
+.star{ position:fixed; width:2px; height:2px; border-radius:50%;
+  background:var(--foam); z-index:0; pointer-events:none;
+  animation:twinkle 4s ease-in-out infinite; }
+@keyframes twinkle{ 0%,100%{opacity:.12;} 50%{opacity:.7;} }
+
+.sea{ position:fixed; left:0; right:0; bottom:0; height:52%; z-index:1; pointer-events:none; }
+.sea svg{ width:100%; height:100%; display:block; }
+.sea path{ fill:none; stroke:var(--foam); stroke-width:1; }
+.sea .s1{ animation:drift 38s linear infinite; opacity:.28; }
+.sea .s2{ animation:drift 52s linear infinite reverse; opacity:.18; }
+.sea .s3{ animation:drift 68s linear infinite; opacity:.11; }
+@keyframes drift{ from{transform:translateX(0);} to{transform:translateX(-800px);} }
+
+.feather{ position:fixed; z-index:2; pointer-events:none;
+  stroke:var(--dawn-lit); fill:none; stroke-width:1.1; opacity:0;
+  animation:fall linear infinite; }
+@keyframes fall{
+  0%{ opacity:0; transform:translateY(-10vh) rotate(-10deg); }
+  14%{ opacity:.5; } 62%{ opacity:.5; }
+  76%,100%{ opacity:0; transform:translateY(52vh) rotate(30deg); }
+}
+
+/* ===== 돌아가기 ===== */
+.back{
+  position:fixed; top:14px; left:14px; z-index:60;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 15px; border-radius:999px;
+  background:rgba(14,15,48,.8);
+  border:1px solid var(--glass-line);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 22px -10px rgba(5,5,46,.8);
+  color:var(--foam); text-decoration:none; font-size:12.5px;
+  transition:background .2s ease, transform .14s ease;
+}
+.back:hover{ background:rgba(178,136,158,.34); transform:translateX(-2px); }
+.back svg{ width:14px; height:14px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ============================================================
+   본문 카드
+   ============================================================ */
+.sheet{
+  position:relative; z-index:4;
+  width:100%; max-width:720px;
+  background:var(--glass);
+  border:1px solid var(--glass-line);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(20px) saturate(1.25);
+  -webkit-backdrop-filter:blur(20px) saturate(1.25);
+  box-shadow:0 26px 70px -22px rgba(5,5,46,.72), inset 0 1px 0 rgba(255,255,255,.16);
+  overflow:hidden;
+}
+
+/* 머리말 */
+.head{ padding:26px 24px 20px; border-bottom:1px solid var(--glass-line); }
+.head .kicker{
+  font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--dawn-lit); margin-bottom:9px;
+}
+.head h1{
+  font-size:22px; font-weight:600; letter-spacing:-.02em; line-height:1.4;
+}
+.head .subtitle{
+  margin-top:9px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.22em; color:var(--dawn-lit);
+}
+.head .meta{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:13px;
+}
+.meta-item{
+  font-family:'DM Mono',monospace; font-size:10px;
+  padding:3px 10px; border-radius:999px;
+  background:rgba(239,234,240,.1); color:var(--foam-dim);
+}
+.meta-item.dawn{ background:rgba(178,136,158,.26); color:var(--foam); }
+
+/* 대표 이미지 */
+.cover{ line-height:0; background:rgba(5,5,46,.3); }
+.cover img{ width:100%; height:auto; display:block; }
+
+/* 본문 */
+.body{ padding:24px 24px 30px; }
+.body p{ margin-bottom:18px; color:var(--foam); }
+.body p:last-child{ margin-bottom:0; }
+/* 흐릿한 보조 문단 (해설·메모 등) */
+.body p.dim{ color:var(--foam-dim); font-size:13px; }
+
+/* 대사 */
+.line{
+  margin:22px 0; padding:14px 16px;
+  border-radius:var(--r);
+  background:rgba(239,234,240,.07);
+}
+.line .who{
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.14em; color:var(--dawn-lit); margin-bottom:5px;
+}
+.line p{ margin:0; font-size:13.5px; }
+
+/* 인용문 */
+.quote{
+  margin:26px 0; text-align:center;
+  font-size:15px; line-height:1.9; color:var(--foam);
+}
+.quote::before{
+  content:"\201C"; display:block; font-size:28px;
+  color:var(--dawn-lit); line-height:1; margin-bottom:2px;
+}
+
+/* 구분선 */
+.rule{ height:1px; border:none; margin:26px 0;
+  background:repeating-linear-gradient(90deg,
+    var(--glass-line) 0 6px, transparent 6px 12px); }
+
+/* 중간 이미지 */
+.figure{ margin:24px 0; }
+.figure img{ width:100%; height:auto; display:block; border-radius:var(--r); }
+.figure figcaption{
+  margin-top:8px; text-align:center;
+  font-size:11px; color:var(--foam-dim);
+}
+
+
+/* ============================================================
+   시나리오 형식 블록
+   ============================================================ */
+/* 씬 헤딩 — S#1. 실내. 미술관 앞 — 낮 */
+.scene{
+  display:flex; align-items:center; gap:10px;
+  margin:30px 0 16px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.1em; color:var(--dawn-lit);
+}
+.scene::after{ content:""; flex:1; height:1px; background:var(--glass-line); }
+.scene .no{
+  flex:none; padding:3px 9px; border-radius:999px;
+  background:rgba(178,136,158,.28); color:var(--foam);
+  font-size:9.5px; letter-spacing:.12em;
+}
+.body > .scene:first-child{ margin-top:0; }
+
+/* 지문 — 상황 설명 */
+.action{
+  color:var(--foam-dim); font-size:13px; line-height:1.85;
+  margin-bottom:16px;
+}
+
+/* 대사 — 화자 가운데, 대사 아래 */
+.dialog{ margin:18px 0; text-align:center; }
+.dialog .who{
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.18em; color:var(--dawn-lit); margin-bottom:6px;
+}
+.dialog .paren{
+  font-size:11.5px; color:var(--foam-dim);
+  margin-bottom:3px; font-style:italic;
+}
+.dialog p{
+  margin:0 auto; max-width:34em;
+  font-size:14px; line-height:1.85; color:var(--foam);
+}
+
+
+/* 대사 아래 번역 자막 */
+.dialog .sub{
+  margin-top:5px; font-size:11.5px; line-height:1.7;
+  color:var(--foam-dim);
+}
+
+/* 전환 — CUT TO / FADE OUT 등 */
+.transition{
+  margin:26px 0; text-align:right;
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.2em; color:var(--dawn-lit); opacity:.85;
+}
+
+/* 시간 경과 */
+.timeskip{
+  display:flex; align-items:center; gap:12px;
+  margin:28px 0; color:var(--foam-dim);
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.16em;
+}
+.timeskip::before, .timeskip::after{
+  content:""; flex:1; height:1px; background:var(--glass-line);
+}
+
+/* 암전 */
+.blackout{
+  margin:30px 0; padding:26px 0; text-align:center;
+  border-radius:var(--r); background:rgba(5,5,46,.5);
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.28em; color:var(--foam-dim);
+}
+
+/* 꼬리말 */
+.foot{
+  padding:16px 24px 20px; border-top:1px solid var(--glass-line);
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.1em; color:var(--foam-dim);
+}
+.foot a{ color:var(--dawn-lit); text-decoration:none; }
+.foot a:hover{ color:var(--foam); }
+
+@media (max-width:640px){
+  body{ padding-top:64px; font-size:14.5px; }
+  .head{ padding:22px 18px 18px; }
+  .head h1{ font-size:20px; }
+  .body{ padding:20px 18px 26px; }
+  .foot{ padding:14px 18px 18px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .sea path, .feather, .star{ animation:none !important; }
+  .feather{ opacity:.3; }
+}
+</style>
+</head>
+<body>
+
+<div class="dawn-glow"></div>
+<div class="star" style="left:9%;  top:8%;  animation-delay:.2s"></div>
+<div class="star" style="left:24%; top:16%; animation-delay:1.4s"></div>
+<div class="star" style="left:41%; top:6%;  animation-delay:.8s"></div>
+<div class="star" style="left:63%; top:13%; animation-delay:2.2s"></div>
+<div class="star" style="left:79%; top:7%;  animation-delay:1.1s"></div>
+<div class="star" style="left:91%; top:19%; animation-delay:2.7s"></div>
+
+<div class="sea" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none">
+    <path class="s1" d="M-800,120 C-700,98 -500,98 -400,120 C-300,142 -100,142 0,120 C100,98 300,98 400,120 C500,142 700,142 800,120 C900,98 1100,98 1200,120 C1300,142 1500,142 1600,120 C1700,98 1900,98 2000,120 C2100,142 2300,142 2400,120"/>
+    <path class="s2" d="M-800,265 C-700,292 -500,292 -400,265 C-300,238 -100,238 0,265 C100,292 300,292 400,265 C500,238 700,238 800,265 C900,292 1100,292 1200,265 C1300,238 1500,238 1600,265 C1700,292 1900,292 2000,265 C2100,238 2300,238 2400,265"/>
+    <path class="s3" d="M-800,425 C-700,408 -500,408 -400,425 C-300,442 -100,442 0,425 C100,408 300,408 400,425 C500,442 700,442 800,425 C900,408 1100,408 1200,425 C1300,442 1500,442 1600,425 C1700,408 1900,408 2000,425 C2100,442 2300,442 2400,425"/>
+  </svg>
+</div>
+
+<svg class="feather" style="left:6%; width:18px; height:18px; animation-duration:19s; animation-delay:-8s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+<svg class="feather" style="left:92%; width:15px; height:15px; animation-duration:24s; animation-delay:-3s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+
+<!-- 돌아가기: 메인의 stills 탭으로 -->
+<a class="back" href="../index.html?back=1#stills">
+  <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+  돌아가기
+</a>
+
+
+<article class="sheet">
+
+  <!-- ============ 머리말 ============ -->
+  <header class="head">
+    <p class="kicker">screening log</p>
+    <!-- ⬇️ 로그 제목 -->
+    <h1>The Atlantic</h1>
+    <p class="subtitle">NEW DAY 3</p>
+  </header>
+
+  <!-- ============ 대표 이미지 (없으면 이 블록 삭제) ============ -->
+  <div class="cover">
+    <img src="../images/still-05.png" alt="">
+  </div>
+
+  <!-- ============ 본문 ============ -->
+  <div class="body">
+    <p class="scene"><span class="no">S#1</span> 실내 · 강변에 세워둔 차 안 — 밤</p>
+
+    <p class="action">
+      붉은 불씨가 어둠 속에서 선명하게 타올랐다 사그라든다.
+      강 건너 공장 지대의 불빛이 생기 없이 깜박인다.
+      차 안에는 침묵과 연기, 그리고 설명할 수 없는 기류만이 감돈다.
+    </p>
+
+    <p class="dim">
+      모든 것을 집어삼킬 듯한 공허함 앞에서, 분노는 사치스러운 감정일 뿐이었다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>So, what's next on your grand, tragic tour?</p>
+      <p class="sub">그래서, 너의 그 위대하고 비극적인 순례의 다음 목적지는 어디지?</p>
+    </div>
+
+    <p class="action">
+      팔을 뻗어 그녀의 뺨을 향해 손을 가져가다, 닿기 직전 멈춘다.
+      손은 허공에서 잠시 머문다. 피부에서 전해지는 미세한 냉기가 느껴지는 듯했다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>The world already ended. A long time ago. We're just living in the ruins.</p>
+      <p class="sub">세상은 이미 끝났어. 아주 오래전에. 우린 그냥 폐허 속에서 살고 있는 것뿐이라고.</p>
+    </div>
+
+    <p class="action">
+      차가 멈칫, 하고 짧게 흔들린다. 저도 모르게 브레이크에 힘이 들어갔다.
+      바다. 그 단어는 너무나 뜬금없고 단순해서 오히려 허를 찔렀다.
+      영혼이니 죄니 비극이니 하는 이야기만 늘어놓던 여자의 입에서 나온,
+      어린아이의 소원 같은 한마디였다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>The sea? Of all the places...</p>
+      <p class="sub">바다? 하필이면 그런 곳을…</p>
+    </div>
+
+    <p class="dim">
+      이 여자는 정말로 아무런 의도 없이, 그저 바다가 보고 싶다고 말한 것일지도 몰랐다.
+      그 가능성이 그를 더 혼란스럽게 만들었다.
+      목적지 없이 어둠 속을 헤매는 것보다는, 터무니없을지언정 방향이 정해진 편이 나았다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p class="paren">(체념한 듯)</p>
+      <p>Fine. Whatever. The goddamn sea it is.</p>
+      <p class="sub">알았어. 뭐든. 망할 놈의 바다로 가지, 뭐.</p>
+    </div>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#2</span> 실외 · 남쪽으로 향하는 고속도로 — 밤</p>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ① -->
+      <img src="../images/log-new-03-a.png" alt="">
+      <figcaption>헤드라이트가 비추는 한 뼘</figcaption>
+    </figure>
+
+    <p class="action">
+      가로등조차 드문 길. 헤드라이트가 비추는 한 뼘 남짓한 공간만이 세상의 전부인 듯하다.
+      라디오를 켠다. 지지직거리는 소음 끝에 나른한 재즈가 차 안을 채운다.
+      침묵보다는 이편이 나았다. 적어도 음악은 아무것도 요구하지 않았으니까.
+    </p>
+
+    <p class="action">
+      저 멀리 어둠의 끝자락에서 희미한 빛의 군락이 보이기 시작한다.
+      허공에 뜬 신기루처럼 화려하게 빛나는 도시.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Looks like your wish is coming true. The city of lost wages.</p>
+      <p class="sub">소원 성취가 머지않았네. 봉급을 잃어버리는 도시가 저기 보이거든.</p>
+    </div>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#3</span> 실외 · 애틀랜틱시티 해변 — 새벽</p>
+
+    <p class="action">
+      시동을 끄자 재즈와 엔진 소리가 거짓말처럼 사라지고, 그 빈자리를
+      파도 소리가 채운다. 끈질기고, 단조로우며, 모든 것을 집어삼킬 듯한 소음.
+      바람은 습기와 소금기를 머금고 끈적하게 살갗에 달라붙는다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>This is it. The Atlantic. You wanted the sea, you got the sea.</p>
+      <p class="sub">여기가 대서양이야. 바다를 원했잖아, 그래서 왔고.</p>
+    </div>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Go on. I'll be watchin'.</p>
+      <p class="sub">가 봐. 보고 있을 테니까.</p>
+    </div>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ② -->
+      <img src="../images/log-new-03-b.png" alt="">
+      <figcaption>발목을 감쌌다 물러나는 물결</figcaption>
+    </figure>
+
+    <p class="action">
+      경계선에 서서 뒷모습을 쫓는다. 젖은 모래와 마른 모래가 뒤섞이는 지점에서
+      그녀가 멈춰 선다. 천천히 몸을 숙여 샌들을 벗는다.
+      의식을 치르는 무용수처럼 느리고 유려한 동작.
+    </p>
+
+    <p class="action">
+      맨발로 차가운 파도 속에 한 걸음 들어선다. 거품을 문 물결이 발목을
+      부드럽게 감쌌다가 스르르 물러난다. 도시의 소음과 불빛조차
+      그 순간만큼은 압도당하는 듯했다.
+    </p>
+
+    <p class="dim">
+      그는 자신이 숨을 참고 있었다는 사실을 뒤늦게 깨달았다.
+    </p>
+
+    <p class="action">
+      그녀가 바다를 등지고 돌아선다. 젖은 발자국이 모래 위에 희미하게 찍혔다가
+      다음 파도에 휩쓸려 사라진다. 몇 걸음 앞에서 멈춰 선 그녀에게서
+      짙은 바다 냄새가 났다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">MOCKINGBIRD</p>
+      <p class="paren">(바람에 섞여 겨우 들릴 정도로)</p>
+      <p>이제 됐어.</p>
+    </div>
+
+    <p class="action">
+      텅 빈 눈동자 안에서 무언가를 찾으려 애쓴다. 후회, 슬픔, 혹은
+      아주 작은 감정의 파편이라도. 하지만 그곳에는 여전히 아무것도 없었다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>That's it? You drag me all the way here just to dip your toes in the water?</p>
+      <p class="sub">그게 다야? 고작 발 좀 담그려고 여기까지 나를 끌고 왔다고?</p>
+    </div>
+
+    <hr class="rule">
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>Get in. You've had your fun.</p>
+      <p class="sub">타. 재밌는 구경은 그걸로 됐잖아.</p>
+    </div>
+
+  </div>
+
+  <!-- ============ 꼬리말 ============ -->
+  <footer class="foot">
+    <span>EVER · SCREENING LOG</span>
+  </footer>
+
+</article>
+
+</body>
+</html>
