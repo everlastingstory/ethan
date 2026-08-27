@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000080">
+<!-- ⬇️ 로그 제목으로 바꿔주세요 -->
+<title>Stuck With Me — EVER</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   🎨 색 — 메인과 동일합니다
+   ============================================================ */
+:root{
+  --deep:#000080; --deep-ink:#05052E; --pair:#4E5180;
+  --dawn:#B2889E; --dawn-lit:#D8B8C6;
+  --foam:#EFEAF0; --foam-dim:#B9B3C8;
+  --glass:rgba(239,234,240,.10);
+  --glass-line:rgba(239,234,240,.22);
+  --r:14px; --r-lg:22px;
+}
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body{
+  min-height:100svh;
+  background:linear-gradient(180deg,
+    #1A1B3D 0%, #2E2F5A 22%, var(--pair) 42%,
+    #6A5A80 52%, #2A2A66 58%, var(--deep) 78%, var(--deep-ink) 100%);
+  background-attachment:fixed;
+  color:var(--foam);
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
+  font-size:14px; line-height:1.9;
+  padding:clamp(56px,10svh,84px) 16px clamp(40px,8svh,72px);
+  display:flex; justify-content:center;
+  position:relative;
+}
+
+/* ===== 배경 ===== */
+.dawn-glow{
+  position:fixed; left:50%; top:52%; transform:translate(-50%,-50%);
+  width:min(140vw,1200px); height:38vh; pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse at center, rgba(178,136,158,.45), transparent 68%);
+  filter:blur(8px);
+}
+.star{ position:fixed; width:2px; height:2px; border-radius:50%;
+  background:var(--foam); z-index:0; pointer-events:none;
+  animation:twinkle 4s ease-in-out infinite; }
+@keyframes twinkle{ 0%,100%{opacity:.12;} 50%{opacity:.7;} }
+
+.sea{ position:fixed; left:0; right:0; bottom:0; height:52%; z-index:1; pointer-events:none; }
+.sea svg{ width:100%; height:100%; display:block; }
+.sea path{ fill:none; stroke:var(--foam); stroke-width:1; }
+.sea .s1{ animation:drift 38s linear infinite; opacity:.28; }
+.sea .s2{ animation:drift 52s linear infinite reverse; opacity:.18; }
+.sea .s3{ animation:drift 68s linear infinite; opacity:.11; }
+@keyframes drift{ from{transform:translateX(0);} to{transform:translateX(-800px);} }
+
+.feather{ position:fixed; z-index:2; pointer-events:none;
+  stroke:var(--dawn-lit); fill:none; stroke-width:1.1; opacity:0;
+  animation:fall linear infinite; }
+@keyframes fall{
+  0%{ opacity:0; transform:translateY(-10vh) rotate(-10deg); }
+  14%{ opacity:.5; } 62%{ opacity:.5; }
+  76%,100%{ opacity:0; transform:translateY(52vh) rotate(30deg); }
+}
+
+/* ===== 돌아가기 ===== */
+.back{
+  position:fixed; top:14px; left:14px; z-index:60;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:9px 15px; border-radius:999px;
+  background:rgba(14,15,48,.8);
+  border:1px solid var(--glass-line);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 8px 22px -10px rgba(5,5,46,.8);
+  color:var(--foam); text-decoration:none; font-size:12.5px;
+  transition:background .2s ease, transform .14s ease;
+}
+.back:hover{ background:rgba(178,136,158,.34); transform:translateX(-2px); }
+.back svg{ width:14px; height:14px; stroke:currentColor; fill:none;
+  stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ============================================================
+   본문 카드
+   ============================================================ */
+.sheet{
+  position:relative; z-index:4;
+  width:100%; max-width:720px;
+  background:var(--glass);
+  border:1px solid var(--glass-line);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(20px) saturate(1.25);
+  -webkit-backdrop-filter:blur(20px) saturate(1.25);
+  box-shadow:0 26px 70px -22px rgba(5,5,46,.72), inset 0 1px 0 rgba(255,255,255,.16);
+  overflow:hidden;
+}
+
+/* 머리말 */
+.head{ padding:26px 24px 20px; border-bottom:1px solid var(--glass-line); }
+.head .kicker{
+  font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--dawn-lit); margin-bottom:9px;
+}
+.head h1{
+  font-size:22px; font-weight:600; letter-spacing:-.02em; line-height:1.4;
+}
+.head .subtitle{
+  margin-top:9px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.22em; color:var(--dawn-lit);
+}
+.head .meta{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:13px;
+}
+.meta-item{
+  font-family:'DM Mono',monospace; font-size:10px;
+  padding:3px 10px; border-radius:999px;
+  background:rgba(239,234,240,.1); color:var(--foam-dim);
+}
+.meta-item.dawn{ background:rgba(178,136,158,.26); color:var(--foam); }
+
+/* 대표 이미지 */
+.cover{ line-height:0; background:rgba(5,5,46,.3); }
+.cover img{ width:100%; height:auto; display:block; }
+
+/* 본문 */
+.body{ padding:24px 24px 30px; }
+.body p{ margin-bottom:18px; color:var(--foam); }
+.body p:last-child{ margin-bottom:0; }
+/* 흐릿한 보조 문단 (해설·메모 등) */
+.body p.dim{ color:var(--foam-dim); font-size:13px; }
+
+/* 대사 */
+.line{
+  margin:22px 0; padding:14px 16px;
+  border-radius:var(--r);
+  background:rgba(239,234,240,.07);
+}
+.line .who{
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.14em; color:var(--dawn-lit); margin-bottom:5px;
+}
+.line p{ margin:0; font-size:13.5px; }
+
+/* 인용문 */
+.quote{
+  margin:26px 0; text-align:center;
+  font-size:15px; line-height:1.9; color:var(--foam);
+}
+.quote::before{
+  content:"\201C"; display:block; font-size:28px;
+  color:var(--dawn-lit); line-height:1; margin-bottom:2px;
+}
+
+/* 구분선 */
+.rule{ height:1px; border:none; margin:26px 0;
+  background:repeating-linear-gradient(90deg,
+    var(--glass-line) 0 6px, transparent 6px 12px); }
+
+/* 중간 이미지 */
+.figure{ margin:24px 0; }
+.figure img{ width:100%; height:auto; display:block; border-radius:var(--r); }
+.figure figcaption{
+  margin-top:8px; text-align:center;
+  font-size:11px; color:var(--foam-dim);
+}
+
+
+/* ============================================================
+   시나리오 형식 블록
+   ============================================================ */
+/* 씬 헤딩 — S#1. 실내. 미술관 앞 — 낮 */
+.scene{
+  display:flex; align-items:center; gap:10px;
+  margin:30px 0 16px;
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.1em; color:var(--dawn-lit);
+}
+.scene::after{ content:""; flex:1; height:1px; background:var(--glass-line); }
+.scene .no{
+  flex:none; padding:3px 9px; border-radius:999px;
+  background:rgba(178,136,158,.28); color:var(--foam);
+  font-size:9.5px; letter-spacing:.12em;
+}
+.body > .scene:first-child{ margin-top:0; }
+
+/* 지문 — 상황 설명 */
+.action{
+  color:var(--foam-dim); font-size:13px; line-height:1.85;
+  margin-bottom:16px;
+}
+
+/* 대사 — 화자 가운데, 대사 아래 */
+.dialog{ margin:18px 0; text-align:center; }
+.dialog .who{
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.18em; color:var(--dawn-lit); margin-bottom:6px;
+}
+.dialog .paren{
+  font-size:11.5px; color:var(--foam-dim);
+  margin-bottom:3px; font-style:italic;
+}
+.dialog p{
+  margin:0 auto; max-width:34em;
+  font-size:14px; line-height:1.85; color:var(--foam);
+}
+
+
+/* 대사 아래 번역 자막 */
+.dialog .sub{
+  margin-top:5px; font-size:11.5px; line-height:1.7;
+  color:var(--foam-dim);
+}
+
+/* 전환 — CUT TO / FADE OUT 등 */
+.transition{
+  margin:26px 0; text-align:right;
+  font-family:'DM Mono',monospace; font-size:10.5px;
+  letter-spacing:.2em; color:var(--dawn-lit); opacity:.85;
+}
+
+/* 시간 경과 */
+.timeskip{
+  display:flex; align-items:center; gap:12px;
+  margin:28px 0; color:var(--foam-dim);
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.16em;
+}
+.timeskip::before, .timeskip::after{
+  content:""; flex:1; height:1px; background:var(--glass-line);
+}
+
+/* 암전 */
+.blackout{
+  margin:30px 0; padding:26px 0; text-align:center;
+  border-radius:var(--r); background:rgba(5,5,46,.5);
+  font-family:'DM Mono',monospace; font-size:11px;
+  letter-spacing:.28em; color:var(--foam-dim);
+}
+
+/* 꼬리말 */
+.foot{
+  padding:16px 24px 20px; border-top:1px solid var(--glass-line);
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.1em; color:var(--foam-dim);
+}
+.foot a{ color:var(--dawn-lit); text-decoration:none; }
+.foot a:hover{ color:var(--foam); }
+
+@media (max-width:640px){
+  body{ padding-top:64px; font-size:14.5px; }
+  .head{ padding:22px 18px 18px; }
+  .head h1{ font-size:20px; }
+  .body{ padding:20px 18px 26px; }
+  .foot{ padding:14px 18px 18px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .sea path, .feather, .star{ animation:none !important; }
+  .feather{ opacity:.3; }
+}
+</style>
+</head>
+<body>
+
+<div class="dawn-glow"></div>
+<div class="star" style="left:9%;  top:8%;  animation-delay:.2s"></div>
+<div class="star" style="left:24%; top:16%; animation-delay:1.4s"></div>
+<div class="star" style="left:41%; top:6%;  animation-delay:.8s"></div>
+<div class="star" style="left:63%; top:13%; animation-delay:2.2s"></div>
+<div class="star" style="left:79%; top:7%;  animation-delay:1.1s"></div>
+<div class="star" style="left:91%; top:19%; animation-delay:2.7s"></div>
+
+<div class="sea" aria-hidden="true">
+  <svg viewBox="0 0 1600 500" preserveAspectRatio="none">
+    <path class="s1" d="M-800,120 C-700,98 -500,98 -400,120 C-300,142 -100,142 0,120 C100,98 300,98 400,120 C500,142 700,142 800,120 C900,98 1100,98 1200,120 C1300,142 1500,142 1600,120 C1700,98 1900,98 2000,120 C2100,142 2300,142 2400,120"/>
+    <path class="s2" d="M-800,265 C-700,292 -500,292 -400,265 C-300,238 -100,238 0,265 C100,292 300,292 400,265 C500,238 700,238 800,265 C900,292 1100,292 1200,265 C1300,238 1500,238 1600,265 C1700,292 1900,292 2000,265 C2100,238 2300,238 2400,265"/>
+    <path class="s3" d="M-800,425 C-700,408 -500,408 -400,425 C-300,442 -100,442 0,425 C100,408 300,408 400,425 C500,442 700,442 800,425 C900,408 1100,408 1200,425 C1300,442 1500,442 1600,425 C1700,408 1900,408 2000,425 C2100,442 2300,442 2400,425"/>
+  </svg>
+</div>
+
+<svg class="feather" style="left:6%; width:18px; height:18px; animation-duration:19s; animation-delay:-8s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+<svg class="feather" style="left:92%; width:15px; height:15px; animation-duration:24s; animation-delay:-3s" viewBox="0 0 24 24"><path d="M20 4C11 5 5 11 4 20c6-2 10-5 12-9 1-2 2-4 4-7z"/><path d="M8.5 15.5c2-3 5-6 9-9"/></svg>
+
+<!-- 돌아가기: 메인의 stills 탭으로 -->
+<a class="back" href="../index.html?back=1#stills">
+  <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+  돌아가기
+</a>
+
+
+<article class="sheet">
+
+  <!-- ============ 머리말 ============ -->
+  <header class="head">
+    <p class="kicker">screening log</p>
+    <!-- ⬇️ 로그 제목 -->
+    <h1>Stuck With Me</h1>
+    <p class="subtitle">NEW DAY 5</p>
+  </header>
+
+  <!-- ============ 대표 이미지 (없으면 이 블록 삭제) ============ -->
+  <div class="cover">
+    <img src="../images/still-06.png" alt="">
+  </div>
+
+  <!-- ============ 본문 ============ -->
+  <div class="body">
+    <p class="scene"><span class="no">S#1</span> 실외 · 워싱턴 시내 — 아침</p>
+
+    <p class="action">
+      1969년식 머스탱이 길들일 수 없는 야수처럼 달린다.
+      엔진은 발끝에서 터져 나오는 분노와 환희를 그대로 울부짖는다.
+      머릿속에서는 P의 목소리와 그녀의 얼굴, 그리고 공식 파트너라는 단어가
+      고장 난 라디오처럼 지직거린다.
+    </p>
+
+    <p class="dim">
+      사적인 집착이 이제는 헬리오스의 공식 임무라는 족쇄를 찼다.
+      웃어야 할지 울어야 할지 분간할 수 없었다.
+      도망칠 수도, 거부할 수도 없었다.
+    </p>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#2</span> 실내 · 안전가옥 — 아침</p>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ① -->
+      <img src="../images/log-new-05-a.png" alt="">
+      <figcaption>문 앞에서의 짧은 망설임</figcaption>
+    </figure>
+
+    <p class="action">
+      핸들을 쥔 손에 힘이 들어간다. 하얀 너클이 튀어나올 정도로.
+      지금 사지로 걸어 들어가는 기분이었다. 그러나 그 사지는
+      세상에서 가장 가고 싶어 했던 유일한 장소이기도 했다.
+    </p>
+
+    <p class="action">
+      키 카드를 꺼내려다 걸음을 멈춘다. 노크를 해야 하나, 그냥 들어가야 하나.
+      이 사소한 고민이 국가의 운명을 결정하는 중대한 사안처럼 느껴진다.
+      결국 노크를 선택한다. 대답은 없다.
+    </p>
+
+    <p class="action">
+      거실은 아침에 나섰을 때와 거의 같다. 달라진 것이 있다면
+      소파 위에 벗어두고 간 낡은 티셔츠가 성유물처럼 곱게 개어져 있다는 것뿐.
+      침실은 비어 있고, 살짝 열린 욕실 문틈으로 희미한 물소리가 새어 나온다.
+    </p>
+
+    <p class="transition">CUT TO —</p>
+
+    <p class="scene"><span class="no">S#3</span> 실내 · 욕실 앞 — 아침</p>
+
+    <p class="action">
+      문을 두드리지 않는다. 그저 등을 기댄 채, 최대한 평소와 같은
+      능글맞은 목소리를 쥐어짠다. 긴장감을 조금도 내비치지 않으려 애쓰면서.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>P just officially sanctioned our little partnership. You're stuck with me, Mockingbird.</p>
+      <p class="sub">P가 방금 우리의 파트너십을 공식 승인했어. 넌 이제 나한테 발목 잡혔다는 소리야, 흉내지빠귀.</p>
+    </div>
+
+    <p class="action">
+      물소리가 잠시 멎는다. 정적이 흐른다. 그 짧은 순간이 영원처럼 느껴진다.
+      문이 벌컥 열리고 뺨을 후려치거나, 그보다 더 끔찍한 무언가가 올지도 모른다.
+      눈을 감는다. 모든 것을 받아들일 준비가 되어 있었다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">MOCKINGBIRD</p>
+      <p class="paren">(수건으로 머리를 털며)</p>
+      <p>갑자기 왜? 새삼스럽게?</p>
+    </div>
+
+    <p class="dim">
+      만반의 준비를 하고 쌓아 올린 모든 방어벽과 논리와 허세가
+      단숨에 무너졌다. 핵전쟁을 대비해 벙커에 숨었으나 세상은 그저
+      온화한 봄날의 피크닉을 즐기고 있었음을 뒤늦게 깨달은 종말론자처럼.
+      비장함은 갈 곳을 잃고 공기 중에 산산이 흩어졌다.
+    </p>
+
+    <figure class="figure">
+      <!-- 중간 이미지 ② -->
+      <img src="../images/log-new-05-b.png" alt="">
+      <figcaption>욕실에서 피어오른 습기</figcaption>
+    </figure>
+
+    <p class="action">
+      백발 끝에서 물방울이 뚝뚝 떨어져 낡은 나무 바닥에 흔적을 남긴다.
+      벗어두고 간 티셔츠가 그녀의 몸에 느슨하게 걸쳐져 있다.
+      수백 가지 반응을 시뮬레이션했지만, 그 어디에도
+      이토록 평온한 '그게 뭐 대수냐'는 얼굴은 없었다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p class="paren">(갈라진 목소리로)</p>
+      <p>I'm not talking about our little road trip. I'm talking official.</p>
+      <p class="sub">우리의 이 작은 도로 여행 따위를 말하는 게 아니야. 이건 공식적인 거라고.</p>
+    </div>
+
+    <p class="action">
+      한 걸음 더 다가선다. 이제 거리는 한 뼘도 채 되지 않는다.
+      머리 하나는 더 큰 키로 그녀를 그림자 안에 가둔다.
+      고개를 숙여, 귓가에 입술이 닿을 듯 말 듯 한 거리에서 속삭인다.
+    </p>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>When I call, you answer. My bullshit is now a contractually obligated part of your life.</p>
+      <p class="sub">내가 전화하면 넌 받아야 해. 내 개소리가 이제 계약상 네 삶의 일부가 됐다는 소리지.</p>
+    </div>
+
+    <div class="dialog">
+      <p class="who">ETHAN</p>
+      <p>So, I'll ask again, Mockingbird. Surprised now?</p>
+      <p class="sub">그러니까 다시 묻지, 흉내지빠귀. 이제 좀 놀랐나?</p>
+    </div>
+
+    <hr class="rule">
+
+    <p class="dim">
+      대답을 기다리는 동안 숨을 참았다.
+      그의 세계는 다시 한번, 그녀의 입술 끝에 매달려 있었다.
+    </p>
+
+  </div>
+
+  <!-- ============ 꼬리말 ============ -->
+  <footer class="foot">
+    <span>EVER · SCREENING LOG</span>
+  </footer>
+
+</article>
+
+</body>
+</html>
