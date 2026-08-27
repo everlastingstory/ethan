@@ -824,7 +824,7 @@ body.intro-on .dawn-glow{ visibility:hidden; }
 
 /* 범례 */
 .seat-legend{
-  display:flex; justify-content:center; gap:14px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px 12px;
   margin:14px 0 12px;
   font-family:'DM Mono',monospace; font-size:8.5px;
   color:var(--foam-dim);
@@ -2018,14 +2018,14 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
       <!-- ============ 성향 ============ -->
       <section class="panel" data-panel="info">
-        <p class="sec">profile</p>
+        <p class="sec">etiquette</p>
         <div class="grid">
           <div class="box box-wide">
             <dl>
               <div class="spec"><dt>플랫폼</dt><dd>케이브덕 / 로판, 엘린 (사용 ↓)</dd></div>
               <div class="spec"><dt>성향</dt><dd>일상 · 앓이 · 로그 · 소비 · 그뽑 · 탐대</dd></div>
               <div class="spec"><dt>기능</dt><dd>사용 및 수동 트청 多</dd></div>
-              <div class="spec"><dt>재연결</dt><dd>이별CBC | 블락 (지뢰) · 블언블</dd></div>
+              <div class="spec"><dt>이별</dt><dd>블락 (지뢰) · 블언블</dd></div>
               <div class="spec"><dt>P.W</dt><dd>링크 내 모든 P.W — 바이오 생년월일</dd></div>
             </dl>
           </div>
@@ -2063,15 +2063,15 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
           <div class="box box-wide">
             <p class="b-lab">더 이상 받지 않습니다</p>
-            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고 (C)</span></div>
-            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥 (s)</span></div>
-            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐 (C)</span></div>
-            <div class="li"><span class="when">ohnyu</span><span>ghnull (c)</span></div>
-            <div class="li"><span class="when">EOC</span><span>베이퍼 (K)</span></div>
-            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스테 (0)</span></div>
-            <div class="li"><span class="when">Kokori</span><span>서이현 (K)</span></div>
-            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네 (M)</span></div>
-            <div class="li"><span class="when">SERAPHIX</span><span>에테르 · 캐리온 (T&amp;M)</span></div>
+            <div class="li"><span class="when">ARCH</span><span>밴스 · 산타 · 신드롬 · 에덴 · 윈터 · 저스티스 · 휴고</span></div>
+            <div class="li"><span class="when">BLUE FAIRY</span><span>냐냐냥</span></div>
+            <div class="li"><span class="when">CatMoon</span><span>단테 로마노 · 마티스 모렐</span></div>
+            <div class="li"><span class="when">ohnyu</span><span>ghnull</span></div>
+            <div class="li"><span class="when">EOC</span><span>베이퍼</span></div>
+            <div class="li"><span class="when">FEARLESS</span><span>다이브 · 던 · 도브 · 지젤 · 제레미 · 제스테</span></div>
+            <div class="li"><span class="when">Kokori</span><span>서이현</span></div>
+            <div class="li"><span class="when">Meom</span><span>아르비테르 · 키츠네</span></div>
+            <div class="li"><span class="when">SERAPHIX</span><span>넵튠 · 에테르 · 캐리온</span></div>
           </div>
         </div>
       </section>
@@ -2101,7 +2101,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             <span class="row-l">B</span>
             <span class="st off" aria-hidden="true"></span>
             <span class="st off" aria-hidden="true"></span>
-            <button class="st on" data-name="Lovesignal" data-sub="프롬프트 아카이브" data-url="https://lovesignal.me/ethan" aria-label="Lovesignal">B3</button>
+            <button class="st on" data-name="Lovesignal" data-sub="🔒 개인 홈" data-url="https://lovesignal.me/ethan" aria-label="Lovesignal">B3</button>
             <span class="st off" aria-hidden="true"></span>
             <span class="st off" aria-hidden="true"></span>
             <span class="st off" aria-hidden="true"></span>
@@ -2110,7 +2110,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
 
             <span class="row-l">C</span>
             <span class="st off" aria-hidden="true"></span>
-            <span class="st off" aria-hidden="true"></span>
+            <button class="st on" data-name="Prompt" data-sub="🔒 티스토리" data-url="https://ethan.tistory.com/m/22" aria-label="Prompt">C2</button>
             <span class="st off" aria-hidden="true"></span>
             <span class="st off" aria-hidden="true"></span>
             <button class="st on" data-name="Notion" data-sub="momentique" data-url="https://momentique.somlution.com/ethan" aria-label="Notion">C5</button>
@@ -2142,6 +2142,7 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
           <div class="seat-legend">
             <span><i class="lg on"></i> 예매 가능</span>
             <span><i class="lg off"></i> 예매 완료</span>
+            <span>🔒 비밀번호 · 바이오 생년월일</span>
           </div>
 
           <!-- 예매 정보란 -->
@@ -2209,8 +2210,8 @@ details.fold .fb{ margin-top:8px; color:var(--foam-dim); }
             <a class="bn-item" href="https://sweet-paradise.luv3r.me" target="_blank" rel="noopener" data-name="A Haven of Sweet Delight">
               <img src="banner/02.jpg" alt="A Haven of Sweet Delight">
             </a>
-            <a class="bn-item" href="https://주소3" target="_blank" rel="noopener" data-name="사이트 이름 3">
-              <img src="banner/03.gif" alt="사이트 이름 3">
+            <a class="bn-item" href="https://dearmysn1p3r.tistory.com" target="_blank" rel="noopener" data-name="Love Error Code">
+              <img src="banner/03.jpg" alt="Love Error Code">
             </a>
           </div>
 
